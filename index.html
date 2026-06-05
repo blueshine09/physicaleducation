@@ -1105,6 +1105,49 @@ header, nav, .container, footer, #topBtn{position:relative; z-index:1;}
 }
 </style>
 
+
+<style>
+/* 안전관리: PC/태블릿 4개 한 줄, 모바일 2개씩 2줄 */
+.safety-grid{
+  grid-template-columns:repeat(4, minmax(0, 1fr)) !important;
+  gap:14px !important;
+}
+.safety-item{
+  padding:18px 10px !important;
+  border-radius:12px !important;
+}
+.safety-item .s-icon{
+  font-size:1.6em !important;
+  margin-bottom:6px !important;
+}
+.safety-item h4{
+  font-size:.88em !important;
+  margin-bottom:4px !important;
+}
+.safety-item p{
+  font-size:.76em !important;
+  line-height:1.45 !important;
+}
+@media(max-width:768px){
+  .safety-grid{
+    grid-template-columns:repeat(2, minmax(0, 1fr)) !important;
+    gap:10px !important;
+  }
+  .safety-item{
+    padding:14px 8px !important;
+  }
+  .safety-item .s-icon{
+    font-size:1.45em !important;
+  }
+  .safety-item h4{
+    font-size:.84em !important;
+  }
+  .safety-item p{
+    font-size:.72em !important;
+  }
+}
+</style>
+
 </head>
 <body>
 <!-- ═══ 헤더 ═══ -->
