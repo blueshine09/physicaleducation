@@ -865,6 +865,99 @@ header, nav, .container, footer, #topBtn{position:relative; z-index:1;}
 }
 </style>
 
+
+<style>
+/* 프로그램 내용: 요약 카드형 + 펼쳐보기 */
+.program-summary-grid{
+  display:grid;
+  grid-template-columns:repeat(3, minmax(0, 1fr));
+  gap:18px;
+}
+.program-summary-card{
+  background:var(--white);
+  border:2px solid #e0e5f0;
+  border-radius:16px;
+  padding:22px 20px;
+  box-shadow:0 4px 16px rgba(0,0,0,.06);
+  transition:transform .2s, border-color .2s, box-shadow .2s;
+}
+.program-summary-card:hover{
+  transform:translateY(-3px);
+  border-color:var(--accent);
+  box-shadow:0 8px 24px rgba(255,165,0,.14);
+}
+.program-summary-card .program-icon{
+  width:48px;
+  height:48px;
+  border-radius:14px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(135deg,var(--primary),#0f3460);
+  color:#fff;
+  font-size:1.4em;
+  margin-bottom:12px;
+}
+.program-summary-card h3{
+  font-size:1.05em;
+  color:var(--primary);
+  margin-bottom:8px;
+}
+.program-summary-card .program-time{
+  display:inline-block;
+  background:#fff3cd;
+  color:#856404;
+  font-weight:800;
+  font-size:.82em;
+  padding:4px 10px;
+  border-radius:20px;
+  margin-bottom:10px;
+}
+.program-summary-card p{
+  font-size:.88em;
+  color:var(--text-light);
+  line-height:1.7;
+}
+.program-detail-toggle{
+  margin-top:14px;
+  width:100%;
+  border:none;
+  border-radius:10px;
+  padding:10px 12px;
+  background:#dde2ea;
+  color:var(--text-light);
+  font-weight:800;
+  cursor:pointer;
+  transition:background .2s, color .2s;
+}
+.program-detail-toggle:hover,
+.program-summary-card.open .program-detail-toggle{
+  background:var(--primary);
+  color:var(--accent);
+}
+.program-detail{
+  display:none;
+  margin-top:12px;
+  background:var(--bg);
+  border-radius:12px;
+  padding:14px;
+}
+.program-summary-card.open .program-detail{
+  display:block;
+}
+.program-detail ul{
+  margin-left:16px;
+}
+.program-detail li{
+  font-size:.84em;
+  color:var(--text);
+  line-height:1.8;
+}
+@media(max-width:900px){
+  .program-summary-grid{grid-template-columns:1fr;}
+}
+</style>
+
 </head>
 <body>
 <!-- ═══ 헤더 ═══ -->
@@ -979,92 +1072,55 @@ header, nav, .container, footer, #topBtn{position:relative; z-index:1;}
 <!-- ═══ 프로그램 ═══ -->
 <section class="section" id="program">
 <h2 class="section-title">📚 프로그램 내용</h2>
-<div class="tab-wrap">
-<div class="tab-btns">
-<button class="tab-btn active" onclick="switchTab(event,'common')">공통 프로그램</button>
-<button class="tab-btn" onclick="switchTab(event,'select')">선택 프로그램</button>
-</div>
-<div class="tab-content active" id="tab-common">
-<p style="color:var(--text-light);margin-bottom:20px;">※ 참여 학생 <strong>전체</strong>가 참여하는 공통 프로그램입니다.</p>
-<h3 style="color:var(--primary);margin-bottom:12px;">① 체육관련 학과 입시의 이해</h3>
-<div class="info-card" style="margin-bottom:20px;background:var(--bg);">
-<div class="icon-box">🎤</div>
-<div class="text"><label>시간 / 장소</label>
-<strong>09:40~11:40 (120분) · 적벽실 지하2층</strong>
-<small>강사: 상현고등학교 노동기 교사</small></div>
-</div>
-<ul style="margin-left:20px;margin-bottom:24px;">
-<li>체육관련 학과 주요 대학별 입시 요강 (수시 및 정시) 소개</li>
-<li>주요 대학별 입시 전략 세우기</li>
-</ul>
-<h3 style="color:var(--primary);margin-bottom:12px;">② 공통 실기 모의 테스트</h3>
-<div class="info-card" style="margin-bottom:18px;background:var(--bg);">
-<div class="icon-box">🏃</div>
-<div class="text"><label>시간 / 장소</label>
-<strong>13:00~15:00 (120분) · 실내체육관 지상1층</strong>
-<small>현장지원단 25명 · 입시 전문가 1명 · 보조강사 16명</small></div>
-</div>
-<div class="table-wrap">
-<table>
-<thead><tr><th>조</th><th>13:00~13:30</th><th>13:30~14:00</th><th>14:00~14:30</th><th>14:30~15:00</th></tr></thead>
-<tbody>
-<tr><td>1조</td><td class="td-accent">10m왕복달리기</td><td>메디신볼 던지기</td><td>제자리멀리뛰기</td><td>좌전굴</td></tr>
-<tr><td>2조</td><td class="td-accent">메디신볼 던지기</td><td>제자리멀리뛰기</td><td>좌전굴</td><td>10m왕복달리기</td></tr>
-<tr><td>3조</td><td class="td-accent">제자리멀리뛰기</td><td>좌전굴</td><td>10m왕복달리기</td><td>메디신볼 던지기</td></tr>
-<tr><td>4조</td><td class="td-accent">좌전굴</td><td>10m왕복달리기</td><td>메디신볼 던지기</td><td>제자리멀리뛰기</td></tr>
-</tbody>
-</table>
-</div>
-<div class="notice-box" style="margin-top:18px;">
-<div class="n-icon">🏅</div>
-<div><h4>우수학생 시상</h4><p>각 종목별 취득 점수 합산 → 상위 10명 시상</p></div>
-</div>
-</div>
-<div class="tab-content" id="tab-select">
-<p style="color:var(--text-light);margin-bottom:22px;">※ 아래 두 가지 중 <strong>1가지를 선택</strong>하여 참여합니다. (15:00~17:00)</p>
-<div class="select-grid">
-<div class="select-card">
-<span class="s-num">선택 1</span>
-<h3>💬 대입상담교사 1:1 맞춤형 진학 상담</h3>
-<ul>
-<li>시간: 15:00~17:00 (120분)</li>
-<li>1인당 상담 시간: 약 20분</li>
-<li>운영 대상: 60명 (우선순위 적용)</li>
-<li>장소: 세미나실 1·2 (지하 1,2층)</li>
-<li>강사: 대입상담교사 10명</li>
-</ul>
-<div class="notice-box" style="margin-top:14px;padding:14px;">
-<div class="n-icon" style="font-size:1.2em;">📂</div>
-<div><h4>지참 서류</h4>
-<ul style="margin-left:12px;">
-<li>4월 전국 연합학력평가 성적표</li>
-<li>6월 모의고사 성적표</li>
-<li>학생생활기록부 사본</li>
-</ul>
-</div>
-</div>
-<div style="margin-top:12px;font-size:.83em;color:var(--text-light);">
-<strong>우선순위:</strong> 1순위 군지역 읍·면단위 → 2순위 3·2·1학년 → 3순위 소규모 학교
-            </div>
-</div>
-<div class="select-card">
-<span class="s-num">선택 2</span>
-<h3>🏋️ 선택 실기 모의 테스트</h3>
-<ul>
-<li>시간: 15:00~17:00 (120분)</li>
-<li>대상: 선택1 미참가 학생</li>
-<li>장소: 실내체육관 (지상 1층)</li>
-<li>아래 4종목 중 <strong>2종목 선택</strong></li>
-</ul>
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px;">
-<div style="background:var(--bg);border-radius:10px;padding:10px;text-align:center;font-size:.86em;"><div style="font-size:1.4em;">💪</div>배근력</div>
-<div style="background:var(--bg);border-radius:10px;padding:10px;text-align:center;font-size:.86em;"><div style="font-size:1.4em;">🏃</div>지그재그런</div>
-<div style="background:var(--bg);border-radius:10px;padding:10px;text-align:center;font-size:.86em;"><div style="font-size:1.4em;">🤸</div>윗몸일으키기</div>
-<div style="background:var(--bg);border-radius:10px;padding:10px;text-align:center;font-size:.86em;"><div style="font-size:1.4em;">⬆️</div>서전트점프</div>
-</div>
-</div>
-</div>
-</div>
+
+<div class="program-summary-grid">
+  <div class="program-summary-card">
+    <div class="program-icon">🎤</div>
+    <h3>입시 특강</h3>
+    <span class="program-time">09:40 ~ 11:40</span>
+    <p>체육관련 학과 입시 요강과 대학별 지원 전략을 안내합니다.</p>
+    <button class="program-detail-toggle" onclick="toggleProgramDetail(this)">자세히 보기</button>
+    <div class="program-detail">
+      <ul>
+        <li>장소: 적벽실 지하 2층</li>
+        <li>강사: 상현고등학교 노동기 교사</li>
+        <li>주요 대학별 입시 요강 수시·정시 안내</li>
+        <li>주요 대학별 입시 전략 세우기</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="program-summary-card">
+    <div class="program-icon">🏃</div>
+    <h3>공통 실기 테스트</h3>
+    <span class="program-time">13:00 ~ 15:00</span>
+    <p>참여 학생 전체가 공통 4종목 모의 테스트에 참여합니다.</p>
+    <button class="program-detail-toggle" onclick="toggleProgramDetail(this)">자세히 보기</button>
+    <div class="program-detail">
+      <ul>
+        <li>장소: 실내체육관 지상 1층</li>
+        <li>종목: 제자리멀리뛰기, 10m왕복달리기</li>
+        <li>종목: 좌전굴, 메디신볼 던지기</li>
+        <li>각 종목별 취득 점수 합산 후 상위 학생 시상</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="program-summary-card">
+    <div class="program-icon">⭐</div>
+    <h3>선택 프로그램</h3>
+    <span class="program-time">15:00 ~ 17:00</span>
+    <p>1:1 진학 상담 또는 선택 실기 모의 테스트 중 1가지를 선택합니다.</p>
+    <button class="program-detail-toggle" onclick="toggleProgramDetail(this)">자세히 보기</button>
+    <div class="program-detail">
+      <ul>
+        <li>선택 1: 대입상담교사 1:1 맞춤형 진학 상담</li>
+        <li>선택 2: 선택 실기 모의 테스트</li>
+        <li>선택 실기: 배근력, 지그재그런</li>
+        <li>선택 실기: 윗몸일으키기, 서전트점프</li>
+      </ul>
+    </div>
+  </div>
 </div>
 </section>
 <!-- ═══ 실기 종목 안내 (아코디언) ═══ -->
@@ -1782,6 +1838,15 @@ function resetCalc(){
   document.getElementById('breakdown').innerHTML='';
   try{ localStorage.removeItem(CALC_STORAGE_KEY); }catch(e){}
 }
+
+
+function toggleProgramDetail(btn){
+  var card = btn.closest('.program-summary-card');
+  if(!card) return;
+  card.classList.toggle('open');
+  btn.textContent = card.classList.contains('open') ? '접기' : '자세히 보기';
+}
+
 </script>
 </body>
 </html>
