@@ -818,7 +818,6 @@
 
   <!-- D-DAY 카운트다운 -->
   <div class="dday-wrap">
-    <div class="dday-badge" id="dday-badge">D-???</div>
     <div class="dday-label">🗓️ 행사까지 남은 시간 · 2026. 7. 16.(목)</div>
     <div id="dday-timer">
       <div class="dday-boxes">
@@ -848,10 +847,8 @@
 </header>
 <!-- 핵심 정보 바 -->
 <div class="key-info-bar">
-<div class="item">📅 2026. 7. 16.(목)</div>
 <div class="item">🕘 09:30 ~</div>
 <div class="item">📍 화순하니움문화스포츠센터</div>
-<div class="item">🎯 체육계열 진학 희망 고등학생</div>
 </div>
 <!-- ═══ 네비 ═══ -->
 <nav>
@@ -1419,14 +1416,14 @@ function shareLink(){
     const hoursEl = document.getElementById('cd-hours');
     const minsEl = document.getElementById('cd-mins');
     const secsEl = document.getElementById('cd-secs');
-    if(!timer || !badge || !daysEl || !hoursEl || !minsEl || !secsEl) return;
+    if(!timer || !daysEl || !hoursEl || !minsEl || !secsEl) return;
 
     const now  = new Date();
     const diff = EVENT - now;
 
     if(diff <= 0){
       timer.innerHTML = '<div class="dday-done">🎉 행사가 시작되었습니다!</div>';
-      badge.textContent = 'D-DAY';
+      if(badge) badge.textContent = 'D-DAY';
       return;
     }
 
@@ -1440,7 +1437,7 @@ function shareLink(){
     minsEl.textContent  = pad(mins);
     secsEl.textContent  = pad(secs);
 
-    badge.textContent = totalDays === 0 ? 'D-DAY' : `D - ${totalDays}`;
+    if(badge) badge.textContent = totalDays === 0 ? 'D-DAY' : `D - ${totalDays}`;
     setTimeout(tick, 1000);
   }
   tick();
