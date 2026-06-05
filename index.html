@@ -1,0 +1,1697 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<style>
+								body {
+									background-color: white; /* Ensure the iframe has a white background */
+								}
+
+								
+    *{margin:0;padding:0;box-sizing:border-box;}
+    :root{
+      --primary:#1a1a2e;--secondary:#16213e;
+      --accent:#ffa500;--accent-dark:#e69400;
+      --text:#333;--text-light:#666;--bg:#f4f6f9;--white:#fff;
+    }
+    html{scroll-behavior:smooth;}
+    body{font-family:'Apple SD Gothic Neo','Noto Sans KR','맑은 고딕',sans-serif;
+         background:var(--bg);color:var(--text);line-height:1.7;}
+
+    /* ─── 헤더 ─── */
+    header{
+      background:linear-gradient(135deg,#1a1a2e 0%,#0f3460 60%,#16213e 100%);
+      color:#fff;padding:50px 20px 40px;text-align:center;
+      position:relative;overflow:hidden;
+    }
+    header::before{content:'';position:absolute;top:-80px;right:-80px;
+      width:350px;height:350px;background:rgba(255,165,0,.12);border-radius:50%;}
+    header::after{content:'';position:absolute;bottom:-60px;left:-60px;
+      width:250px;height:250px;background:rgba(255,165,0,.07);border-radius:50%;}
+    .header-logo-bg{
+      position:absolute;right:6%;top:50%;transform:translateY(-50%);
+      width:260px;height:auto;opacity:.10;z-index:0;pointer-events:none;
+      filter:brightness(5) grayscale(30%);
+    }
+    .header-badge{
+      display:inline-block;background:var(--accent);color:var(--primary);
+      font-weight:700;font-size:.85em;padding:5px 18px;border-radius:20px;
+      margin-bottom:16px;letter-spacing:1px;position:relative;z-index:1;
+    }
+    header h1{font-size:2.4em;font-weight:800;margin-bottom:10px;
+      position:relative;z-index:1;letter-spacing:-1px;}
+    header h1 span{color:var(--accent);}
+    header .sub{font-size:1em;opacity:.85;position:relative;z-index:1;}
+
+    /* 공유 버튼 */
+    .share-btn{
+      position:absolute;top:16px;right:16px;z-index:10;
+      background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);
+      color:#fff;padding:8px 16px;border-radius:25px;cursor:pointer;
+      font-size:.85em;font-weight:600;display:flex;align-items:center;gap:6px;
+      transition:background .2s;backdrop-filter:blur(4px);
+    }
+    .share-btn:hover{background:rgba(255,165,0,.4);}
+
+    /* ─── D-DAY 카운트다운 ─── */
+    .dday-wrap{
+      position:relative;z-index:2;
+      display:inline-flex;flex-direction:column;align-items:center;
+      margin-top:24px;
+    }
+    .dday-label{
+      font-size:.78em;font-weight:700;letter-spacing:3px;
+      color:rgba(255,255,255,.6);text-transform:uppercase;margin-bottom:10px;
+    }
+    .dday-boxes{display:flex;align-items:center;gap:8px;}
+    .dday-unit{
+      display:flex;flex-direction:column;align-items:center;
+    }
+    .dday-num{
+      background:rgba(255,255,255,.12);
+      border:1px solid rgba(255,255,255,.2);
+      backdrop-filter:blur(8px);
+      border-radius:10px;
+      padding:10px 18px;
+      font-size:2em;font-weight:900;
+      color:#fff;line-height:1;
+      min-width:72px;text-align:center;
+      letter-spacing:2px;
+    }
+    .dday-num.accent{
+      background:rgba(255,165,0,.25);
+      border-color:rgba(255,165,0,.5);
+      color:var(--accent);
+    }
+    .dday-unit-label{
+      font-size:.72em;color:rgba(255,255,255,.55);
+      margin-top:5px;font-weight:600;letter-spacing:1px;
+    }
+    .dday-sep{
+      font-size:1.8em;font-weight:900;color:rgba(255,255,255,.3);
+      margin-bottom:18px;
+    }
+    /* D-day 완료 메시지 */
+    .dday-done{
+      font-size:1.3em;font-weight:800;color:var(--accent);
+      background:rgba(255,165,0,.15);border:1px solid rgba(255,165,0,.4);
+      border-radius:12px;padding:12px 28px;letter-spacing:1px;
+    }
+    /* D-day 뱃지 (며칠 남았는지) */
+    .dday-badge{
+      display:inline-block;background:var(--accent);color:var(--primary);
+      font-weight:900;font-size:1em;padding:5px 20px;border-radius:20px;
+      margin-bottom:12px;letter-spacing:1px;
+    }
+
+    /* 핵심 정보 바 */
+    .key-info-bar{background:var(--accent);color:var(--primary);
+      display:flex;justify-content:center;flex-wrap:wrap;}
+    .key-info-bar .item{padding:13px 22px;display:flex;align-items:center;
+      gap:8px;font-weight:700;font-size:.92em;border-right:1px solid rgba(0,0,0,.15);}
+    .key-info-bar .item:last-child{border-right:none;}
+
+    /* ─── 네비 ─── */
+    nav{background:var(--secondary);position:sticky;top:0;z-index:999;
+      box-shadow:0 2px 10px rgba(0,0,0,.3);}
+    nav ul{list-style:none;display:flex;justify-content:center;
+      flex-wrap:wrap;gap:4px;padding:0 10px;}
+    nav a{display:block;color:rgba(255,255,255,.8);text-decoration:none;
+      padding:13px 11px;font-weight:500;font-size:.87em;
+      transition:color .2s,border-bottom .2s;border-bottom:3px solid transparent;}
+    nav a:hover{color:var(--accent);border-bottom-color:var(--accent);}
+
+    /* ─── 레이아웃 ─── */
+    .container{max-width:1100px;margin:0 auto;padding:70px 20px;}
+    .section{margin-bottom:80px;}
+    .section-title{font-size:1.9em;font-weight:800;color:var(--primary);
+      margin-bottom:35px;display:flex;align-items:center;gap:12px;}
+    .section-title::after{content:'';flex:1;height:3px;
+      background:linear-gradient(to right,var(--accent),transparent);}
+
+    /* ─── 기본정보 카드 ─── */
+    .info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;}
+    .info-card{background:var(--white);border-radius:12px;padding:24px 20px;
+      box-shadow:0 3px 15px rgba(0,0,0,.06);display:flex;
+      align-items:flex-start;gap:16px;transition:transform .25s;}
+    .info-card:hover{transform:translateY(-4px);}
+    .info-card .icon-box{width:50px;height:50px;
+      background:linear-gradient(135deg,var(--primary),#0f3460);
+      border-radius:12px;display:flex;align-items:center;
+      justify-content:center;font-size:1.4em;flex-shrink:0;}
+    .info-card .text label{font-size:.75em;font-weight:700;color:var(--accent);
+      letter-spacing:1px;text-transform:uppercase;display:block;margin-bottom:5px;}
+    .info-card .text strong{font-size:.97em;color:var(--primary);display:block;}
+    .info-card .text small{color:var(--text-light);font-size:.84em;}
+
+    /* ─── 타임라인 ─── */
+    .timeline{position:relative;padding-left:30px;}
+    .timeline::before{content:'';position:absolute;left:10px;top:0;bottom:0;
+      width:3px;background:linear-gradient(to bottom,var(--accent),var(--primary));}
+    .tl-item{position:relative;margin-bottom:24px;background:var(--white);
+      border-radius:12px;padding:18px 22px;box-shadow:0 3px 12px rgba(0,0,0,.06);
+      margin-left:30px;transition:transform .25s,box-shadow .25s;}
+    .tl-item:hover{transform:translateX(5px);box-shadow:0 6px 20px rgba(0,0,0,.1);}
+    .tl-item::before{content:'';position:absolute;left:-40px;top:20px;
+      width:16px;height:16px;background:var(--accent);border-radius:50%;
+      border:3px solid var(--white);box-shadow:0 0 0 2px var(--accent);}
+    .tl-item .time{display:inline-block;background:var(--primary);color:var(--accent);
+      font-size:.8em;font-weight:700;padding:3px 12px;border-radius:20px;margin-bottom:7px;}
+    .tl-item h4{font-size:1em;color:var(--primary);margin-bottom:4px;}
+    .tl-item p{font-size:.88em;color:var(--text-light);}
+    .tl-item.highlight{border-left:5px solid var(--accent);}
+    .tl-item.highlight h4{color:#c47a00;}
+
+    /* ─── 탭 ─── */
+    .tab-wrap{margin-top:10px;}
+    .tab-btns{display:flex;border-radius:12px 12px 0 0;overflow:hidden;}
+    .tab-btn{flex:1;padding:15px;background:#dde2ea;border:none;cursor:pointer;
+      font-size:.95em;font-weight:700;color:var(--text-light);transition:background .2s,color .2s;}
+    .tab-btn.active{background:var(--primary);color:var(--accent);}
+    .tab-content{background:var(--white);border-radius:0 0 12px 12px;padding:28px;
+      box-shadow:0 4px 20px rgba(0,0,0,.07);display:none;}
+    .tab-content.active{display:block;}
+
+    /* ─── 종목 카드 (아코디언) ─── */
+    .event-accordion{margin-top:20px;display:flex;flex-direction:column;gap:12px;}
+    .acc-item{background:var(--white);border-radius:12px;overflow:hidden;
+      border:2px solid #e0e5f0;transition:border-color .25s;}
+    .acc-item:hover{border-color:var(--accent);}
+    .acc-header{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:4px 14px;padding:16px 20px;cursor:pointer;
+      user-select:none;}
+    .acc-badge{font-size:.75em;font-weight:700;padding:3px 10px;border-radius:10px;flex-shrink:0;grid-row:1 / span 2;align-self:center;}
+    .badge-common{background:#fff3cd;color:#856404;}
+    .badge-select{background:#d1ecf1;color:#0c5460;}
+    .acc-title{font-size:1em;font-weight:800;color:var(--primary);grid-column:2;line-height:1.25;}
+    .acc-score{font-size:.82em;color:var(--text-light);grid-column:2;line-height:1.35;display:block;}
+    .acc-arrow{color:var(--accent);font-size:1em;transition:transform .3s;flex-shrink:0;grid-column:3;grid-row:1 / span 2;align-self:center;}
+    .acc-item.open .acc-arrow{transform:rotate(180deg);}
+    .acc-body{max-height:0;overflow:hidden;transition:max-height .4s ease;}
+    .acc-item.open .acc-body{max-height:600px;}
+    .acc-inner{padding:0 20px 20px;}
+    .method-box,.foul-box{border-radius:10px;padding:16px;margin-bottom:10px;}
+    .method-box{background:var(--bg);}
+    .foul-box{background:#fff8e1;}
+    .method-box h5,.foul-box h5{font-size:.85em;font-weight:700;margin-bottom:8px;}
+    .method-box h5{color:var(--primary);}
+    .foul-box h5{color:#c47a00;}
+    .method-box ul,.foul-box ul{margin-left:16px;}
+    .method-box li,.foul-box li{font-size:.85em;line-height:1.9;}
+    .method-box li{color:var(--text);}
+    .foul-box li{color:#5a4000;}
+
+    /* ─── 선택 프로그램 ─── */
+    .select-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));
+      gap:22px;margin-top:22px;}
+    .select-card{background:var(--bg);border-radius:14px;padding:28px;
+      border:2px solid #e0e5f0;position:relative;transition:border-color .3s,box-shadow .3s;}
+    .select-card:hover{border-color:var(--accent);box-shadow:0 8px 25px rgba(255,165,0,.15);}
+    .select-card .s-num{position:absolute;top:-14px;left:22px;background:var(--accent);
+      color:var(--primary);font-weight:800;font-size:.88em;padding:4px 16px;border-radius:12px;}
+    .select-card h3{font-size:1.05em;color:var(--primary);margin-bottom:12px;margin-top:10px;}
+    .select-card ul{list-style:none;}
+    .select-card ul li{padding:6px 0;border-bottom:1px dashed #ddd;font-size:.9em;
+      color:var(--text);display:flex;gap:8px;}
+    .select-card ul li:last-child{border-bottom:none;}
+    .select-card ul li::before{content:'•';color:var(--accent);font-weight:700;}
+
+    /* ─── 조별 운영표 ─── */
+    .table-wrap{overflow-x:auto;margin-top:20px;}
+    table{width:100%;border-collapse:collapse;background:var(--white);
+      border-radius:12px;overflow:hidden;box-shadow:0 4px 15px rgba(0,0,0,.06);}
+    thead{background:var(--primary);color:var(--white);}
+    thead th{padding:13px 14px;font-size:.86em;font-weight:700;letter-spacing:.5px;}
+    tbody td{padding:12px 14px;border-bottom:1px solid #eee;font-size:.88em;text-align:center;}
+    tbody tr:last-child td{border-bottom:none;}
+    tbody tr:hover{background:#fffbf0;}
+    tbody td:first-child{font-weight:700;color:var(--primary);}
+    .td-accent{color:var(--accent-dark);font-weight:600;}
+
+    /* ─── 배점표 ─── */
+    .score-tabs{display:flex;border-radius:12px 12px 0 0;overflow:hidden;margin-top:10px;}
+    .score-tab-btn{flex:1;padding:14px;background:#dde2ea;border:none;cursor:pointer;
+      font-size:.9em;font-weight:700;color:var(--text-light);transition:background .2s,color .2s;}
+    .score-tab-btn.active{background:var(--primary);color:var(--accent);}
+    .score-tab-content{background:var(--white);border-radius:0 0 12px 12px;padding:24px;
+      box-shadow:0 4px 20px rgba(0,0,0,.07);display:none;}
+    .score-tab-content.active{display:block;}
+    .scroll-hint{display:none;align-items:center;gap:6px;font-size:.8em;
+      color:var(--text-light);margin-bottom:10px;padding:8px 12px;
+      background:#f0f3ff;border-radius:8px;}
+    .score-table-wrap{overflow-x:auto;border-radius:10px;
+      -webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:var(--accent) #eee;}
+    .score-table-wrap::-webkit-scrollbar{height:5px;}
+    .score-table-wrap::-webkit-scrollbar-track{background:#eee;border-radius:5px;}
+    .score-table-wrap::-webkit-scrollbar-thumb{background:var(--accent);border-radius:5px;}
+    .score-table{width:100%;border-collapse:collapse;background:var(--white);
+      font-size:.83em;min-width:560px;}
+    .score-table thead tr:first-child th{background:var(--primary);color:var(--white);
+      padding:12px 8px;text-align:center;white-space:nowrap;}
+    .score-table thead tr:last-child th{background:#0f3460;color:rgba(255,255,255,.85);
+      padding:8px 6px;text-align:center;font-size:.8em;white-space:nowrap;}
+    .score-table tbody td{padding:8px 6px;border-bottom:1px solid #eee;
+      text-align:center;color:var(--text);white-space:nowrap;}
+    .score-table tbody tr:hover{background:#fffbf0;}
+    .score-table tbody tr:last-child td{border-bottom:none;}
+    .score-table tbody td:first-child{font-weight:800;color:var(--primary);
+      background:#f8f9fc;position:sticky;left:0;z-index:1;}
+    .score-table tbody tr.top100 td{background:#fff8e1!important;color:#c47a00;font-weight:700;}
+    .score-table tbody tr.top100 td:first-child{background:#ffe082!important;color:#7a4f00;}
+    .score-table tbody tr.bot30 td{background:#fafafa;color:#999;}
+    .male-col{background:#e8f4fd;}
+    .female-col{background:#fce4ec;}
+    .score-table thead tr:last-child th.male-col{background:#1565c0;color:#fff;}
+    .score-table thead tr:last-child th.female-col{background:#ad1457;color:#fff;}
+    .score-legend{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:14px;align-items:center;}
+    .legend-item{display:flex;align-items:center;gap:6px;font-size:.82em;color:var(--text-light);}
+    .legend-dot{width:14px;height:14px;border-radius:4px;}
+
+    /* ─── 계산기 ─── */
+    .calc-wrap{background:var(--white);border-radius:16px;padding:36px;
+      box-shadow:0 6px 30px rgba(0,0,0,.1);}
+    .gender-toggle{display:flex;gap:0;border-radius:30px;overflow:hidden;
+      border:2px solid var(--primary);width:fit-content;margin-bottom:28px;}
+    .gender-btn{padding:10px 32px;border:none;cursor:pointer;font-size:.95em;
+      font-weight:700;background:var(--white);color:var(--primary);transition:all .2s;}
+    .gender-btn.active{background:var(--primary);color:var(--accent);}
+    .calc-section-title{font-size:1em;font-weight:800;color:var(--primary);
+      margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+    .calc-section-title span{background:var(--accent);color:var(--primary);
+      width:24px;height:24px;border-radius:50%;display:flex;
+      align-items:center;justify-content:center;font-size:.8em;flex-shrink:0;}
+    .calc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-bottom:28px;}
+    .calc-item{background:var(--bg);border-radius:12px;padding:18px;}
+    .calc-item label{font-size:.82em;font-weight:700;color:var(--primary);
+      display:block;margin-bottom:8px;}
+    .calc-item .unit{font-size:.75em;color:var(--text-light);}
+    .calc-input{width:100%;padding:10px 14px;border:2px solid #e0e5f0;
+      border-radius:8px;font-size:1em;outline:none;transition:border-color .2s;
+      background:var(--white);}
+    .calc-input:focus{border-color:var(--accent);}
+    .calc-score-badge{margin-top:8px;display:flex;align-items:center;gap:6px;}
+    .calc-score-badge span{font-size:.82em;color:var(--text-light);}
+    .calc-score-badge strong{font-size:1.1em;color:var(--primary);font-weight:800;}
+    .score-bar-wrap{height:6px;background:#e0e5f0;border-radius:3px;margin-top:6px;overflow:hidden;}
+    .score-bar{height:100%;border-radius:3px;
+      background:linear-gradient(to right,var(--accent),#ff6b00);transition:width .5s ease;}
+    .select-event-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+      gap:10px;margin-bottom:20px;}
+    .select-event-btn{padding:11px;border:2px solid #e0e5f0;border-radius:10px;
+      background:var(--white);cursor:pointer;font-size:.86em;font-weight:600;
+      color:var(--text-light);transition:all .2s;text-align:center;}
+    .select-event-btn.active{border-color:var(--accent);background:#fff8e1;color:var(--primary);}
+    .total-score-box{
+      background:linear-gradient(135deg,var(--primary) 0%,#0f3460 100%);
+      border-radius:14px;padding:28px;text-align:center;margin-top:24px;}
+    .total-score-box .label{color:rgba(255,255,255,.7);font-size:.9em;margin-bottom:8px;}
+    .total-score-box .total-num{font-size:3.5em;font-weight:900;color:var(--accent);line-height:1;}
+    .total-score-box .max{color:rgba(255,255,255,.5);font-size:.85em;margin-top:6px;}
+    .total-score-box .breakdown{display:flex;flex-wrap:wrap;justify-content:center;
+      gap:10px;margin-top:18px;}
+    .breakdown-item{background:rgba(255,255,255,.1);border-radius:8px;
+      padding:8px 14px;font-size:.82em;color:rgba(255,255,255,.85);}
+    .breakdown-item strong{color:var(--accent);}
+    .reset-btn{margin-top:16px;padding:10px 28px;background:rgba(255,255,255,.15);
+      border:1px solid rgba(255,255,255,.3);color:#fff;border-radius:25px;
+      cursor:pointer;font-size:.88em;transition:background .2s;}
+    .reset-btn:hover{background:rgba(255,255,255,.25);}
+
+    /* ─── 안전·준비물 ─── */
+    .safety-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px;}
+    .safety-item{background:var(--white);border-radius:12px;padding:24px 18px;
+      text-align:center;box-shadow:0 3px 12px rgba(0,0,0,.06);border-bottom:4px solid var(--accent);}
+    .safety-item .s-icon{font-size:2em;margin-bottom:10px;}
+    .safety-item h4{font-size:.95em;color:var(--primary);margin-bottom:5px;}
+    .safety-item p{font-size:.83em;color:var(--text-light);}
+    .prep-list{display:flex;flex-wrap:wrap;gap:12px;margin-top:10px;}
+    .prep-item{background:var(--white);border-radius:30px;padding:9px 20px;
+      font-size:.9em;display:flex;align-items:center;gap:8px;
+      box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #e0e5f0;}
+    .notice-box{background:#fff8e1;border:1.5px solid var(--accent);border-radius:12px;
+      padding:20px 22px;margin-top:18px;display:flex;gap:12px;}
+    .notice-box .n-icon{font-size:1.6em;flex-shrink:0;padding-top:2px;}
+    .notice-box h4{color:#c47a00;font-size:.95em;margin-bottom:7px;}
+    .notice-box p,.notice-box li{font-size:.88em;color:#5a4000;line-height:1.8;}
+    .notice-box ul{margin-left:14px;}
+
+    /* ─── 푸터 ─── */
+    footer{background:linear-gradient(135deg,var(--primary),#0f3460);
+      color:var(--white);text-align:center;padding:44px 20px;}
+    footer .f-logo{font-size:1.3em;font-weight:800;color:var(--accent);margin-bottom:10px;}
+    footer p{font-size:.87em;opacity:.75;line-height:2.1;}
+
+    #topBtn{position:fixed;bottom:28px;right:18px;background:var(--accent);
+      color:var(--primary);border:none;width:48px;height:48px;border-radius:50%;
+      font-size:1.3em;cursor:pointer;box-shadow:0 4px 15px rgba(255,165,0,.4);
+      transition:transform .2s;z-index:999;display:none;}
+    #topBtn:hover{transform:scale(1.1);}
+
+    /* ─── 반응형 ─── */
+    @media(max-width:768px){
+      header h1{font-size:1.6em;}
+      .header-logo-bg{width:140px;opacity:.08;right:2%;}
+      .share-btn{top:10px;right:10px;font-size:.75em;padding:6px 10px;}
+      .dday-num{font-size:1.5em;min-width:54px;padding:8px 12px;}
+      .dday-boxes{gap:5px;}
+      .section-title{font-size:1.35em;}
+      .container{padding:40px 14px;}
+      .calc-wrap{padding:20px 14px;}
+      .scroll-hint{display:flex;}
+      .total-score-box .total-num{font-size:2.8em;}
+      .select-event-grid{grid-template-columns:1fr 1fr;}
+    }
+    @media(max-width:480px){
+      header h1{font-size:1.3em;}
+      .dday-sep{display:none;}
+      .tab-btn,.score-tab-btn{font-size:.78em;padding:11px 5px;}
+      .gender-btn{padding:9px 20px;}
+    }
+  
+
+							</style>
+</head>
+<body>
+<!DOCTYPE html>
+
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>2026 체육계열 대입 통합 지원 프로그램</title>
+<style>
+    *{margin:0;padding:0;box-sizing:border-box;}
+    :root{
+      --primary:#1a1a2e;--secondary:#16213e;
+      --accent:#ffa500;--accent-dark:#e69400;
+      --text:#333;--text-light:#666;--bg:#f4f6f9;--white:#fff;
+    }
+    html{scroll-behavior:smooth;}
+    body{font-family:'Apple SD Gothic Neo','Noto Sans KR','맑은 고딕',sans-serif;
+         background:var(--bg);color:var(--text);line-height:1.7;}
+
+    /* ─── 헤더 ─── */
+    header{
+      background:linear-gradient(135deg,#1a1a2e 0%,#0f3460 60%,#16213e 100%);
+      color:#fff;padding:50px 20px 40px;text-align:center;
+      position:relative;overflow:hidden;
+    }
+    header::before{content:'';position:absolute;top:-80px;right:-80px;
+      width:350px;height:350px;background:rgba(255,165,0,.12);border-radius:50%;}
+    header::after{content:'';position:absolute;bottom:-60px;left:-60px;
+      width:250px;height:250px;background:rgba(255,165,0,.07);border-radius:50%;}
+    .header-logo-bg{
+      position:absolute;right:6%;top:50%;transform:translateY(-50%);
+      width:260px;height:auto;opacity:.10;z-index:0;pointer-events:none;
+      filter:brightness(5) grayscale(30%);
+    }
+    .header-badge{
+      display:inline-block;background:var(--accent);color:var(--primary);
+      font-weight:700;font-size:.85em;padding:5px 18px;border-radius:20px;
+      margin-bottom:16px;letter-spacing:1px;position:relative;z-index:1;
+    }
+    header h1{font-size:2.4em;font-weight:800;margin-bottom:10px;
+      position:relative;z-index:1;letter-spacing:-1px;}
+    header h1 span{color:var(--accent);}
+    header .sub{font-size:1em;opacity:.85;position:relative;z-index:1;}
+
+    /* 공유 버튼 */
+    .share-btn{
+      position:absolute;top:16px;right:16px;z-index:10;
+      background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);
+      color:#fff;padding:8px 16px;border-radius:25px;cursor:pointer;
+      font-size:.85em;font-weight:600;display:flex;align-items:center;gap:6px;
+      transition:background .2s;backdrop-filter:blur(4px);
+    }
+    .share-btn:hover{background:rgba(255,165,0,.4);}
+
+    /* ─── D-DAY 카운트다운 ─── */
+    .dday-wrap{
+      position:relative;z-index:2;
+      display:inline-flex;flex-direction:column;align-items:center;
+      margin-top:24px;
+    }
+    .dday-label{
+      font-size:.78em;font-weight:700;letter-spacing:3px;
+      color:rgba(255,255,255,.6);text-transform:uppercase;margin-bottom:10px;
+    }
+    .dday-boxes{display:flex;align-items:center;gap:8px;}
+    .dday-unit{
+      display:flex;flex-direction:column;align-items:center;
+    }
+    .dday-num{
+      background:rgba(255,255,255,.12);
+      border:1px solid rgba(255,255,255,.2);
+      backdrop-filter:blur(8px);
+      border-radius:10px;
+      padding:10px 18px;
+      font-size:2em;font-weight:900;
+      color:#fff;line-height:1;
+      min-width:72px;text-align:center;
+      letter-spacing:2px;
+    }
+    .dday-num.accent{
+      background:rgba(255,165,0,.25);
+      border-color:rgba(255,165,0,.5);
+      color:var(--accent);
+    }
+    .dday-unit-label{
+      font-size:.72em;color:rgba(255,255,255,.55);
+      margin-top:5px;font-weight:600;letter-spacing:1px;
+    }
+    .dday-sep{
+      font-size:1.8em;font-weight:900;color:rgba(255,255,255,.3);
+      margin-bottom:18px;
+    }
+    /* D-day 완료 메시지 */
+    .dday-done{
+      font-size:1.3em;font-weight:800;color:var(--accent);
+      background:rgba(255,165,0,.15);border:1px solid rgba(255,165,0,.4);
+      border-radius:12px;padding:12px 28px;letter-spacing:1px;
+    }
+    /* D-day 뱃지 (며칠 남았는지) */
+    .dday-badge{
+      display:inline-block;background:var(--accent);color:var(--primary);
+      font-weight:900;font-size:1em;padding:5px 20px;border-radius:20px;
+      margin-bottom:12px;letter-spacing:1px;
+    }
+
+    /* 핵심 정보 바 */
+    .key-info-bar{background:var(--accent);color:var(--primary);
+      display:flex;justify-content:center;flex-wrap:wrap;}
+    .key-info-bar .item{padding:13px 22px;display:flex;align-items:center;
+      gap:8px;font-weight:700;font-size:.92em;border-right:1px solid rgba(0,0,0,.15);}
+    .key-info-bar .item:last-child{border-right:none;}
+
+    /* ─── 네비 ─── */
+    nav{background:var(--secondary);position:sticky;top:0;z-index:999;
+      box-shadow:0 2px 10px rgba(0,0,0,.3);}
+    nav ul{list-style:none;display:flex;justify-content:center;
+      flex-wrap:wrap;gap:4px;padding:0 10px;}
+    nav a{display:block;color:rgba(255,255,255,.8);text-decoration:none;
+      padding:13px 11px;font-weight:500;font-size:.87em;
+      transition:color .2s,border-bottom .2s;border-bottom:3px solid transparent;}
+    nav a:hover{color:var(--accent);border-bottom-color:var(--accent);}
+
+    /* ─── 레이아웃 ─── */
+    .container{max-width:1100px;margin:0 auto;padding:70px 20px;}
+    .section{margin-bottom:80px;}
+    .section-title{font-size:1.9em;font-weight:800;color:var(--primary);
+      margin-bottom:35px;display:flex;align-items:center;gap:12px;}
+    .section-title::after{content:'';flex:1;height:3px;
+      background:linear-gradient(to right,var(--accent),transparent);}
+
+    /* ─── 기본정보 카드 ─── */
+    .info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;}
+    .info-card{background:var(--white);border-radius:12px;padding:24px 20px;
+      box-shadow:0 3px 15px rgba(0,0,0,.06);display:flex;
+      align-items:flex-start;gap:16px;transition:transform .25s;}
+    .info-card:hover{transform:translateY(-4px);}
+    .info-card .icon-box{width:50px;height:50px;
+      background:linear-gradient(135deg,var(--primary),#0f3460);
+      border-radius:12px;display:flex;align-items:center;
+      justify-content:center;font-size:1.4em;flex-shrink:0;}
+    .info-card .text label{font-size:.75em;font-weight:700;color:var(--accent);
+      letter-spacing:1px;text-transform:uppercase;display:block;margin-bottom:5px;}
+    .info-card .text strong{font-size:.97em;color:var(--primary);display:block;}
+    .info-card .text small{color:var(--text-light);font-size:.84em;}
+
+    /* ─── 타임라인 ─── */
+    .timeline{position:relative;padding-left:30px;}
+    .timeline::before{content:'';position:absolute;left:10px;top:0;bottom:0;
+      width:3px;background:linear-gradient(to bottom,var(--accent),var(--primary));}
+    .tl-item{position:relative;margin-bottom:24px;background:var(--white);
+      border-radius:12px;padding:18px 22px;box-shadow:0 3px 12px rgba(0,0,0,.06);
+      margin-left:30px;transition:transform .25s,box-shadow .25s;}
+    .tl-item:hover{transform:translateX(5px);box-shadow:0 6px 20px rgba(0,0,0,.1);}
+    .tl-item::before{content:'';position:absolute;left:-40px;top:20px;
+      width:16px;height:16px;background:var(--accent);border-radius:50%;
+      border:3px solid var(--white);box-shadow:0 0 0 2px var(--accent);}
+    .tl-item .time{display:inline-block;background:var(--primary);color:var(--accent);
+      font-size:.8em;font-weight:700;padding:3px 12px;border-radius:20px;margin-bottom:7px;}
+    .tl-item h4{font-size:1em;color:var(--primary);margin-bottom:4px;}
+    .tl-item p{font-size:.88em;color:var(--text-light);}
+    .tl-item.highlight{border-left:5px solid var(--accent);}
+    .tl-item.highlight h4{color:#c47a00;}
+
+    /* ─── 탭 ─── */
+    .tab-wrap{margin-top:10px;}
+    .tab-btns{display:flex;border-radius:12px 12px 0 0;overflow:hidden;}
+    .tab-btn{flex:1;padding:15px;background:#dde2ea;border:none;cursor:pointer;
+      font-size:.95em;font-weight:700;color:var(--text-light);transition:background .2s,color .2s;}
+    .tab-btn.active{background:var(--primary);color:var(--accent);}
+    .tab-content{background:var(--white);border-radius:0 0 12px 12px;padding:28px;
+      box-shadow:0 4px 20px rgba(0,0,0,.07);display:none;}
+    .tab-content.active{display:block;}
+
+    /* ─── 종목 카드 (아코디언) ─── */
+    .event-accordion{margin-top:20px;display:flex;flex-direction:column;gap:12px;}
+    .acc-item{background:var(--white);border-radius:12px;overflow:hidden;
+      border:2px solid #e0e5f0;transition:border-color .25s;}
+    .acc-item:hover{border-color:var(--accent);}
+    .acc-header{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:4px 14px;padding:16px 20px;cursor:pointer;
+      user-select:none;}
+    .acc-badge{font-size:.75em;font-weight:700;padding:3px 10px;border-radius:10px;flex-shrink:0;grid-row:1 / span 2;align-self:center;}
+    .badge-common{background:#fff3cd;color:#856404;}
+    .badge-select{background:#d1ecf1;color:#0c5460;}
+    .acc-title{font-size:1em;font-weight:800;color:var(--primary);grid-column:2;line-height:1.25;}
+    .acc-score{font-size:.82em;color:var(--text-light);grid-column:2;line-height:1.35;display:block;}
+    .acc-arrow{color:var(--accent);font-size:1em;transition:transform .3s;flex-shrink:0;grid-column:3;grid-row:1 / span 2;align-self:center;}
+    .acc-item.open .acc-arrow{transform:rotate(180deg);}
+    .acc-body{max-height:0;overflow:hidden;transition:max-height .4s ease;}
+    .acc-item.open .acc-body{max-height:600px;}
+    .acc-inner{padding:0 20px 20px;}
+    .method-box,.foul-box{border-radius:10px;padding:16px;margin-bottom:10px;}
+    .method-box{background:var(--bg);}
+    .foul-box{background:#fff8e1;}
+    .method-box h5,.foul-box h5{font-size:.85em;font-weight:700;margin-bottom:8px;}
+    .method-box h5{color:var(--primary);}
+    .foul-box h5{color:#c47a00;}
+    .method-box ul,.foul-box ul{margin-left:16px;}
+    .method-box li,.foul-box li{font-size:.85em;line-height:1.9;}
+    .method-box li{color:var(--text);}
+    .foul-box li{color:#5a4000;}
+
+    /* ─── 선택 프로그램 ─── */
+    .select-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));
+      gap:22px;margin-top:22px;}
+    .select-card{background:var(--bg);border-radius:14px;padding:28px;
+      border:2px solid #e0e5f0;position:relative;transition:border-color .3s,box-shadow .3s;}
+    .select-card:hover{border-color:var(--accent);box-shadow:0 8px 25px rgba(255,165,0,.15);}
+    .select-card .s-num{position:absolute;top:-14px;left:22px;background:var(--accent);
+      color:var(--primary);font-weight:800;font-size:.88em;padding:4px 16px;border-radius:12px;}
+    .select-card h3{font-size:1.05em;color:var(--primary);margin-bottom:12px;margin-top:10px;}
+    .select-card ul{list-style:none;}
+    .select-card ul li{padding:6px 0;border-bottom:1px dashed #ddd;font-size:.9em;
+      color:var(--text);display:flex;gap:8px;}
+    .select-card ul li:last-child{border-bottom:none;}
+    .select-card ul li::before{content:'•';color:var(--accent);font-weight:700;}
+
+    /* ─── 조별 운영표 ─── */
+    .table-wrap{overflow-x:auto;margin-top:20px;}
+    table{width:100%;border-collapse:collapse;background:var(--white);
+      border-radius:12px;overflow:hidden;box-shadow:0 4px 15px rgba(0,0,0,.06);}
+    thead{background:var(--primary);color:var(--white);}
+    thead th{padding:13px 14px;font-size:.86em;font-weight:700;letter-spacing:.5px;}
+    tbody td{padding:12px 14px;border-bottom:1px solid #eee;font-size:.88em;text-align:center;}
+    tbody tr:last-child td{border-bottom:none;}
+    tbody tr:hover{background:#fffbf0;}
+    tbody td:first-child{font-weight:700;color:var(--primary);}
+    .td-accent{color:var(--accent-dark);font-weight:600;}
+
+    /* ─── 배점표 ─── */
+    .score-tabs{display:flex;border-radius:12px 12px 0 0;overflow:hidden;margin-top:10px;}
+    .score-tab-btn{flex:1;padding:14px;background:#dde2ea;border:none;cursor:pointer;
+      font-size:.9em;font-weight:700;color:var(--text-light);transition:background .2s,color .2s;}
+    .score-tab-btn.active{background:var(--primary);color:var(--accent);}
+    .score-tab-content{background:var(--white);border-radius:0 0 12px 12px;padding:24px;
+      box-shadow:0 4px 20px rgba(0,0,0,.07);display:none;}
+    .score-tab-content.active{display:block;}
+    .scroll-hint{display:none;align-items:center;gap:6px;font-size:.8em;
+      color:var(--text-light);margin-bottom:10px;padding:8px 12px;
+      background:#f0f3ff;border-radius:8px;}
+    .score-table-wrap{overflow-x:auto;border-radius:10px;
+      -webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:var(--accent) #eee;}
+    .score-table-wrap::-webkit-scrollbar{height:5px;}
+    .score-table-wrap::-webkit-scrollbar-track{background:#eee;border-radius:5px;}
+    .score-table-wrap::-webkit-scrollbar-thumb{background:var(--accent);border-radius:5px;}
+    .score-table{width:100%;border-collapse:collapse;background:var(--white);
+      font-size:.83em;min-width:560px;}
+    .score-table thead tr:first-child th{background:var(--primary);color:var(--white);
+      padding:12px 8px;text-align:center;white-space:nowrap;}
+    .score-table thead tr:last-child th{background:#0f3460;color:rgba(255,255,255,.85);
+      padding:8px 6px;text-align:center;font-size:.8em;white-space:nowrap;}
+    .score-table tbody td{padding:8px 6px;border-bottom:1px solid #eee;
+      text-align:center;color:var(--text);white-space:nowrap;}
+    .score-table tbody tr:hover{background:#fffbf0;}
+    .score-table tbody tr:last-child td{border-bottom:none;}
+    .score-table tbody td:first-child{font-weight:800;color:var(--primary);
+      background:#f8f9fc;position:sticky;left:0;z-index:1;}
+    .score-table tbody tr.top100 td{background:#fff8e1!important;color:#c47a00;font-weight:700;}
+    .score-table tbody tr.top100 td:first-child{background:#ffe082!important;color:#7a4f00;}
+    .score-table tbody tr.bot30 td{background:#fafafa;color:#999;}
+    .male-col{background:#e8f4fd;}
+    .female-col{background:#fce4ec;}
+    .score-table thead tr:last-child th.male-col{background:#1565c0;color:#fff;}
+    .score-table thead tr:last-child th.female-col{background:#ad1457;color:#fff;}
+    .score-legend{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:14px;align-items:center;}
+    .legend-item{display:flex;align-items:center;gap:6px;font-size:.82em;color:var(--text-light);}
+    .legend-dot{width:14px;height:14px;border-radius:4px;}
+
+    /* ─── 계산기 ─── */
+    .calc-wrap{background:var(--white);border-radius:16px;padding:36px;
+      box-shadow:0 6px 30px rgba(0,0,0,.1);}
+    .gender-toggle{display:flex;gap:0;border-radius:30px;overflow:hidden;
+      border:2px solid var(--primary);width:fit-content;margin-bottom:28px;}
+    .gender-btn{padding:10px 32px;border:none;cursor:pointer;font-size:.95em;
+      font-weight:700;background:var(--white);color:var(--primary);transition:all .2s;}
+    .gender-btn.active{background:var(--primary);color:var(--accent);}
+    .calc-section-title{font-size:1em;font-weight:800;color:var(--primary);
+      margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+    .calc-section-title span{background:var(--accent);color:var(--primary);
+      width:24px;height:24px;border-radius:50%;display:flex;
+      align-items:center;justify-content:center;font-size:.8em;flex-shrink:0;}
+    .calc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-bottom:28px;}
+    .calc-item{background:var(--bg);border-radius:12px;padding:18px;}
+    .calc-item label{font-size:.82em;font-weight:700;color:var(--primary);
+      display:block;margin-bottom:8px;}
+    .calc-item .unit{font-size:.75em;color:var(--text-light);}
+    .calc-input{width:100%;padding:10px 14px;border:2px solid #e0e5f0;
+      border-radius:8px;font-size:1em;outline:none;transition:border-color .2s;
+      background:var(--white);}
+    .calc-input:focus{border-color:var(--accent);}
+    .calc-score-badge{margin-top:8px;display:flex;align-items:center;gap:6px;}
+    .calc-score-badge span{font-size:.82em;color:var(--text-light);}
+    .calc-score-badge strong{font-size:1.1em;color:var(--primary);font-weight:800;}
+    .score-bar-wrap{height:6px;background:#e0e5f0;border-radius:3px;margin-top:6px;overflow:hidden;}
+    .score-bar{height:100%;border-radius:3px;
+      background:linear-gradient(to right,var(--accent),#ff6b00);transition:width .5s ease;}
+    .select-event-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+      gap:10px;margin-bottom:20px;}
+    .select-event-btn{padding:11px;border:2px solid #e0e5f0;border-radius:10px;
+      background:var(--white);cursor:pointer;font-size:.86em;font-weight:600;
+      color:var(--text-light);transition:all .2s;text-align:center;}
+    .select-event-btn.active{border-color:var(--accent);background:#fff8e1;color:var(--primary);}
+    .total-score-box{
+      background:linear-gradient(135deg,var(--primary) 0%,#0f3460 100%);
+      border-radius:14px;padding:28px;text-align:center;margin-top:24px;}
+    .total-score-box .label{color:rgba(255,255,255,.7);font-size:.9em;margin-bottom:8px;}
+    .total-score-box .total-num{font-size:3.5em;font-weight:900;color:var(--accent);line-height:1;}
+    .total-score-box .max{color:rgba(255,255,255,.5);font-size:.85em;margin-top:6px;}
+    .total-score-box .breakdown{display:flex;flex-wrap:wrap;justify-content:center;
+      gap:10px;margin-top:18px;}
+    .breakdown-item{background:rgba(255,255,255,.1);border-radius:8px;
+      padding:8px 14px;font-size:.82em;color:rgba(255,255,255,.85);}
+    .breakdown-item strong{color:var(--accent);}
+    .reset-btn{margin-top:16px;padding:10px 28px;background:rgba(255,255,255,.15);
+      border:1px solid rgba(255,255,255,.3);color:#fff;border-radius:25px;
+      cursor:pointer;font-size:.88em;transition:background .2s;}
+    .reset-btn:hover{background:rgba(255,255,255,.25);}
+
+    /* ─── 안전·준비물 ─── */
+    .safety-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px;}
+    .safety-item{background:var(--white);border-radius:12px;padding:24px 18px;
+      text-align:center;box-shadow:0 3px 12px rgba(0,0,0,.06);border-bottom:4px solid var(--accent);}
+    .safety-item .s-icon{font-size:2em;margin-bottom:10px;}
+    .safety-item h4{font-size:.95em;color:var(--primary);margin-bottom:5px;}
+    .safety-item p{font-size:.83em;color:var(--text-light);}
+    .prep-list{display:flex;flex-wrap:wrap;gap:12px;margin-top:10px;}
+    .prep-item{background:var(--white);border-radius:30px;padding:9px 20px;
+      font-size:.9em;display:flex;align-items:center;gap:8px;
+      box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #e0e5f0;}
+    .notice-box{background:#fff8e1;border:1.5px solid var(--accent);border-radius:12px;
+      padding:20px 22px;margin-top:18px;display:flex;gap:12px;}
+    .notice-box .n-icon{font-size:1.6em;flex-shrink:0;padding-top:2px;}
+    .notice-box h4{color:#c47a00;font-size:.95em;margin-bottom:7px;}
+    .notice-box p,.notice-box li{font-size:.88em;color:#5a4000;line-height:1.8;}
+    .notice-box ul{margin-left:14px;}
+
+    /* ─── 푸터 ─── */
+    footer{background:linear-gradient(135deg,var(--primary),#0f3460);
+      color:var(--white);text-align:center;padding:44px 20px;}
+    footer .f-logo{font-size:1.3em;font-weight:800;color:var(--accent);margin-bottom:10px;}
+    footer p{font-size:.87em;opacity:.75;line-height:2.1;}
+
+    #topBtn{position:fixed;bottom:28px;right:18px;background:var(--accent);
+      color:var(--primary);border:none;width:48px;height:48px;border-radius:50%;
+      font-size:1.3em;cursor:pointer;box-shadow:0 4px 15px rgba(255,165,0,.4);
+      transition:transform .2s;z-index:999;display:none;}
+    #topBtn:hover{transform:scale(1.1);}
+
+    /* ─── 반응형 ─── */
+    @media(max-width:768px){
+      header h1{font-size:1.6em;}
+      .header-logo-bg{width:140px;opacity:.08;right:2%;}
+      .share-btn{top:10px;right:10px;font-size:.75em;padding:6px 10px;}
+      .dday-num{font-size:1.5em;min-width:54px;padding:8px 12px;}
+      .dday-boxes{gap:5px;}
+      .section-title{font-size:1.35em;}
+      .container{padding:40px 14px;}
+      .calc-wrap{padding:20px 14px;}
+      .scroll-hint{display:flex;}
+      .total-score-box .total-num{font-size:2.8em;}
+      .select-event-grid{grid-template-columns:1fr 1fr;}
+    }
+    @media(max-width:480px){
+      header h1{font-size:1.3em;}
+      .dday-sep{display:none;}
+      .tab-btn,.score-tab-btn{font-size:.78em;padding:11px 5px;}
+      .gender-btn{padding:9px 20px;}
+    }
+  
+
+    /* 실기종목 안내: 구분+종목명 / 점수기준 2줄 표시 */
+    @media(max-width:520px){
+      .acc-header{grid-template-columns:auto 1fr auto;padding:14px 16px;gap:3px 10px;}
+      .acc-badge{font-size:.7em;padding:3px 8px;}
+      .acc-title{font-size:.95em;}
+      .acc-score{font-size:.78em;white-space:normal;}
+    }
+
+
+/* 실기 배점표: 기존 탭 버튼 스타일 적용(좌우 밀기 제거) */
+.score-mode-buttons,
+.score-event-buttons{
+  display:flex;
+  flex-wrap:wrap;
+  gap:4px;
+  margin:12px 0 16px;
+  border-radius:12px;
+  overflow:hidden;
+}
+.score-mode-btn,
+.score-event-btn{
+  flex:1 1 150px;
+  min-width:120px;
+  padding:14px 10px;
+  background:#dde2ea;
+  border:none;
+  cursor:pointer;
+  font-size:.9em;
+  font-weight:700;
+  color:var(--text-light);
+  transition:background .2s,color .2s;
+  text-align:center;
+}
+.score-mode-btn.active,
+.score-event-btn.active{
+  background:var(--primary);
+  color:var(--accent);
+}
+.score-mode-btn:hover,
+.score-event-btn:hover{
+  background:#cfd6e2;
+  color:var(--primary);
+}
+.score-mode-btn.active:hover,
+.score-event-btn.active:hover{
+  background:var(--primary);
+  color:var(--accent);
+}
+.score-event-group{display:none;}
+.score-event-group.active{display:block;}
+.score-event-panel{display:none;}
+.score-event-panel.active{display:block;}
+.score-single-table{min-width:0;width:100%;font-size:.88em;}
+.score-single-table th,
+.score-single-table td{white-space:normal;padding:9px 8px;}
+.score-single-table thead th{background:var(--primary);color:#fff;}
+.score-single-table td:first-child{width:70px;}
+.score-note{font-size:.82em;color:var(--text-light);margin:6px 0 12px;}
+@media(max-width:520px){
+  .score-mode-buttons,
+  .score-event-buttons{gap:3px;}
+  .score-mode-btn,.score-event-btn{flex:1 1 calc(50% - 3px);min-width:0;font-size:.78em;padding:11px 6px;}
+  .score-single-table{font-size:.82em;}
+}
+</style>
+</head>
+<body>
+<!-- ═══ 헤더 ═══ -->
+<header>
+<img alt="" class="header-logo-bg" onerror="this.style.display='none'" src="logo.png"/>
+<button class="share-btn" onclick="shareLink()">🔗 공유하기</button>
+<h1>⚽ 2026 체육계열 대입<br/><span>통합 지원 프로그램</span></h1>
+
+
+  <!-- D-DAY 카운트다운 -->
+  <div class="dday-wrap">
+    <div class="dday-badge" id="dday-badge">D-???</div>
+    <div class="dday-label">🗓️ 행사까지 남은 시간 · 2026. 7. 16.(목)</div>
+    <div id="dday-timer">
+      <div class="dday-boxes">
+        <div class="dday-unit">
+          <div class="dday-num accent" id="cd-days">--</div>
+          <div class="dday-unit-label">일</div>
+        </div>
+        <div class="dday-sep">:</div>
+        <div class="dday-unit">
+          <div class="dday-num" id="cd-hours">--</div>
+          <div class="dday-unit-label">시간</div>
+        </div>
+        <div class="dday-sep">:</div>
+        <div class="dday-unit">
+          <div class="dday-num" id="cd-mins">--</div>
+          <div class="dday-unit-label">분</div>
+        </div>
+        <div class="dday-sep">:</div>
+        <div class="dday-unit">
+          <div class="dday-num" id="cd-secs">--</div>
+          <div class="dday-unit-label">초</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+<!-- 핵심 정보 바 -->
+<div class="key-info-bar">
+<div class="item">📅 2026. 7. 16.(목)</div>
+<div class="item">🕘 09:30 ~</div>
+<div class="item">📍 화순하니움문화스포츠센터</div>
+<div class="item">🎯 체육계열 진학 희망 고등학생</div>
+</div>
+<!-- ═══ 네비 ═══ -->
+<nav>
+<ul>
+<li><a href="#schedule">일정표</a></li>
+<li><a href="#program">프로그램</a></li>
+<li><a href="#events">실기종목</a></li>
+<li><a href="#score">배점표</a></li>
+<li><a href="#calc">점수계산기</a></li>
+<li><a href="#safety">안전관리</a></li>
+<li><a href="#prep">준비물</a></li>
+</ul>
+</nav>
+<div class="container">
+<!-- ═══ 일정표 ═══ -->
+<section class="section" id="schedule">
+<h2 class="section-title">🕐 세부 운영 일정</h2>
+<div class="timeline">
+<div class="tl-item"><span class="time">~ 09:30</span><h4>개인 및 버스 이동 / 등록</h4><p>적벽실 (지하 2층)</p></div>
+<div class="tl-item"><span class="time">09:30 ~ 09:40</span><h4>개회식</h4><p>적벽실 (지하 2층) — 10분</p></div>
+<div class="tl-item highlight">
+<span class="time">09:40 ~ 11:40</span>
+<h4>🎤 2027학년도 체육관련 학과 입시의 이해 (강의)</h4>
+<p>적벽실 (지하 2층) — 120분 | 강사: 상현고등학교 노동기 교사<br/>
+          · 주요 대학별 입시 요강 (수시 및 정시) 소개<br/>· 주요 대학별 입시 전략 세우기</p>
+</div>
+<div class="tl-item"><span class="time">11:40 ~ 11:50</span><h4>오후 일정 안내</h4><p>적벽실 (지하 2층) — 10분</p></div>
+<div class="tl-item"><span class="time">11:50 ~ 12:50</span><h4>🍱 점심 식사 <small style="font-weight:400;color:#aaa;">(제공)</small></h4><p>적벽실 (지하 2층) — 60분</p></div>
+<div class="tl-item"><span class="time">12:50 ~ 13:00</span><h4>준비운동</h4><p>실내체육관 (지상 1층) — 10분</p></div>
+<div class="tl-item highlight">
+<span class="time">13:00 ~ 15:00</span>
+<h4>🏃 공통 실기 모의 테스트</h4>
+<p>실내체육관 (지상 1층) — 120분<br/>종목: 제자리멀리뛰기 · 10m왕복달리기 · 좌전굴 · 메디신볼 던지기</p>
+</div>
+<div class="tl-item highlight">
+<span class="time">15:00 ~ 17:00</span>
+<h4>⭐ 선택 프로그램 (2가지 중 1가지 선택)</h4>
+<p>① 대입상담교사 1:1 맞춤형 진학 상담 — 세미나실 1·2 (지하 1,2층)<br/>
+           ② 선택 실기 모의 테스트 — 실내체육관 (지상 1층)</p>
+</div>
+<div class="tl-item"><span class="time">17:00 ~ 17:20</span><h4>🏆 우수학생 시상 및 폐회 (단체 사진 촬영)</h4><p>실내체육관 (지상 1층) — 20분</p></div>
+<div class="tl-item"><span class="time">17:20 ~</span><h4>귀가</h4><p></p></div>
+</div>
+</section>
+<!-- ═══ 프로그램 ═══ -->
+<section class="section" id="program">
+<h2 class="section-title">📚 프로그램 내용</h2>
+<div class="tab-wrap">
+<div class="tab-btns">
+<button class="tab-btn active" onclick="switchTab(event,'common')">공통 프로그램</button>
+<button class="tab-btn" onclick="switchTab(event,'select')">선택 프로그램</button>
+</div>
+<div class="tab-content active" id="tab-common">
+<p style="color:var(--text-light);margin-bottom:20px;">※ 참여 학생 <strong>전체</strong>가 참여하는 공통 프로그램입니다.</p>
+<h3 style="color:var(--primary);margin-bottom:12px;">① 체육관련 학과 입시의 이해</h3>
+<div class="info-card" style="margin-bottom:20px;background:var(--bg);">
+<div class="icon-box">🎤</div>
+<div class="text"><label>시간 / 장소</label>
+<strong>09:40~11:40 (120분) · 적벽실 지하2층</strong>
+<small>강사: 상현고등학교 노동기 교사</small></div>
+</div>
+<ul style="margin-left:20px;margin-bottom:24px;">
+<li>체육관련 학과 주요 대학별 입시 요강 (수시 및 정시) 소개</li>
+<li>주요 대학별 입시 전략 세우기</li>
+</ul>
+<h3 style="color:var(--primary);margin-bottom:12px;">② 공통 실기 모의 테스트</h3>
+<div class="info-card" style="margin-bottom:18px;background:var(--bg);">
+<div class="icon-box">🏃</div>
+<div class="text"><label>시간 / 장소</label>
+<strong>13:00~15:00 (120분) · 실내체육관 지상1층</strong>
+<small>현장지원단 25명 · 입시 전문가 1명 · 보조강사 16명</small></div>
+</div>
+<div class="table-wrap">
+<table>
+<thead><tr><th>조</th><th>13:00~13:30</th><th>13:30~14:00</th><th>14:00~14:30</th><th>14:30~15:00</th></tr></thead>
+<tbody>
+<tr><td>1조</td><td class="td-accent">10m왕복달리기</td><td>메디신볼 던지기</td><td>제자리멀리뛰기</td><td>좌전굴</td></tr>
+<tr><td>2조</td><td class="td-accent">메디신볼 던지기</td><td>제자리멀리뛰기</td><td>좌전굴</td><td>10m왕복달리기</td></tr>
+<tr><td>3조</td><td class="td-accent">제자리멀리뛰기</td><td>좌전굴</td><td>10m왕복달리기</td><td>메디신볼 던지기</td></tr>
+<tr><td>4조</td><td class="td-accent">좌전굴</td><td>10m왕복달리기</td><td>메디신볼 던지기</td><td>제자리멀리뛰기</td></tr>
+</tbody>
+</table>
+</div>
+<div class="notice-box" style="margin-top:18px;">
+<div class="n-icon">🏅</div>
+<div><h4>우수학생 시상</h4><p>각 종목별 취득 점수 합산 → 상위 10명 시상</p></div>
+</div>
+</div>
+<div class="tab-content" id="tab-select">
+<p style="color:var(--text-light);margin-bottom:22px;">※ 아래 두 가지 중 <strong>1가지를 선택</strong>하여 참여합니다. (15:00~17:00)</p>
+<div class="select-grid">
+<div class="select-card">
+<span class="s-num">선택 1</span>
+<h3>💬 대입상담교사 1:1 맞춤형 진학 상담</h3>
+<ul>
+<li>시간: 15:00~17:00 (120분)</li>
+<li>1인당 상담 시간: 약 20분</li>
+<li>운영 대상: 60명 (우선순위 적용)</li>
+<li>장소: 세미나실 1·2 (지하 1,2층)</li>
+<li>강사: 대입상담교사 10명</li>
+</ul>
+<div class="notice-box" style="margin-top:14px;padding:14px;">
+<div class="n-icon" style="font-size:1.2em;">📂</div>
+<div><h4>지참 서류</h4>
+<ul style="margin-left:12px;">
+<li>4월 전국 연합학력평가 성적표</li>
+<li>6월 모의고사 성적표</li>
+<li>학생생활기록부 사본</li>
+</ul>
+</div>
+</div>
+<div style="margin-top:12px;font-size:.83em;color:var(--text-light);">
+<strong>우선순위:</strong> 1순위 군지역 읍·면단위 → 2순위 3·2·1학년 → 3순위 소규모 학교
+            </div>
+</div>
+<div class="select-card">
+<span class="s-num">선택 2</span>
+<h3>🏋️ 선택 실기 모의 테스트</h3>
+<ul>
+<li>시간: 15:00~17:00 (120분)</li>
+<li>대상: 선택1 미참가 학생</li>
+<li>장소: 실내체육관 (지상 1층)</li>
+<li>아래 4종목 중 <strong>2종목 선택</strong></li>
+</ul>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px;">
+<div style="background:var(--bg);border-radius:10px;padding:10px;text-align:center;font-size:.86em;"><div style="font-size:1.4em;">💪</div>배근력</div>
+<div style="background:var(--bg);border-radius:10px;padding:10px;text-align:center;font-size:.86em;"><div style="font-size:1.4em;">🏃</div>지그재그런</div>
+<div style="background:var(--bg);border-radius:10px;padding:10px;text-align:center;font-size:.86em;"><div style="font-size:1.4em;">🤸</div>윗몸일으키기</div>
+<div style="background:var(--bg);border-radius:10px;padding:10px;text-align:center;font-size:.86em;"><div style="font-size:1.4em;">⬆️</div>서전트점프</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ═══ 실기 종목 안내 (아코디언) ═══ -->
+<section class="section" id="events">
+<h2 class="section-title">🏅 실기 종목 안내</h2>
+<p style="color:var(--text-light);margin-bottom:20px;font-size:.92em;">▼ 종목명 아래 점수 기준을 2줄로 정리했습니다. 종목을 클릭하면 측정 방법과 파울 규정을 확인할 수 있습니다.</p>
+<h3 style="color:var(--primary);margin-bottom:14px;font-size:1em;">▶ 공통 종목 (전원 측정)</h3>
+<div class="event-accordion">
+<div class="acc-item" onclick="toggleAcc(this)">
+<div class="acc-header">
+<span class="acc-badge badge-common">공통</span>
+<span class="acc-title">제자리 멀리뛰기</span>
+<span class="acc-score">100점: 남 320cm↑ / 여 260cm↑</span>
+<span class="acc-arrow">▼</span>
+</div>
+<div class="acc-body"><div class="acc-inner">
+<div class="method-box"><h5>📋 측정 방법</h5><ul>
+<li>측정판 위 시작점에 두 발로 선 상태에서 앞으로 도약한 거리를 센서로 측정</li>
+<li>착지 시 기준선과 가장 가까운 지점을 계측</li>
+<li>총 2회 실시, 가장 좋은 기록 반영</li>
+</ul></div>
+<div class="foul-box"><h5>⚠️ 파울 규정</h5><ul>
+<li>발 구름 시 이중 점프를 한 경우</li>
+<li>측정 후 고무판 옆으로 나가는 경우</li>
+<li>파울 1회 → 재측정 / 2회 파울 → 실격</li>
+</ul></div>
+</div></div>
+</div>
+<div class="acc-item" onclick="toggleAcc(this)">
+<div class="acc-header">
+<span class="acc-badge badge-common">공통</span>
+<span class="acc-title">10m 왕복 달리기</span>
+<span class="acc-score">100점: 남 7.7초↓ / 여 8.7초↓</span>
+<span class="acc-arrow">▼</span>
+</div>
+<div class="acc-body"><div class="acc-inner">
+<div class="method-box"><h5>📋 측정 방법</h5><ul>
+<li>출발 신호에 따라 10m 거리를 달려가 부저를 손으로 누르고 시작점으로 돌아오는 시간 계측</li>
+<li>총 1회 / 파울 1회 시 재기회 / 2회 파울 시 최하점</li>
+</ul></div>
+<div class="foul-box"><h5>⚠️ 파울 규정</h5><ul>
+<li>발끝이 출발선을 밟는 경우</li>
+<li>반환점을 지나지 않고 돌아올 경우</li>
+<li>부저를 제대로 누르지 못하거나 소리가 나지 않은 경우</li>
+</ul></div>
+</div></div>
+</div>
+<div class="acc-item" onclick="toggleAcc(this)">
+<div class="acc-header">
+<span class="acc-badge badge-common">공통</span>
+<span class="acc-title">좌전굴 (유연성)</span>
+<span class="acc-score">100점: 남 32cm / 여 36cm</span>
+<span class="acc-arrow">▼</span>
+</div>
+<div class="acc-body"><div class="acc-inner">
+<div class="method-box"><h5>📋 측정 방법</h5><ul>
+<li>바닥에 앉아 두 다리를 쭉 뻗고 발끝이 하늘을 향하도록 한다</li>
+<li>천천히 상체를 앞으로 굽혀 손끝을 측정기에 터치</li>
+<li>2초 동안 정지된 기록만 인정 / 총 2회 실시</li>
+</ul></div>
+<div class="foul-box"><h5>⚠️ 파울 규정</h5><ul>
+<li>두 팔을 뻗을 때 반동을 주는 경우</li>
+<li>무릎을 구부리거나 발끝이 45도 이상 벌어지는 경우</li>
+<li>2초 정지 전에 몸을 일으킨 경우</li>
+</ul></div>
+</div></div>
+</div>
+<div class="acc-item" onclick="toggleAcc(this)">
+<div class="acc-header">
+<span class="acc-badge badge-common">공통</span>
+<span class="acc-title">메디신볼 던지기</span>
+<span class="acc-score">100점: 남 13m↑ / 여 11m↑</span>
+<span class="acc-arrow">▼</span>
+</div>
+<div class="acc-body"><div class="acc-inner">
+<div class="method-box"><h5>📋 측정 방법</h5><ul>
+<li>메디신볼을 양손으로 잡아 머리 위로 던져 공이 바닥에 떨어진 거리 측정</li>
+<li>남자 3kg / 여자 2kg 고무재질 메디신볼 사용</li>
+<li>총 2회 / 1차에 100점 시 2차 생략</li>
+</ul></div>
+<div class="foul-box"><h5>⚠️ 파울 규정</h5><ul>
+<li>볼이 바닥에 닿기 전 측정 라인에서 발이 떨어지는 경우</li>
+<li>볼이 양쪽 측정 라인을 넘어간 경우</li>
+</ul></div>
+</div></div>
+</div>
+</div>
+<h3 style="color:var(--primary);margin-top:28px;margin-bottom:14px;font-size:1em;">▶ 선택 종목 (4종목 중 2종목 선택)</h3>
+<div class="event-accordion">
+<!-- 배근력 -->
+<div class="acc-item" onclick="toggleAcc(this)">
+<div class="acc-header">
+<span class="acc-badge badge-select">선택</span>
+<span class="acc-title">배근력</span>
+<span class="acc-score">100점: 남 200kg↑ / 여 130kg↑</span>
+<span class="acc-arrow">▼</span>
+</div>
+<div class="acc-body"><div class="acc-inner">
+<div class="method-box"><h5>📋 측정 방법</h5><ul>
+<li>배근력계 발판 위에 발 사이를 15cm 벌리고 선다</li>
+<li>상체를 약 30도 앞으로 굽힌 상태에서 손잡이를 잡고 팔을 아래로 편다</li>
+<li>목 뒷부분과 엉덩이가 직선이 되도록 허리를 곧게 편다</li>
+<li>일정한 속도로 전력을 다해 상체를 일으킨다</li>
+<li>총 2회 측정 / 최고 기록 반영</li>
+</ul></div>
+<div class="foul-box"><h5>⚠️ 파울 규정</h5><ul>
+<li>측정 시 무릎을 굽히는 경우</li>
+<li>반동을 이용하여 잡아당기는 경우</li>
+<li>배근력 바닥판이 들리는 경우</li>
+<li>손에 송진가루·액체 등을 바른 경우</li>
+</ul></div>
+</div></div>
+</div>
+<div class="acc-item" onclick="toggleAcc(this)">
+<div class="acc-header">
+<span class="acc-badge badge-select">선택</span>
+<span class="acc-title">지그재그런</span>
+<span class="acc-score">100점: 남 12.9초↓ / 여 14.9초↓</span>
+<span class="acc-arrow">▼</span>
+</div>
+<div class="acc-body"><div class="acc-inner">
+<div class="method-box"><h5>📋 측정 방법</h5><ul>
+<li>가로 15m × 세로 8m 안에 세워진 5개의 콘을 지그재그로 뛰어 돌아온다</li>
+<li>총 1회 / 파울 시 1회 재기회</li>
+</ul></div>
+<div class="foul-box"><h5>⚠️ 파울 규정</h5><ul>
+<li>콘을 건드리거나 정해진 주로 이탈 시</li>
+<li>뛰다가 넘어진 경우</li>
+</ul></div>
+</div></div>
+</div>
+<div class="acc-item" onclick="toggleAcc(this)">
+<div class="acc-header">
+<span class="acc-badge badge-select">선택</span>
+<span class="acc-title">윗몸일으키기</span>
+<span class="acc-score">100점: 남 75회↑ / 여 70회↑</span>
+<span class="acc-arrow">▼</span>
+</div>
+<div class="acc-body"><div class="acc-inner">
+<div class="method-box"><h5>📋 측정 방법</h5><ul>
+<li>싯업 보드에 누운 자세에서 무릎을 직각으로 굽혀 세운다</li>
+<li>두 손을 껴서 머리 뒤에서 마주 잡는다</li>
+<li>복근력으로 몸을 일으켜 양 팔꿈치가 무릎에 닿으면 횟수 인정</li>
+<li>1분간 계측</li>
+</ul></div>
+<div class="foul-box"><h5>⚠️ 파울 규정</h5><ul>
+<li>양 팔꿈치가 무릎에 닿지 않은 경우</li>
+<li>허리 반동 또는 뒷머리 반발력 이용 시</li>
+</ul></div>
+</div></div>
+</div>
+<div class="acc-item" onclick="toggleAcc(this)">
+<div class="acc-header">
+<span class="acc-badge badge-select">선택</span>
+<span class="acc-title">서전트점프</span>
+<span class="acc-score">100점: 남 80cm↑ / 여 60cm↑</span>
+<span class="acc-arrow">▼</span>
+</div>
+<div class="acc-body"><div class="acc-inner">
+<div class="method-box"><h5>📋 측정 방법</h5><ul>
+<li>매트 센서 위 중앙선에 어깨넓이로 서서 수직으로 최대한 높이 점프</li>
+<li>공중에서 두 다리가 곧게 펴져야 함</li>
+<li>총 2회 / 최고 기록 반영</li>
+</ul></div>
+<div class="foul-box"><h5>⚠️ 파울 규정</h5><ul>
+<li>착지 시 매트 센서 이탈</li>
+<li>착지 시 무릎을 굽히고 쪼그려 앉는 경우</li>
+<li>공중 동작 시 다리가 곧게 펴지지 않은 경우</li>
+</ul></div>
+</div></div>
+</div>
+</div>
+</section>
+<!-- ═══ 배점표 ═══ -->
+<section class="section" id="score">
+<h2 class="section-title">📊 실기 배점표</h2>
+<div class="score-legend">
+<div class="legend-item"><div class="legend-dot" style="background:#ffe082;"></div>100점 (최고점)</div>
+<div class="legend-item"><div class="legend-dot" style="background:#e8f4fd;border:1px solid #90caf9;"></div>남자 기록</div>
+<div class="legend-item"><div class="legend-dot" style="background:#fce4ec;border:1px solid #f48fb1;"></div>여자 기록</div>
+</div>
+<div class="score-mode-buttons">
+<button class="score-mode-btn active" onclick="switchScoreGroup(event,'common')">공통 종목</button>
+<button class="score-mode-btn" onclick="switchScoreGroup(event,'select')">선택 종목</button>
+</div>
+<div class="score-event-group active" id="score-group-common">
+<div class="score-event-buttons">
+<button class="score-event-btn active" onclick="switchScoreEvent(event,'common-jump','common')">제자리멀리뛰기</button><button class="score-event-btn" onclick="switchScoreEvent(event,'common-run','common')">10m왕복달리기</button><button class="score-event-btn" onclick="switchScoreEvent(event,'common-flex','common')">좌전굴</button><button class="score-event-btn" onclick="switchScoreEvent(event,'common-med','common')">메디신볼</button>
+</div>
+<p class="score-note">공통 종목은 버튼을 눌러 종목별 배점표를 확인합니다.</p>
+<div class="score-event-panel active" id="score-panel-common-jump">
+<h3 style="color:var(--primary);font-size:1.02em;margin:8px 0 12px;">제자리멀리뛰기 (cm)</h3>
+<table class="score-table score-single-table">
+<thead><tr><th>배점</th><th class="male-col">남자 기록</th><th class="female-col">여자 기록</th></tr></thead>
+<tbody><tr class="top100"><td>100</td><td class="male-col">320↑</td><td class="female-col">260↑</td></tr><tr><td>98</td><td class="male-col">317~319</td><td class="female-col">257~259</td></tr><tr><td>96</td><td class="male-col">314~316</td><td class="female-col">254~256</td></tr><tr><td>94</td><td class="male-col">311~313</td><td class="female-col">251~253</td></tr><tr><td>92</td><td class="male-col">308~310</td><td class="female-col">248~250</td></tr><tr><td>90</td><td class="male-col">305~307</td><td class="female-col">245~247</td></tr><tr><td>88</td><td class="male-col">302~304</td><td class="female-col">242~244</td></tr><tr><td>86</td><td class="male-col">299~301</td><td class="female-col">239~241</td></tr><tr><td>84</td><td class="male-col">296~298</td><td class="female-col">236~238</td></tr><tr><td>82</td><td class="male-col">293~295</td><td class="female-col">233~235</td></tr><tr><td>80</td><td class="male-col">290~292</td><td class="female-col">230~232</td></tr><tr><td>78</td><td class="male-col">287~289</td><td class="female-col">227~229</td></tr><tr><td>76</td><td class="male-col">284~286</td><td class="female-col">224~226</td></tr><tr><td>74</td><td class="male-col">281~283</td><td class="female-col">221~223</td></tr><tr><td>72</td><td class="male-col">278~280</td><td class="female-col">218~220</td></tr><tr><td>70</td><td class="male-col">275~277</td><td class="female-col">215~217</td></tr><tr><td>68</td><td class="male-col">272~274</td><td class="female-col">212~214</td></tr><tr><td>66</td><td class="male-col">269~271</td><td class="female-col">209~211</td></tr><tr><td>64</td><td class="male-col">266~268</td><td class="female-col">206~208</td></tr><tr><td>62</td><td class="male-col">263~265</td><td class="female-col">203~205</td></tr><tr><td>60</td><td class="male-col">260~262</td><td class="female-col">200~202</td></tr><tr><td>58</td><td class="male-col">257~259</td><td class="female-col">197~199</td></tr><tr><td>56</td><td class="male-col">254~256</td><td class="female-col">194~196</td></tr><tr><td>54</td><td class="male-col">251~253</td><td class="female-col">191~193</td></tr><tr><td>52</td><td class="male-col">248~250</td><td class="female-col">188~190</td></tr><tr><td>50</td><td class="male-col">245~247</td><td class="female-col">185~187</td></tr><tr><td>48</td><td class="male-col">242~244</td><td class="female-col">182~184</td></tr><tr><td>46</td><td class="male-col">239~241</td><td class="female-col">179~181</td></tr><tr><td>44</td><td class="male-col">236~238</td><td class="female-col">176~178</td></tr><tr><td>42</td><td class="male-col">233~235</td><td class="female-col">173~175</td></tr><tr><td>40</td><td class="male-col">230~232</td><td class="female-col">170~172</td></tr><tr><td>38</td><td class="male-col">227~229</td><td class="female-col">167~169</td></tr><tr><td>36</td><td class="male-col">224~226</td><td class="female-col">164~166</td></tr><tr><td>34</td><td class="male-col">221~223</td><td class="female-col">161~163</td></tr><tr><td>32</td><td class="male-col">218~220</td><td class="female-col">158~160</td></tr><tr class="bot30"><td>30</td><td class="male-col">217↓</td><td class="female-col">157↓</td></tr></tbody>
+</table>
+</div>
+<div class="score-event-panel" id="score-panel-common-run">
+<h3 style="color:var(--primary);font-size:1.02em;margin:8px 0 12px;">10m왕복달리기 (초)</h3>
+<table class="score-table score-single-table">
+<thead><tr><th>배점</th><th class="male-col">남자 기록</th><th class="female-col">여자 기록</th></tr></thead>
+<tbody><tr class="top100"><td>100</td><td class="male-col">7.7↓</td><td class="female-col">8.7↓</td></tr><tr><td>98</td><td class="male-col">7.8~7.9</td><td class="female-col">8.8~8.9</td></tr><tr><td>96</td><td class="male-col">8.0~8.1</td><td class="female-col">9.0~9.1</td></tr><tr><td>94</td><td class="male-col">8.2~8.3</td><td class="female-col">9.2~9.3</td></tr><tr><td>92</td><td class="male-col">8.4~8.5</td><td class="female-col">9.4~9.5</td></tr><tr><td>90</td><td class="male-col">8.6~8.7</td><td class="female-col">9.6~9.7</td></tr><tr><td>88</td><td class="male-col">8.8~8.9</td><td class="female-col">9.8~9.9</td></tr><tr><td>86</td><td class="male-col">9.0~9.1</td><td class="female-col">10.0~10.1</td></tr><tr><td>84</td><td class="male-col">9.2~9.3</td><td class="female-col">10.2~10.3</td></tr><tr><td>82</td><td class="male-col">9.4~9.5</td><td class="female-col">10.4~10.5</td></tr><tr><td>80</td><td class="male-col">9.6~9.7</td><td class="female-col">10.6~10.7</td></tr><tr><td>78</td><td class="male-col">9.8~9.9</td><td class="female-col">10.8~10.9</td></tr><tr><td>76</td><td class="male-col">10.0~10.1</td><td class="female-col">11.0~11.1</td></tr><tr><td>74</td><td class="male-col">10.2~10.3</td><td class="female-col">11.2~11.3</td></tr><tr><td>72</td><td class="male-col">10.4~10.5</td><td class="female-col">11.4~11.5</td></tr><tr><td>70</td><td class="male-col">10.6~10.7</td><td class="female-col">11.6~11.7</td></tr><tr><td>68</td><td class="male-col">10.8~10.9</td><td class="female-col">11.8~11.9</td></tr><tr><td>66</td><td class="male-col">11.0~11.1</td><td class="female-col">12.0~12.1</td></tr><tr><td>64</td><td class="male-col">11.2~11.3</td><td class="female-col">12.2~12.3</td></tr><tr><td>62</td><td class="male-col">11.4~11.5</td><td class="female-col">12.4~12.5</td></tr><tr><td>60</td><td class="male-col">11.6~11.7</td><td class="female-col">12.6~12.7</td></tr><tr><td>58</td><td class="male-col">11.8~11.9</td><td class="female-col">12.8~12.9</td></tr><tr><td>56</td><td class="male-col">12.0~12.1</td><td class="female-col">13.0~13.1</td></tr><tr><td>54</td><td class="male-col">12.2~12.3</td><td class="female-col">13.2~13.3</td></tr><tr><td>52</td><td class="male-col">12.4~12.5</td><td class="female-col">13.4~13.5</td></tr><tr><td>50</td><td class="male-col">12.6~12.7</td><td class="female-col">13.6~13.7</td></tr><tr><td>48</td><td class="male-col">12.8~12.9</td><td class="female-col">13.8~13.9</td></tr><tr><td>46</td><td class="male-col">13.0~13.1</td><td class="female-col">14.0~14.1</td></tr><tr><td>44</td><td class="male-col">13.2~13.3</td><td class="female-col">14.2~14.3</td></tr><tr><td>42</td><td class="male-col">13.4~13.5</td><td class="female-col">14.4~14.5</td></tr><tr><td>40</td><td class="male-col">13.6~13.7</td><td class="female-col">14.6~14.7</td></tr><tr><td>38</td><td class="male-col">13.8~13.9</td><td class="female-col">14.8~14.9</td></tr><tr><td>36</td><td class="male-col">14.0~14.1</td><td class="female-col">15.0~15.1</td></tr><tr><td>34</td><td class="male-col">14.2~14.3</td><td class="female-col">15.2~15.3</td></tr><tr><td>32</td><td class="male-col">14.4~14.5</td><td class="female-col">15.4~15.5</td></tr><tr class="bot30"><td>30</td><td class="male-col">14.6↑</td><td class="female-col">15.6↑</td></tr></tbody>
+</table>
+</div>
+<div class="score-event-panel" id="score-panel-common-flex">
+<h3 style="color:var(--primary);font-size:1.02em;margin:8px 0 12px;">좌전굴 (cm)</h3>
+<table class="score-table score-single-table">
+<thead><tr><th>배점</th><th class="male-col">남자 기록</th><th class="female-col">여자 기록</th></tr></thead>
+<tbody><tr class="top100"><td>100</td><td class="male-col">32↑</td><td class="female-col">36↑</td></tr><tr><td>98</td><td class="male-col">31.4</td><td class="female-col">35.4</td></tr><tr><td>96</td><td class="male-col">30.8</td><td class="female-col">34.8</td></tr><tr><td>94</td><td class="male-col">30.2</td><td class="female-col">34.2</td></tr><tr><td>92</td><td class="male-col">29.6</td><td class="female-col">33.6</td></tr><tr><td>90</td><td class="male-col">29.0</td><td class="female-col">33.0</td></tr><tr><td>88</td><td class="male-col">28.4</td><td class="female-col">32.4</td></tr><tr><td>86</td><td class="male-col">27.8</td><td class="female-col">31.8</td></tr><tr><td>84</td><td class="male-col">27.2</td><td class="female-col">31.2</td></tr><tr><td>82</td><td class="male-col">26.6</td><td class="female-col">30.6</td></tr><tr><td>80</td><td class="male-col">26.0</td><td class="female-col">30.0</td></tr><tr><td>78</td><td class="male-col">25.4</td><td class="female-col">29.4</td></tr><tr><td>76</td><td class="male-col">24.8</td><td class="female-col">28.8</td></tr><tr><td>74</td><td class="male-col">24.2</td><td class="female-col">28.2</td></tr><tr><td>72</td><td class="male-col">23.6</td><td class="female-col">27.6</td></tr><tr><td>70</td><td class="male-col">23.0</td><td class="female-col">27.0</td></tr><tr><td>68</td><td class="male-col">22.4</td><td class="female-col">26.4</td></tr><tr><td>66</td><td class="male-col">21.8</td><td class="female-col">25.8</td></tr><tr><td>64</td><td class="male-col">21.2</td><td class="female-col">25.2</td></tr><tr><td>62</td><td class="male-col">20.6</td><td class="female-col">24.6</td></tr><tr><td>60</td><td class="male-col">20.0</td><td class="female-col">24.0</td></tr><tr><td>58</td><td class="male-col">19.4</td><td class="female-col">23.4</td></tr><tr><td>56</td><td class="male-col">18.8</td><td class="female-col">22.8</td></tr><tr><td>54</td><td class="male-col">18.2</td><td class="female-col">22.2</td></tr><tr><td>52</td><td class="male-col">17.6</td><td class="female-col">21.6</td></tr><tr><td>50</td><td class="male-col">17.0</td><td class="female-col">21.0</td></tr><tr><td>48</td><td class="male-col">16.4</td><td class="female-col">20.4</td></tr><tr><td>46</td><td class="male-col">15.8</td><td class="female-col">19.8</td></tr><tr><td>44</td><td class="male-col">15.2</td><td class="female-col">19.2</td></tr><tr><td>42</td><td class="male-col">14.6</td><td class="female-col">18.6</td></tr><tr><td>40</td><td class="male-col">14.0</td><td class="female-col">18.0</td></tr><tr><td>38</td><td class="male-col">13.4</td><td class="female-col">17.4</td></tr><tr><td>36</td><td class="male-col">12.8</td><td class="female-col">16.8</td></tr><tr><td>34</td><td class="male-col">12.2</td><td class="female-col">16.2</td></tr><tr><td>32</td><td class="male-col">11.6</td><td class="female-col">15.6</td></tr><tr class="bot30"><td>30</td><td class="male-col">11.5↓</td><td class="female-col">15.5↓</td></tr></tbody>
+</table>
+</div>
+<div class="score-event-panel" id="score-panel-common-med">
+<h3 style="color:var(--primary);font-size:1.02em;margin:8px 0 12px;">메디신볼 (m)</h3>
+<table class="score-table score-single-table">
+<thead><tr><th>배점</th><th class="male-col">남자 기록</th><th class="female-col">여자 기록</th></tr></thead>
+<tbody><tr class="top100"><td>100</td><td class="male-col">13↑</td><td class="female-col">11↑</td></tr><tr><td>98</td><td class="male-col">12.8~12.9</td><td class="female-col">10.8~10.9</td></tr><tr><td>96</td><td class="male-col">12.6~12.7</td><td class="female-col">10.6~10.7</td></tr><tr><td>94</td><td class="male-col">12.4~12.5</td><td class="female-col">10.4~10.5</td></tr><tr><td>92</td><td class="male-col">12.2~12.3</td><td class="female-col">10.2~10.3</td></tr><tr><td>90</td><td class="male-col">12.0~12.1</td><td class="female-col">10.0~10.1</td></tr><tr><td>88</td><td class="male-col">11.8~11.9</td><td class="female-col">9.8~9.9</td></tr><tr><td>86</td><td class="male-col">11.6~11.7</td><td class="female-col">9.6~9.7</td></tr><tr><td>84</td><td class="male-col">11.4~11.5</td><td class="female-col">9.4~9.5</td></tr><tr><td>82</td><td class="male-col">11.2~11.3</td><td class="female-col">9.2~9.3</td></tr><tr><td>80</td><td class="male-col">11.0~11.1</td><td class="female-col">9.0~9.1</td></tr><tr><td>78</td><td class="male-col">10.8~10.9</td><td class="female-col">8.8~8.9</td></tr><tr><td>76</td><td class="male-col">10.6~10.7</td><td class="female-col">8.6~8.7</td></tr><tr><td>74</td><td class="male-col">10.4~10.5</td><td class="female-col">8.4~8.5</td></tr><tr><td>72</td><td class="male-col">10.2~10.4</td><td class="female-col">8.2~8.3</td></tr><tr><td>70</td><td class="male-col">10.0~10.1</td><td class="female-col">8.0~8.1</td></tr><tr><td>68</td><td class="male-col">9.8~9.9</td><td class="female-col">7.8~7.9</td></tr><tr><td>66</td><td class="male-col">9.6~9.7</td><td class="female-col">7.6~7.7</td></tr><tr><td>64</td><td class="male-col">9.4~9.5</td><td class="female-col">7.4~7.5</td></tr><tr><td>62</td><td class="male-col">9.2~9.3</td><td class="female-col">7.2~7.3</td></tr><tr><td>60</td><td class="male-col">9.0~9.1</td><td class="female-col">7.0~7.1</td></tr><tr><td>58</td><td class="male-col">8.8~8.9</td><td class="female-col">6.8~6.9</td></tr><tr><td>56</td><td class="male-col">8.6~8.7</td><td class="female-col">6.6~6.7</td></tr><tr><td>54</td><td class="male-col">8.4~8.5</td><td class="female-col">6.4~6.5</td></tr><tr><td>52</td><td class="male-col">8.2~8.3</td><td class="female-col">6.2~6.3</td></tr><tr><td>50</td><td class="male-col">8.0~8.1</td><td class="female-col">6.0~6.1</td></tr><tr><td>48</td><td class="male-col">7.8~7.9</td><td class="female-col">5.8~5.9</td></tr><tr><td>46</td><td class="male-col">7.6~7.7</td><td class="female-col">5.6~5.7</td></tr><tr><td>44</td><td class="male-col">7.4~7.5</td><td class="female-col">5.4~5.5</td></tr><tr><td>42</td><td class="male-col">7.2~7.3</td><td class="female-col">5.2~5.3</td></tr><tr><td>40</td><td class="male-col">7.0~7.1</td><td class="female-col">5.0~5.1</td></tr><tr><td>38</td><td class="male-col">6.8~6.9</td><td class="female-col">4.8~4.9</td></tr><tr><td>36</td><td class="male-col">6.6~6.7</td><td class="female-col">4.6~4.7</td></tr><tr><td>34</td><td class="male-col">6.4~6.5</td><td class="female-col">4.4~4.5</td></tr><tr><td>32</td><td class="male-col">6.2~6.3</td><td class="female-col">4.2~4.3</td></tr><tr class="bot30"><td>30</td><td class="male-col">6.1↓</td><td class="female-col">4.1↓</td></tr></tbody>
+</table>
+</div>
+</div>
+<div class="score-event-group" id="score-group-select">
+<div class="score-event-buttons">
+<button class="score-event-btn active" onclick="switchScoreEvent(event,'select-backstr','select')">배근력</button><button class="score-event-btn" onclick="switchScoreEvent(event,'select-zigzag','select')">지그재그런</button><button class="score-event-btn" onclick="switchScoreEvent(event,'select-situp','select')">윗몸일으키기</button><button class="score-event-btn" onclick="switchScoreEvent(event,'select-sargent','select')">서전트점프</button>
+</div>
+<p class="score-note">선택 종목은 4종목 중 2종목 선택 측정합니다.</p>
+<div class="score-event-panel active" id="score-panel-select-backstr">
+<h3 style="color:var(--primary);font-size:1.02em;margin:8px 0 12px;">배근력 (kg)</h3>
+<table class="score-table score-single-table">
+<thead><tr><th>배점</th><th class="male-col">남자 기록</th><th class="female-col">여자 기록</th></tr></thead>
+<tbody><tr class="top100"><td>100</td><td class="male-col">200↑</td><td class="female-col">130↑</td></tr><tr><td>98</td><td class="male-col">197~199</td><td class="female-col">128~129</td></tr><tr><td>96</td><td class="male-col">194~196</td><td class="female-col">126~127</td></tr><tr><td>94</td><td class="male-col">191~193</td><td class="female-col">124~125</td></tr><tr><td>92</td><td class="male-col">188~190</td><td class="female-col">122~123</td></tr><tr><td>90</td><td class="male-col">185~187</td><td class="female-col">120~121</td></tr><tr><td>88</td><td class="male-col">182~184</td><td class="female-col">118~119</td></tr><tr><td>86</td><td class="male-col">179~181</td><td class="female-col">116~117</td></tr><tr><td>84</td><td class="male-col">176~178</td><td class="female-col">114~115</td></tr><tr><td>82</td><td class="male-col">173~175</td><td class="female-col">112~113</td></tr><tr><td>80</td><td class="male-col">170~172</td><td class="female-col">110~111</td></tr><tr><td>78</td><td class="male-col">167~169</td><td class="female-col">108~109</td></tr><tr><td>76</td><td class="male-col">164~166</td><td class="female-col">106~107</td></tr><tr><td>74</td><td class="male-col">161~163</td><td class="female-col">104~105</td></tr><tr><td>72</td><td class="male-col">158~160</td><td class="female-col">102~103</td></tr><tr><td>70</td><td class="male-col">155~157</td><td class="female-col">100~101</td></tr><tr><td>68</td><td class="male-col">152~154</td><td class="female-col">98~99</td></tr><tr><td>66</td><td class="male-col">149~151</td><td class="female-col">96~97</td></tr><tr><td>64</td><td class="male-col">146~148</td><td class="female-col">94~95</td></tr><tr><td>62</td><td class="male-col">143~145</td><td class="female-col">92~93</td></tr><tr><td>60</td><td class="male-col">140~142</td><td class="female-col">90~91</td></tr><tr><td>58</td><td class="male-col">137~139</td><td class="female-col">88~89</td></tr><tr><td>56</td><td class="male-col">134~136</td><td class="female-col">86~87</td></tr><tr><td>54</td><td class="male-col">131~133</td><td class="female-col">84~85</td></tr><tr><td>52</td><td class="male-col">128~130</td><td class="female-col">82~83</td></tr><tr><td>50</td><td class="male-col">125~127</td><td class="female-col">80~81</td></tr><tr><td>48</td><td class="male-col">122~124</td><td class="female-col">78~79</td></tr><tr><td>46</td><td class="male-col">119~121</td><td class="female-col">76~77</td></tr><tr><td>44</td><td class="male-col">116~118</td><td class="female-col">74~75</td></tr><tr><td>42</td><td class="male-col">113~115</td><td class="female-col">72~73</td></tr><tr><td>40</td><td class="male-col">110~112</td><td class="female-col">70~71</td></tr><tr><td>38</td><td class="male-col">107~109</td><td class="female-col">68~69</td></tr><tr><td>36</td><td class="male-col">104~106</td><td class="female-col">66~67</td></tr><tr><td>34</td><td class="male-col">101~103</td><td class="female-col">64~65</td></tr><tr><td>32</td><td class="male-col">98~100</td><td class="female-col">62~63</td></tr><tr class="bot30"><td>30</td><td class="male-col">97↓</td><td class="female-col">61↓</td></tr></tbody>
+</table>
+</div>
+<div class="score-event-panel" id="score-panel-select-zigzag">
+<h3 style="color:var(--primary);font-size:1.02em;margin:8px 0 12px;">지그재그런 (초)</h3>
+<table class="score-table score-single-table">
+<thead><tr><th>배점</th><th class="male-col">남자 기록</th><th class="female-col">여자 기록</th></tr></thead>
+<tbody><tr class="top100"><td>100</td><td class="male-col">12.9↓</td><td class="female-col">14.9↓</td></tr><tr><td>98</td><td class="male-col">13.0~13.1</td><td class="female-col">15.0~15.1</td></tr><tr><td>96</td><td class="male-col">13.2~13.3</td><td class="female-col">15.2~15.3</td></tr><tr><td>94</td><td class="male-col">13.4~13.5</td><td class="female-col">15.4~15.5</td></tr><tr><td>92</td><td class="male-col">13.6~13.7</td><td class="female-col">15.6~15.7</td></tr><tr><td>90</td><td class="male-col">13.8~13.9</td><td class="female-col">15.8~15.9</td></tr><tr><td>88</td><td class="male-col">14.0~14.1</td><td class="female-col">16.0~16.1</td></tr><tr><td>86</td><td class="male-col">14.2~14.3</td><td class="female-col">16.2~16.3</td></tr><tr><td>84</td><td class="male-col">14.4~14.5</td><td class="female-col">16.4~16.5</td></tr><tr><td>82</td><td class="male-col">14.6~14.7</td><td class="female-col">16.6~16.7</td></tr><tr><td>80</td><td class="male-col">14.8~14.9</td><td class="female-col">16.8~16.9</td></tr><tr><td>78</td><td class="male-col">15.0~15.1</td><td class="female-col">17.0~17.1</td></tr><tr><td>76</td><td class="male-col">15.2~15.3</td><td class="female-col">17.2~17.3</td></tr><tr><td>74</td><td class="male-col">15.4~15.5</td><td class="female-col">17.4~17.5</td></tr><tr><td>72</td><td class="male-col">15.6~15.7</td><td class="female-col">17.6~17.7</td></tr><tr><td>70</td><td class="male-col">15.8~15.9</td><td class="female-col">17.8~17.9</td></tr><tr><td>68</td><td class="male-col">16.0~16.1</td><td class="female-col">18.0~18.1</td></tr><tr><td>66</td><td class="male-col">16.2~16.3</td><td class="female-col">18.2~18.3</td></tr><tr><td>64</td><td class="male-col">16.4~16.5</td><td class="female-col">18.4~18.5</td></tr><tr><td>62</td><td class="male-col">16.6~16.7</td><td class="female-col">18.6~18.7</td></tr><tr><td>60</td><td class="male-col">16.8~16.9</td><td class="female-col">18.8~18.9</td></tr><tr><td>58</td><td class="male-col">17.0~17.1</td><td class="female-col">19.0~19.1</td></tr><tr><td>56</td><td class="male-col">17.2~17.3</td><td class="female-col">19.2~19.3</td></tr><tr><td>54</td><td class="male-col">17.4~17.5</td><td class="female-col">19.4~19.5</td></tr><tr><td>52</td><td class="male-col">17.6~17.7</td><td class="female-col">19.6~19.7</td></tr><tr><td>50</td><td class="male-col">17.8~17.9</td><td class="female-col">19.8~19.9</td></tr><tr><td>48</td><td class="male-col">18.0~18.1</td><td class="female-col">20.0~20.1</td></tr><tr><td>46</td><td class="male-col">18.2~18.3</td><td class="female-col">20.2~21.3</td></tr><tr><td>44</td><td class="male-col">18.4~18.5</td><td class="female-col">21.4~21.5</td></tr><tr><td>42</td><td class="male-col">18.6~18.7</td><td class="female-col">21.6~21.7</td></tr><tr><td>40</td><td class="male-col">18.8~18.9</td><td class="female-col">21.8~21.9</td></tr><tr><td>38</td><td class="male-col">19.0~19.1</td><td class="female-col">22.0~22.1</td></tr><tr><td>36</td><td class="male-col">19.2~19.3</td><td class="female-col">22.2~22.3</td></tr><tr><td>34</td><td class="male-col">19.4~19.5</td><td class="female-col">22.4~22.5</td></tr><tr><td>32</td><td class="male-col">19.6~19.7</td><td class="female-col">22.6~22.7</td></tr><tr class="bot30"><td>30</td><td class="male-col">19.8↑</td><td class="female-col">22.8↑</td></tr></tbody>
+</table>
+</div>
+<div class="score-event-panel" id="score-panel-select-situp">
+<h3 style="color:var(--primary);font-size:1.02em;margin:8px 0 12px;">윗몸일으키기 (회)</h3>
+<table class="score-table score-single-table">
+<thead><tr><th>배점</th><th class="male-col">남자 기록</th><th class="female-col">여자 기록</th></tr></thead>
+<tbody><tr class="top100"><td>100</td><td class="male-col">75↑</td><td class="female-col">70↑</td></tr><tr><td>98</td><td class="male-col">74</td><td class="female-col">69</td></tr><tr><td>96</td><td class="male-col">73</td><td class="female-col">68</td></tr><tr><td>94</td><td class="male-col">72</td><td class="female-col">67</td></tr><tr><td>92</td><td class="male-col">71</td><td class="female-col">66</td></tr><tr><td>90</td><td class="male-col">70</td><td class="female-col">65</td></tr><tr><td>88</td><td class="male-col">69</td><td class="female-col">64</td></tr><tr><td>86</td><td class="male-col">68</td><td class="female-col">63</td></tr><tr><td>84</td><td class="male-col">67</td><td class="female-col">62</td></tr><tr><td>82</td><td class="male-col">66</td><td class="female-col">61</td></tr><tr><td>80</td><td class="male-col">65</td><td class="female-col">60</td></tr><tr><td>78</td><td class="male-col">64</td><td class="female-col">59</td></tr><tr><td>76</td><td class="male-col">63</td><td class="female-col">58</td></tr><tr><td>74</td><td class="male-col">62</td><td class="female-col">57</td></tr><tr><td>72</td><td class="male-col">61</td><td class="female-col">56</td></tr><tr><td>70</td><td class="male-col">60</td><td class="female-col">55</td></tr><tr><td>68</td><td class="male-col">59</td><td class="female-col">54</td></tr><tr><td>66</td><td class="male-col">58</td><td class="female-col">53</td></tr><tr><td>64</td><td class="male-col">57</td><td class="female-col">52</td></tr><tr><td>62</td><td class="male-col">56</td><td class="female-col">51</td></tr><tr><td>60</td><td class="male-col">55</td><td class="female-col">50</td></tr><tr><td>58</td><td class="male-col">54</td><td class="female-col">49</td></tr><tr><td>56</td><td class="male-col">53</td><td class="female-col">48</td></tr><tr><td>54</td><td class="male-col">52</td><td class="female-col">47</td></tr><tr><td>52</td><td class="male-col">51</td><td class="female-col">46</td></tr><tr><td>50</td><td class="male-col">50</td><td class="female-col">45</td></tr><tr><td>48</td><td class="male-col">49</td><td class="female-col">44</td></tr><tr><td>46</td><td class="male-col">48</td><td class="female-col">43</td></tr><tr><td>44</td><td class="male-col">47</td><td class="female-col">42</td></tr><tr><td>42</td><td class="male-col">46</td><td class="female-col">41</td></tr><tr><td>40</td><td class="male-col">45</td><td class="female-col">40</td></tr><tr><td>38</td><td class="male-col">44</td><td class="female-col">39</td></tr><tr><td>36</td><td class="male-col">43</td><td class="female-col">38</td></tr><tr><td>34</td><td class="male-col">42</td><td class="female-col">37</td></tr><tr><td>32</td><td class="male-col">41</td><td class="female-col">36</td></tr><tr class="bot30"><td>30</td><td class="male-col">40↓</td><td class="female-col">35↓</td></tr></tbody>
+</table>
+</div>
+<div class="score-event-panel" id="score-panel-select-sargent">
+<h3 style="color:var(--primary);font-size:1.02em;margin:8px 0 12px;">서전트점프 (cm)</h3>
+<table class="score-table score-single-table">
+<thead><tr><th>배점</th><th class="male-col">남자 기록</th><th class="female-col">여자 기록</th></tr></thead>
+<tbody><tr class="top100"><td>100</td><td class="male-col">80↑</td><td class="female-col">60↑</td></tr><tr><td>98</td><td class="male-col">79</td><td class="female-col">59</td></tr><tr><td>96</td><td class="male-col">78</td><td class="female-col">58</td></tr><tr><td>94</td><td class="male-col">77</td><td class="female-col">57</td></tr><tr><td>92</td><td class="male-col">76</td><td class="female-col">56</td></tr><tr><td>90</td><td class="male-col">75</td><td class="female-col">55</td></tr><tr><td>88</td><td class="male-col">74</td><td class="female-col">54</td></tr><tr><td>86</td><td class="male-col">73</td><td class="female-col">53</td></tr><tr><td>84</td><td class="male-col">72</td><td class="female-col">52</td></tr><tr><td>82</td><td class="male-col">71</td><td class="female-col">51</td></tr><tr><td>80</td><td class="male-col">70</td><td class="female-col">50</td></tr><tr><td>78</td><td class="male-col">69</td><td class="female-col">49</td></tr><tr><td>76</td><td class="male-col">68</td><td class="female-col">48</td></tr><tr><td>74</td><td class="male-col">67</td><td class="female-col">47</td></tr><tr><td>72</td><td class="male-col">66</td><td class="female-col">46</td></tr><tr><td>70</td><td class="male-col">65</td><td class="female-col">45</td></tr><tr><td>68</td><td class="male-col">64</td><td class="female-col">44</td></tr><tr><td>66</td><td class="male-col">63</td><td class="female-col">43</td></tr><tr><td>64</td><td class="male-col">62</td><td class="female-col">42</td></tr><tr><td>62</td><td class="male-col">61</td><td class="female-col">41</td></tr><tr><td>60</td><td class="male-col">60</td><td class="female-col">40</td></tr><tr><td>58</td><td class="male-col">59</td><td class="female-col">39</td></tr><tr><td>56</td><td class="male-col">58</td><td class="female-col">38</td></tr><tr><td>54</td><td class="male-col">57</td><td class="female-col">37</td></tr><tr><td>52</td><td class="male-col">56</td><td class="female-col">36</td></tr><tr><td>50</td><td class="male-col">55</td><td class="female-col">35</td></tr><tr><td>48</td><td class="male-col">54</td><td class="female-col">34</td></tr><tr><td>46</td><td class="male-col">53</td><td class="female-col">33</td></tr><tr><td>44</td><td class="male-col">52</td><td class="female-col">32</td></tr><tr><td>42</td><td class="male-col">51</td><td class="female-col">31</td></tr><tr><td>40</td><td class="male-col">50</td><td class="female-col">30</td></tr><tr><td>38</td><td class="male-col">49</td><td class="female-col">29</td></tr><tr><td>36</td><td class="male-col">48</td><td class="female-col">28</td></tr><tr><td>34</td><td class="male-col">47</td><td class="female-col">27</td></tr><tr><td>32</td><td class="male-col">46</td><td class="female-col">26</td></tr><tr class="bot30"><td>30</td><td class="male-col">45↓</td><td class="female-col">26↓</td></tr></tbody>
+</table>
+</div>
+</div>
+</section>
+<!-- ═══ 합산 점수 자동 계산기 ═══ -->
+<section class="section" id="calc">
+<h2 class="section-title">🧮 합산 점수 자동 계산기</h2>
+<div class="calc-wrap">
+<div style="margin-bottom:22px;">
+<div class="calc-section-title"><span>①</span> 성별 선택</div>
+<div class="gender-toggle">
+<button class="gender-btn active" id="btn-male" onclick="setGender('male')">👨 남자</button>
+<button class="gender-btn" id="btn-female" onclick="setGender('female')">👩 여자</button>
+</div>
+</div>
+<div class="calc-section-title"><span>②</span> 공통 종목 기록 입력</div>
+<div class="calc-grid">
+<div class="calc-item">
+<label>제자리멀리뛰기 <span class="unit">(cm)</span></label>
+<input class="calc-input" id="inp-jump" oninput="calcAll()" placeholder="예: 295" type="number"/>
+<div class="calc-score-badge"><span>점수:</span><strong id="sc-jump">—</strong></div>
+<div class="score-bar-wrap"><div class="score-bar" id="bar-jump" style="width:0%"></div></div>
+</div>
+<div class="calc-item">
+<label>10m 왕복 달리기 <span class="unit">(초)</span></label>
+<input class="calc-input" id="inp-run" oninput="calcAll()" placeholder="예: 9.2" step="0.1" type="number"/>
+<div class="calc-score-badge"><span>점수:</span><strong id="sc-run">—</strong></div>
+<div class="score-bar-wrap"><div class="score-bar" id="bar-run" style="width:0%"></div></div>
+</div>
+<div class="calc-item">
+<label>좌전굴 <span class="unit">(cm)</span></label>
+<input class="calc-input" id="inp-flex" oninput="calcAll()" placeholder="예: 25.0" step="0.1" type="number"/>
+<div class="calc-score-badge"><span>점수:</span><strong id="sc-flex">—</strong></div>
+<div class="score-bar-wrap"><div class="score-bar" id="bar-flex" style="width:0%"></div></div>
+</div>
+<div class="calc-item">
+<label>메디신볼 던지기 <span class="unit">(m)</span></label>
+<input class="calc-input" id="inp-med" oninput="calcAll()" placeholder="예: 10.5" step="0.1" type="number"/>
+<div class="calc-score-badge"><span>점수:</span><strong id="sc-med">—</strong></div>
+<div class="score-bar-wrap"><div class="score-bar" id="bar-med" style="width:0%"></div></div>
+</div>
+</div>
+<div class="calc-section-title" style="margin-top:10px;"><span>③</span> 선택 종목 (2개 선택)</div>
+<!-- ✅ 배근력 버튼 추가 -->
+<div class="select-event-grid" id="select-event-grid">
+<button class="select-event-btn" data-key="backstr" onclick="toggleSelectEvent(this)">💪 배근력</button>
+<button class="select-event-btn" data-key="zigzag" onclick="toggleSelectEvent(this)">🏃 지그재그런</button>
+<button class="select-event-btn" data-key="situp" onclick="toggleSelectEvent(this)">🤸 윗몸일으키기</button>
+<button class="select-event-btn" data-key="sargent" onclick="toggleSelectEvent(this)">⬆️ 서전트점프</button>
+<button class="select-event-btn" data-key="none" onclick="toggleSelectEvent(this)">❌ 선택 안 함</button>
+</div>
+<div class="calc-grid" id="select-inputs" style="margin-top:16px;"></div>
+<div class="total-score-box">
+<div class="label">📊 공통 4종목 + 선택 2종목 합산</div>
+<div class="total-num" id="total-num">—</div>
+<div class="max">/ 최대 600점</div>
+<div class="breakdown" id="breakdown"></div>
+<button class="reset-btn" onclick="resetCalc()">🔄 초기화</button>
+</div>
+</div>
+</section>
+<!-- ═══ 안전 관리 ═══ -->
+<section class="section" id="safety">
+<h2 class="section-title">🛡️ 안전 관리 계획</h2>
+<div class="safety-grid">
+<div class="safety-item"><div class="s-icon">🏃</div><h4>준비운동 실시</h4><p>측정 전 학생 개별 준비운동 및 스포츠 상해 예방</p></div>
+<div class="safety-item"><div class="s-icon">🛡️</div><h4>스포츠 공제 가입</h4><p>모의 테스트 참여 전체 학생 스포츠여행자공제 가입</p></div>
+<div class="safety-item"><div class="s-icon">🚑</div><h4>구급차 배치</h4><p>구급차 1대 및 응급 수송 인력 1명 현장 배치</p></div>
+<div class="safety-item"><div class="s-icon">👨‍⚕️</div><h4>의료진 배치</h4><p>의료진 1명 배치 및 임시 수송 차량·요원 운영</p></div>
+</div>
+</section>
+<!-- ═══ 준비물 ═══ -->
+<section class="section" id="prep">
+<h2 class="section-title">🎒 준비물 안내</h2>
+<div class="prep-list">
+<div class="prep-item">👕 운동복</div>
+<div class="prep-item">👟 운동화</div>
+<div class="prep-item">🍫 개인 간식</div>
+<div class="prep-item">💧 음료 / 물</div>
+</div>
+<div class="notice-box">
+<div class="n-icon">🚫</div>
+<div><h4>착용 금지</h4>
+<p>체대입시 학원이 명시되거나 추측될 수 있는 표식이 있는 운동복·개인 장비 등 착용·지참 금지</p></div>
+</div>
+<div class="notice-box" style="margin-top:12px;">
+<div class="n-icon">✅</div>
+<div><h4>기타 유의사항</h4>
+<ul>
+<li>참가 신청서는 본인(보호자)이 반드시 동의 후 행사 참가</li>
+<li>충분한 준비운동 실시 및 의료 대책으로 안전성 확보</li>
+<li>선택1(진학상담) 선택 시 성적표·생활기록부 사본 필수 지참</li>
+</ul>
+</div>
+</div>
+</section>
+</div>
+<footer>
+  <p>© 2026 중마고등학교. All Rights Reserved.</p>
+</footer>
+
+<button id="topBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">▲</button>
+<script>
+/* ── 탭 전환 ── */
+function switchTab(e,id){
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));
+  e.target.classList.add('active');
+  document.getElementById('tab-'+id).classList.add('active');
+}
+function switchScoreTab(e,id){
+  document.querySelectorAll('.score-tab-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.score-tab-content').forEach(c=>c.classList.remove('active'));
+  e.target.classList.add('active');
+  document.getElementById('tab-'+id).classList.add('active');
+}
+
+/* 실기 배점표: 종목별 버튼 전환 */
+function switchScoreGroup(e, group){
+  document.querySelectorAll('.score-mode-btn').forEach(b=>b.classList.remove('active'));
+  const clicked = e && (e.currentTarget || e.target);
+  if(clicked) clicked.classList.add('active');
+
+  document.querySelectorAll('.score-event-group').forEach(g=>g.classList.remove('active'));
+  const groupEl = document.getElementById('score-group-' + group);
+  if(groupEl){
+    groupEl.classList.add('active');
+    const firstBtn = groupEl.querySelector('.score-event-btn');
+    const firstPanel = groupEl.querySelector('.score-event-panel');
+    groupEl.querySelectorAll('.score-event-btn').forEach(b=>b.classList.remove('active'));
+    groupEl.querySelectorAll('.score-event-panel').forEach(p=>p.classList.remove('active'));
+    if(firstBtn) firstBtn.classList.add('active');
+    if(firstPanel) firstPanel.classList.add('active');
+  }
+}
+function switchScoreEvent(e, key, group){
+  const groupEl = document.getElementById('score-group-' + group);
+  if(!groupEl) return;
+  groupEl.querySelectorAll('.score-event-btn').forEach(b=>b.classList.remove('active'));
+  const clicked = e && (e.currentTarget || e.target);
+  if(clicked) clicked.classList.add('active');
+
+  groupEl.querySelectorAll('.score-event-panel').forEach(p=>p.classList.remove('active'));
+  const panel = document.getElementById('score-panel-' + key);
+  if(panel) panel.classList.add('active');
+}
+
+function toggleAcc(el){ el.classList.toggle('open'); }
+
+/* ── 상단 이동 ── */
+window.addEventListener('scroll',()=>{
+  document.getElementById('topBtn').style.display=window.scrollY>300?'block':'none';
+});
+
+/* ── 공유 ── */
+function shareLink(){
+  const url=window.location.href;
+  const title='2026 체육계열 대입 통합 지원 프로그램';
+  const text='화순하니움 | 2026.7.16.(목) | 중마고등학교';
+  if(navigator.share){navigator.share({title,text,url}).catch(()=>{});}
+  else{
+    navigator.clipboard.writeText(url).then(()=>{
+      alert('✅ 링크가 클립보드에 복사되었습니다!\n카카오톡·문자 등에 붙여넣기 하세요.');
+    }).catch(()=>{ prompt('아래 링크를 복사하세요:',url); });
+  }
+}
+
+
+
+/* ══════════════════════
+   ✅ D-DAY 카운트다운
+══════════════════════ */
+(function countdown(){
+  const EVENT = new Date('2026-07-16T09:30:00');
+
+  function pad(n){ return String(n).padStart(2,'0'); }
+
+  function tick(){
+    const timer = document.getElementById('dday-timer');
+    const badge = document.getElementById('dday-badge');
+    const daysEl = document.getElementById('cd-days');
+    const hoursEl = document.getElementById('cd-hours');
+    const minsEl = document.getElementById('cd-mins');
+    const secsEl = document.getElementById('cd-secs');
+    if(!timer || !badge || !daysEl || !hoursEl || !minsEl || !secsEl) return;
+
+    const now  = new Date();
+    const diff = EVENT - now;
+
+    if(diff <= 0){
+      timer.innerHTML = '<div class="dday-done">🎉 행사가 시작되었습니다!</div>';
+      badge.textContent = 'D-DAY';
+      return;
+    }
+
+    const totalDays = Math.floor(diff / 86400000);
+    const hours     = Math.floor((diff % 86400000) / 3600000);
+    const mins      = Math.floor((diff % 3600000)  / 60000);
+    const secs      = Math.floor((diff % 60000)    / 1000);
+
+    daysEl.textContent  = pad(totalDays);
+    hoursEl.textContent = pad(hours);
+    minsEl.textContent  = pad(mins);
+    secsEl.textContent  = pad(secs);
+
+    badge.textContent = totalDays === 0 ? 'D-DAY' : `D - ${totalDays}`;
+    setTimeout(tick, 1000);
+  }
+  tick();
+})();
+
+/* ══════════════════════
+   합산 점수 계산기
+══════════════════════ */
+let gender = 'male';
+let selectedEvents = [];
+const CALC_STORAGE_KEY = 'jm_pe_admission_calc_v2';
+let isRestoringCalc = false;
+
+const SCORES = [100,98,96,94,92,90,88,86,84,82,80,78,76,74,72,70,68,66,64,62,
+                60,58,56,54,52,50,48,46,44,42,40,38,36,34,32,30];
+
+const TABLES = {
+  jump:{
+    male:  {higher:true,  th:[320,317,314,311,308,305,302,299,296,293,290,287,284,281,278,275,272,269,266,263,260,257,254,251,248,245,242,239,236,233,230,227,224,221,218,0]},
+    female:{higher:true,  th:[260,257,254,251,248,245,242,239,236,233,230,227,224,221,218,215,212,209,206,203,200,197,194,191,188,185,182,179,176,173,170,167,164,161,158,0]}
+  },
+  run:{
+    male:  {higher:false, th:[7.7,7.9,8.1,8.3,8.5,8.7,8.9,9.1,9.3,9.5,9.7,9.9,10.1,10.3,10.5,10.7,10.9,11.1,11.3,11.5,11.7,11.9,12.1,12.3,12.5,12.7,12.9,13.1,13.3,13.5,13.7,13.9,14.1,14.3,14.5,999]},
+    female:{higher:false, th:[8.7,8.9,9.1,9.3,9.5,9.7,9.9,10.1,10.3,10.5,10.7,10.9,11.1,11.3,11.5,11.7,11.9,12.1,12.3,12.5,12.7,12.9,13.1,13.3,13.5,13.7,13.9,14.1,14.3,14.5,14.7,14.9,15.1,15.3,15.5,999]}
+  },
+  flex:{
+    male:  {higher:true,  th:[32,31.4,30.8,30.2,29.6,29,28.4,27.8,27.2,26.6,26,25.4,24.8,24.2,23.6,23,22.4,21.8,21.2,20.6,20,19.4,18.8,18.2,17.6,17,16.4,15.8,15.2,14.6,14,13.4,12.8,12.2,11.6,0]},
+    female:{higher:true,  th:[36,35.4,34.8,34.2,33.6,33,32.4,31.8,31.2,30.6,30,29.4,28.8,28.2,27.6,27,26.4,25.8,25.2,24.6,24,23.4,22.8,22.2,21.6,21,20.4,19.8,19.2,18.6,18,17.4,16.8,16.2,15.6,0]}
+  },
+  med:{
+    male:  {higher:true,  th:[13,12.8,12.6,12.4,12.2,12,11.8,11.6,11.4,11.2,11,10.8,10.6,10.4,10.2,10,9.8,9.6,9.4,9.2,9,8.8,8.6,8.4,8.2,8,7.8,7.6,7.4,7.2,7,6.8,6.6,6.4,6.2,0]},
+    female:{higher:true,  th:[11,10.8,10.6,10.4,10.2,10,9.8,9.6,9.4,9.2,9,8.8,8.6,8.4,8.2,8,7.8,7.6,7.4,7.2,7,6.8,6.6,6.4,6.2,6,5.8,5.6,5.4,5.2,5,4.8,4.6,4.4,4.2,0]}
+  },
+  /* ✅ 배근력 추가 */
+  backstr:{
+    male:  {higher:true,  th:[200,197,194,191,188,185,182,179,176,173,170,167,164,161,158,155,152,149,146,143,140,137,134,131,128,125,122,119,116,113,110,107,104,101,98,0]},
+    female:{higher:true,  th:[130,128,126,124,122,120,118,116,114,112,110,108,106,104,102,100,98,96,94,92,90,88,86,84,82,80,78,76,74,72,70,68,66,64,62,0]}
+  },
+  zigzag:{
+    male:  {higher:false, th:[12.9,13.1,13.3,13.5,13.7,13.9,14.1,14.3,14.5,14.7,14.9,15.1,15.3,15.5,15.7,15.9,16.1,16.3,16.5,16.7,16.9,17.1,17.3,17.5,17.7,17.9,18.1,18.3,18.5,18.7,18.9,19.1,19.3,19.5,19.7,999]},
+    female:{higher:false, th:[14.9,15.1,15.3,15.5,15.7,15.9,16.1,16.3,16.5,16.7,16.9,17.1,17.3,17.5,17.7,17.9,18.1,18.3,18.5,18.7,18.9,19.1,19.3,19.5,19.7,19.9,20.1,21.3,21.5,21.7,21.9,22.1,22.3,22.5,22.7,999]}
+  },
+  situp:{
+    male:  {higher:true,  th:[75,74,73,72,71,70,69,68,67,66,65,64,63,62,61,60,59,58,57,56,55,54,53,52,51,50,49,48,47,46,45,44,43,42,41,0]},
+    female:{higher:true,  th:[70,69,68,67,66,65,64,63,62,61,60,59,58,57,56,55,54,53,52,51,50,49,48,47,46,45,44,43,42,41,40,39,38,37,36,0]}
+  },
+  sargent:{
+    male:  {higher:true,  th:[80,79,78,77,76,75,74,73,72,71,70,69,68,67,66,65,64,63,62,61,60,59,58,57,56,55,54,53,52,51,50,49,48,47,46,0]},
+    female:{higher:true,  th:[60,59,58,57,56,55,54,53,52,51,50,49,48,47,46,45,44,43,42,41,40,39,38,37,36,35,34,33,32,31,30,29,28,27,26,0]}
+  }
+};
+
+/* ✅ 배근력 라벨 추가 */
+const EVENT_LABELS = {
+  backstr:{label:'배근력',    unit:'kg',  placeholder:'예: 165'},
+  zigzag: {label:'지그재그런', unit:'초',  placeholder:'예: 13.5'},
+  situp:  {label:'윗몸일으키기',unit:'회', placeholder:'예: 68'},
+  sargent:{label:'서전트점프', unit:'cm',  placeholder:'예: 72'}
+};
+
+function getScore(key,val){
+  const tbl=TABLES[key]?.[gender];
+  if(!tbl||isNaN(val))return null;
+  const{higher,th}=tbl;
+  for(let i=0;i<SCORES.length;i++){
+    if(higher){if(val>=th[i])return SCORES[i];}
+    else      {if(val<=th[i])return SCORES[i];}
+  }
+  return 30;
+}
+
+function setGender(g){
+  gender=g;
+  document.getElementById('btn-male').classList.toggle('active',g==='male');
+  document.getElementById('btn-female').classList.toggle('active',g==='female');
+  calcAll();
+}
+
+function updateField(key){
+  const val=parseFloat(document.getElementById('inp-'+key)?.value);
+  const sc=getScore(key,val);
+  const scEl=document.getElementById('sc-'+key);
+  const barEl=document.getElementById('bar-'+key);
+  if(scEl){
+    scEl.textContent=sc!==null?sc+'점':'—';
+    scEl.style.color=sc>=90?'#c47a00':sc>=70?'#1565c0':sc>=50?'#333':'#c62828';
+  }
+  if(barEl)barEl.style.width=(sc!==null?sc:0)+'%';
+  return sc;
+}
+
+function calcAll(){
+  const sc1=updateField('jump');
+  const sc2=updateField('run');
+  const sc3=updateField('flex');
+  const sc4=updateField('med');
+
+  let selTotal=0,selValid=0;
+  const breakdown=[];
+  if(sc1!==null)breakdown.push({name:'제자리멀리뛰기',sc:sc1});
+  if(sc2!==null)breakdown.push({name:'10m왕복달리기',sc:sc2});
+  if(sc3!==null)breakdown.push({name:'좌전굴',sc:sc3});
+  if(sc4!==null)breakdown.push({name:'메디신볼',sc:sc4});
+
+  selectedEvents.filter(k=>k!=='none').forEach(k=>{
+    const v=parseFloat(document.getElementById('inp-sel-'+k)?.value);
+    const sc=getScore(k,v);
+    const scEl=document.getElementById('sc-sel-'+k);
+    const barEl=document.getElementById('bar-sel-'+k);
+    if(scEl){
+      scEl.textContent=sc!==null?sc+'점':'—';
+      scEl.style.color=sc>=90?'#c47a00':sc>=70?'#1565c0':'#333';
+    }
+    if(barEl)barEl.style.width=(sc!==null?sc:0)+'%';
+    if(sc!==null){selTotal+=sc;selValid++;breakdown.push({name:EVENT_LABELS[k].label,sc});}
+  });
+
+  const commonScores=[sc1,sc2,sc3,sc4].filter(s=>s!==null);
+  const commonTotal=commonScores.reduce((a,b)=>a+b,0);
+  const grandTotal=commonTotal+selTotal;
+
+  const numEl=document.getElementById('total-num');
+  numEl.textContent=grandTotal>0?grandTotal:'—';
+
+  const bEl=document.getElementById('breakdown');
+  bEl.innerHTML=breakdown.map(b=>
+    `<div class="breakdown-item">${b.name}: <strong>${b.sc}점</strong></div>`
+  ).join('');
+
+  saveCalcState();
+}
+
+function toggleSelectEvent(btn){
+  const key=btn.dataset.key;
+  if(key==='none'){
+    selectedEvents=[];
+    document.querySelectorAll('.select-event-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('select-inputs').innerHTML='';
+    calcAll();return;
+  }
+  document.querySelector('[data-key="none"]').classList.remove('active');
+  selectedEvents=selectedEvents.filter(k=>k!=='none');
+  if(btn.classList.contains('active')){
+    btn.classList.remove('active');
+    selectedEvents=selectedEvents.filter(k=>k!==key);
+  } else {
+    if(selectedEvents.filter(k=>k!=='none').length>=2){
+      alert('선택 종목은 최대 2개까지 선택할 수 있습니다.');return;
+    }
+    btn.classList.add('active');
+    selectedEvents.push(key);
+  }
+  renderSelectInputs();
+  calcAll();
+}
+
+function renderSelectInputs(){
+  const wrap=document.getElementById('select-inputs');
+  const keys=selectedEvents.filter(k=>k!=='none');
+  wrap.innerHTML=keys.map(k=>{
+    const lbl=EVENT_LABELS[k];
+    return`<div class="calc-item">
+      <label>${lbl.label} <span class="unit">(${lbl.unit})</span></label>
+      <input class="calc-input" type="number" step="0.1" id="inp-sel-${k}"
+             placeholder="${lbl.placeholder}" oninput="calcAll()">
+      <div class="calc-score-badge"><span>점수:</span><strong id="sc-sel-${k}">—</strong></div>
+      <div class="score-bar-wrap"><div class="score-bar" id="bar-sel-${k}" style="width:0%"></div></div>
+    </div>`;
+  }).join('');
+}
+
+function getCalcState(){
+  const selectedValues = {};
+  selectedEvents.filter(k=>k!=='none').forEach(k=>{
+    const el=document.getElementById('inp-sel-'+k);
+    selectedValues[k]=el?el.value:'';
+  });
+  return {
+    gender,
+    selectedEvents:[...selectedEvents],
+    inputs:{
+      jump:document.getElementById('inp-jump')?.value||'',
+      run:document.getElementById('inp-run')?.value||'',
+      flex:document.getElementById('inp-flex')?.value||'',
+      med:document.getElementById('inp-med')?.value||'',
+      selected:selectedValues
+    },
+    total:document.getElementById('total-num')?.textContent||'—',
+    savedAt:new Date().toISOString()
+  };
+}
+
+function saveCalcState(){
+  if(isRestoringCalc) return;
+  try{
+    localStorage.setItem(CALC_STORAGE_KEY, JSON.stringify(getCalcState()));
+  }catch(e){
+    console.warn('점수 합계 저장 실패:', e);
+  }
+}
+
+function restoreCalcState(){
+  let raw=null;
+  try{ raw=localStorage.getItem(CALC_STORAGE_KEY); }catch(e){ raw=null; }
+  if(!raw) return;
+  let data=null;
+  try{ data=JSON.parse(raw); }catch(e){ return; }
+  isRestoringCalc=true;
+  gender=data.gender==='female'?'female':'male';
+  document.getElementById('btn-male')?.classList.toggle('active',gender==='male');
+  document.getElementById('btn-female')?.classList.toggle('active',gender==='female');
+
+  const common=data.inputs||{};
+  ['jump','run','flex','med'].forEach(k=>{
+    const el=document.getElementById('inp-'+k);
+    if(el) el.value=common[k]||'';
+  });
+
+  selectedEvents=Array.isArray(data.selectedEvents)?data.selectedEvents.filter(k=>k==='none'||EVENT_LABELS[k]):[];
+  document.querySelectorAll('.select-event-btn').forEach(btn=>{
+    btn.classList.toggle('active', selectedEvents.includes(btn.dataset.key));
+  });
+  renderSelectInputs();
+  const selectedVals=common.selected||{};
+  Object.keys(selectedVals).forEach(k=>{
+    const el=document.getElementById('inp-sel-'+k);
+    if(el) el.value=selectedVals[k]||'';
+  });
+  isRestoringCalc=false;
+  calcAll();
+}
+
+window.addEventListener('DOMContentLoaded', restoreCalcState);
+
+function resetCalc(){
+  ['jump','run','flex','med'].forEach(k=>{
+    const el=document.getElementById('inp-'+k);
+    if(el)el.value='';
+    const sc=document.getElementById('sc-'+k);
+    if(sc){sc.textContent='—';sc.style.color='';}
+    const bar=document.getElementById('bar-'+k);
+    if(bar)bar.style.width='0%';
+  });
+  selectedEvents=[];
+  document.querySelectorAll('.select-event-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('select-inputs').innerHTML='';
+  document.getElementById('total-num').textContent='—';
+  document.getElementById('breakdown').innerHTML='';
+  try{ localStorage.removeItem(CALC_STORAGE_KEY); }catch(e){}
+}
+</script>
+</body>
+</html>
