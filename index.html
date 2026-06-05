@@ -1000,6 +1000,30 @@ header, nav, .container, footer, #topBtn{position:relative; z-index:1;}
 }
 </style>
 
+
+<style>
+/* 위로가기 버튼 위치 수정: 모바일에서도 오른쪽 아래에 고정 */
+#topBtn{
+  position:fixed !important;
+  right:18px !important;
+  left:auto !important;
+  bottom:22px !important;
+  z-index:9999 !important;
+  width:48px !important;
+  height:48px !important;
+  border-radius:50% !important;
+}
+@media(max-width:768px){
+  #topBtn{
+    right:16px !important;
+    left:auto !important;
+    bottom:72px !important;
+    width:46px !important;
+    height:46px !important;
+  }
+}
+</style>
+
 </head>
 <body>
 <!-- ═══ 헤더 ═══ -->
@@ -1162,7 +1186,7 @@ header, nav, .container, footer, #topBtn{position:relative; z-index:1;}
 <!-- ═══ 실기 종목 안내 (아코디언) ═══ -->
 <section class="section" id="events">
 <h2 class="section-title">🏅 실기 종목 안내</h2>
-<p style="color:var(--text-light);margin-bottom:20px;font-size:.92em;">▼ 종목명 아래 점수 기준을 2줄로 정리했습니다. 종목을 클릭하면 측정 방법과 파울 규정을 확인할 수 있습니다.</p>
+<p style="color:var(--text-light);margin-bottom:20px;font-size:.92em;"></p>
 <h3 style="color:var(--primary);margin-bottom:14px;font-size:1em;">▶ 공통 종목 (전원 측정)</h3>
 <div class="event-accordion">
 <div class="acc-item" onclick="toggleAcc(this)">
