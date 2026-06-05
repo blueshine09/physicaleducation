@@ -1024,6 +1024,57 @@ header, nav, .container, footer, #topBtn{position:relative; z-index:1;}
 }
 </style>
 
+
+<style>
+/* 성별 선택: 페이지 탭 버튼 스타일과 통일 */
+.gender-toggle{
+  display:grid !important;
+  grid-template-columns:1fr 1fr !important;
+  gap:4px !important;
+  width:100% !important;
+  max-width:420px !important;
+  margin:0 0 28px 0 !important;
+  border:none !important;
+  border-radius:12px !important;
+  overflow:hidden !important;
+  background:transparent !important;
+}
+.gender-btn{
+  width:100% !important;
+  padding:14px 10px !important;
+  border:none !important;
+  border-radius:0 !important;
+  background:#dde2ea !important;
+  color:var(--text-light) !important;
+  font-size:.95em !important;
+  font-weight:800 !important;
+  cursor:pointer !important;
+  transition:background .2s, color .2s !important;
+}
+.gender-btn:hover{
+  background:#cfd6e2 !important;
+  color:var(--primary) !important;
+}
+.gender-btn.active{
+  background:var(--primary) !important;
+  color:var(--accent) !important;
+}
+.gender-btn.active:hover{
+  background:var(--primary) !important;
+  color:var(--accent) !important;
+}
+@media(max-width:520px){
+  .gender-toggle{
+    max-width:none !important;
+    margin-bottom:22px !important;
+  }
+  .gender-btn{
+    font-size:.88em !important;
+    padding:12px 8px !important;
+  }
+}
+</style>
+
 </head>
 <body>
 <!-- ═══ 헤더 ═══ -->
