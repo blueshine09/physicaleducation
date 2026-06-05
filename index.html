@@ -1148,6 +1148,95 @@ header, nav, .container, footer, #topBtn{position:relative; z-index:1;}
 }
 </style>
 
+
+<style>
+/* 합산 점수 자동 계산기: 모바일에서도 종목 입력칸 2열 유지 */
+@media(max-width:560px){
+  .calc-grid{
+    grid-template-columns:repeat(2, minmax(0, 1fr)) !important;
+    gap:10px !important;
+  }
+  .calc-item{
+    padding:12px 10px !important;
+    border-radius:10px !important;
+  }
+  .calc-item label{
+    font-size:.76em !important;
+    margin-bottom:6px !important;
+    line-height:1.25 !important;
+    min-height:2.4em;
+  }
+  .calc-item .unit{
+    font-size:.68em !important;
+  }
+  .calc-input{
+    padding:9px 8px !important;
+    font-size:.92em !important;
+  }
+  .calc-score-badge{
+    margin-top:6px !important;
+    gap:4px !important;
+  }
+  .calc-score-badge span{
+    font-size:.72em !important;
+  }
+  .calc-score-badge strong{
+    font-size:.95em !important;
+  }
+}
+</style>
+
+
+<style>
+/* 점수 배점표: 표 영역 높이 제한 + 내부 스크롤 */
+.score-event-panel .score-table-wrap,
+.score-tab-content .score-table-wrap{
+  max-height:420px !important;
+  overflow-y:auto !important;
+  overflow-x:auto !important;
+  border:1px solid #e0e5f0;
+  border-radius:10px;
+}
+.score-event-panel .score-table thead th,
+.score-tab-content .score-table thead th,
+.score-event-panel .score-single-table thead th,
+.score-tab-content .score-single-table thead th{
+  position:sticky;
+  top:0;
+  z-index:3;
+}
+.score-event-panel .score-table thead tr:nth-child(2) th,
+.score-tab-content .score-table thead tr:nth-child(2) th{
+  top:42px;
+  z-index:4;
+}
+.score-event-panel .score-table-wrap::-webkit-scrollbar,
+.score-tab-content .score-table-wrap::-webkit-scrollbar{
+  width:7px;
+  height:7px;
+}
+.score-event-panel .score-table-wrap::-webkit-scrollbar-track,
+.score-tab-content .score-table-wrap::-webkit-scrollbar-track{
+  background:#eee;
+  border-radius:8px;
+}
+.score-event-panel .score-table-wrap::-webkit-scrollbar-thumb,
+.score-tab-content .score-table-wrap::-webkit-scrollbar-thumb{
+  background:var(--accent);
+  border-radius:8px;
+}
+@media(max-width:768px){
+  .score-event-panel .score-table-wrap,
+  .score-tab-content .score-table-wrap{
+    max-height:340px !important;
+  }
+  .score-event-panel .score-table thead tr:nth-child(2) th,
+  .score-tab-content .score-table thead tr:nth-child(2) th{
+    top:38px;
+  }
+}
+</style>
+
 </head>
 <body>
 <!-- ═══ 헤더 ═══ -->
