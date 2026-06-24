@@ -303,6 +303,7 @@
       background:var(--white);cursor:pointer;font-size:.86em;font-weight:600;
       color:var(--text-light);transition:all .2s;text-align:center;}
     .select-event-btn.active{border-color:var(--accent);background:#fff8e1;color:var(--primary);}
+    .select-event-btn.disabled{opacity:.42;cursor:not-allowed;filter:grayscale(.35);}
     .total-score-box{
       background:linear-gradient(135deg,var(--primary) 0%,#0f3460 100%);
       border-radius:14px;padding:28px;text-align:center;margin-top:24px;}
@@ -385,6 +386,48 @@
 .compact-timeline .tl-item{margin-bottom:16px;}
 .compact-timeline .tl-item:last-child{margin-bottom:0;}
 @media(max-width:480px){.schedule-tab-btn{font-size:.78em;padding:11px 5px;}}
+</style>
+
+<style>
+/* ─── 선택 · 기록 · 점수 반응형 인터랙션 ─── */
+.select-event-btn{
+  position:relative;
+  overflow:hidden;
+  transform:translateZ(0);
+  transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease, background .2s ease, opacity .2s ease;
+}
+.select-event-btn:not(:disabled):hover{transform:translateY(-3px);box-shadow:0 7px 16px rgba(15,52,96,.16);}
+.select-event-btn:not(:disabled):active{transform:translateY(0) scale(.97);}
+.select-event-btn.active{animation:eventSelected .34s cubic-bezier(.2,.9,.25,1.35);padding-right:36px;}
+.select-event-btn.active::after{
+  content:'✓';position:absolute;right:12px;top:50%;transform:translateY(-50%) scale(.35);
+  width:19px;height:19px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  background:var(--accent);color:var(--primary);font-size:.78em;font-weight:900;
+  animation:checkIn .3s .08s cubic-bezier(.2,.9,.25,1.45) forwards;
+}
+.select-event-btn.disabled{opacity:.36;filter:grayscale(.55);box-shadow:none;}
+.select-event-btn.disabled::before{content:'2개 선택 완료';font-size:.68em;position:absolute;inset:auto 0 4px;text-align:center;opacity:.72;}
+.select-event-btn.disabled:hover{transform:none;box-shadow:none;}
+@keyframes eventSelected{0%{transform:scale(.94)}55%{transform:scale(1.045)}100%{transform:scale(1)}}
+@keyframes checkIn{to{transform:translateY(-50%) scale(1)}}
+
+#select-inputs{align-items:start;}
+#select-inputs .select-input-card{
+  animation:inputCardIn .42s cubic-bezier(.2,.85,.25,1.1) both;
+  border:2px solid transparent;
+  box-shadow:0 8px 20px rgba(15,52,96,.08);
+}
+#select-inputs .select-input-card:nth-child(2){animation-delay:.06s;}
+#select-inputs .select-input-card.score-updated{animation:scoreCardFlash .55s ease both;}
+@keyframes inputCardIn{from{opacity:0;transform:translateY(15px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes scoreCardFlash{0%{border-color:rgba(255,165,0,0)}38%{border-color:var(--accent);box-shadow:0 0 0 5px rgba(255,165,0,.14),0 10px 22px rgba(15,52,96,.1)}100%{border-color:transparent;box-shadow:0 8px 20px rgba(15,52,96,.08)}}
+
+.total-score-box{transition:transform .25s ease, box-shadow .25s ease, filter .25s ease;}
+.total-score-box.total-updated{animation:totalGlow .54s cubic-bezier(.2,.85,.25,1.15);}
+@keyframes totalGlow{0%{transform:scale(1)}42%{transform:scale(1.018);box-shadow:0 0 0 6px rgba(255,165,0,.14),0 13px 32px rgba(15,52,96,.28);filter:brightness(1.12)}100%{transform:scale(1);box-shadow:none;filter:brightness(1)}}
+@media(prefers-reduced-motion:reduce){
+  .select-event-btn,.select-event-btn.active,#select-inputs .select-input-card,.total-score-box{animation:none!important;transition:none!important;}
+}
 </style>
 </head>
 <body>
@@ -1833,7 +1876,7 @@ header h1.title-hero::after{
 <button class="select-event-btn" data-key="sargent" onclick="toggleSelectEvent(this)">⬆️ 서전트점프</button>
 
 </div>
-<div class="calc-grid" id="select-inputs" style="margin-top:16px;"></div>
+<div class="calc-grid" id="select-inputs" style="margin-top:16px;grid-template-columns:repeat(2,minmax(0,1fr));"></div>
 <div class="total-score-box">
 <div class="label">📊 공통 4종목 + 선택 2종목 합산</div>
 <div class="total-num" id="total-num">—</div>
@@ -2076,14 +2119,47 @@ function setGender(g){
   calcAll();
 }
 
+function animateScoreText(el, score, suffix='점'){
+  if(!el) return;
+  if(score===null){
+    el.textContent='—';
+    el._scoreValue=null;
+    return;
+  }
+  const from=Number.isFinite(el._scoreValue)?el._scoreValue:0;
+  const to=score;
+  if(from===to){ el.textContent=to+suffix; return; }
+  if(el._scoreFrame) cancelAnimationFrame(el._scoreFrame);
+  const started=performance.now();
+  const duration=360;
+  const tick=(now)=>{
+    const progress=Math.min((now-started)/duration,1);
+    const eased=1-Math.pow(1-progress,3);
+    el.textContent=Math.round(from+(to-from)*eased)+suffix;
+    if(progress<1) el._scoreFrame=requestAnimationFrame(tick);
+    else { el._scoreValue=to; el._scoreFrame=null; }
+  };
+  el._scoreFrame=requestAnimationFrame(tick);
+}
+
+function highlightScoreCard(scEl){
+  const card=scEl?.closest('.calc-item');
+  if(!card) return;
+  card.classList.remove('score-updated');
+  void card.offsetWidth;
+  card.classList.add('score-updated');
+}
+
 function updateField(key){
   const val=parseFloat(document.getElementById('inp-'+key)?.value);
   const sc=getScore(key,val);
   const scEl=document.getElementById('sc-'+key);
   const barEl=document.getElementById('bar-'+key);
   if(scEl){
-    scEl.textContent=sc!==null?sc+'점':'—';
+    const changed=scEl._scoreValue!==sc;
+    animateScoreText(scEl,sc);
     scEl.style.color=sc>=90?'#c47a00':sc>=70?'#1565c0':sc>=50?'#333':'#c62828';
+    if(changed && sc!==null) highlightScoreCard(scEl);
   }
   if(barEl)barEl.style.width=(sc!==null?sc:0)+'%';
   return sc;
@@ -2108,8 +2184,10 @@ function calcAll(){
     const scEl=document.getElementById('sc-sel-'+k);
     const barEl=document.getElementById('bar-sel-'+k);
     if(scEl){
-      scEl.textContent=sc!==null?sc+'점':'—';
+      const changed=scEl._scoreValue!==sc;
+      animateScoreText(scEl,sc);
       scEl.style.color=sc>=90?'#c47a00':sc>=70?'#1565c0':'#333';
+      if(changed && sc!==null) highlightScoreCard(scEl);
     }
     if(barEl)barEl.style.width=(sc!==null?sc:0)+'%';
     if(sc!==null){selTotal+=sc;selValid++;breakdown.push({name:EVENT_LABELS[k].label,sc});}
@@ -2120,7 +2198,15 @@ function calcAll(){
   const grandTotal=commonTotal+selTotal;
 
   const numEl=document.getElementById('total-num');
-  numEl.textContent=grandTotal>0?grandTotal:'—';
+  const totalScore=grandTotal>0?grandTotal:null;
+  const totalChanged=numEl._scoreValue!==totalScore;
+  animateScoreText(numEl,totalScore,'');
+  if(totalChanged && totalScore!==null){
+    const totalBox=numEl.closest('.total-score-box');
+    totalBox?.classList.remove('total-updated');
+    void totalBox?.offsetWidth;
+    totalBox?.classList.add('total-updated');
+  }
 
   const bEl=document.getElementById('breakdown');
   bEl.innerHTML=breakdown.map(b=>
@@ -2130,40 +2216,50 @@ function calcAll(){
   saveCalcState();
 }
 
+function updateSelectEventButtons(){
+  const selectedCount=selectedEvents.length;
+  document.querySelectorAll('.select-event-btn').forEach(btn=>{
+    const isSelected=selectedEvents.includes(btn.dataset.key);
+    const isDisabled=selectedCount>=2 && !isSelected;
+    btn.classList.toggle('active',isSelected);
+    btn.classList.toggle('disabled',isDisabled);
+    btn.disabled=isDisabled;
+    btn.setAttribute('aria-disabled', String(isDisabled));
+  });
+}
+
 function toggleSelectEvent(btn){
   const key=btn.dataset.key;
-  if(key==='none'){
-    selectedEvents=[];
-    document.querySelectorAll('.select-event-btn').forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active');
-    document.getElementById('select-inputs').innerHTML='';
-    calcAll();return;
-  }
-  document.querySelector('[data-key="none"]').classList.remove('active');
-  selectedEvents=selectedEvents.filter(k=>k!=='none');
-  if(btn.classList.contains('active')){
-    btn.classList.remove('active');
+  const isSelected=selectedEvents.includes(key);
+
+  // 선택된 종목은 다시 누르면 해제할 수 있고, 2개 선택 시 나머지 버튼은 disabled 처리됨
+  if(isSelected){
     selectedEvents=selectedEvents.filter(k=>k!==key);
-  } else {
-    if(selectedEvents.filter(k=>k!=='none').length>=2){
-      alert('선택 종목은 최대 2개까지 선택할 수 있습니다.');return;
-    }
-    btn.classList.add('active');
+  } else if(selectedEvents.length<2){
     selectedEvents.push(key);
+  } else {
+    return;
   }
+
+  updateSelectEventButtons();
   renderSelectInputs();
   calcAll();
 }
 
 function renderSelectInputs(){
   const wrap=document.getElementById('select-inputs');
-  const keys=selectedEvents.filter(k=>k!=='none');
-  wrap.innerHTML=keys.map(k=>{
+  const previousValues={};
+  selectedEvents.forEach(k=>{
+    const input=document.getElementById('inp-sel-'+k);
+    previousValues[k]=input?input.value:'';
+  });
+
+  wrap.innerHTML=selectedEvents.map(k=>{
     const lbl=EVENT_LABELS[k];
-    return`<div class="calc-item">
+    return`<div class="calc-item select-input-card" data-select-key="${k}">
       <label>${lbl.label} <span class="unit">(${lbl.unit})</span></label>
       <input class="calc-input" type="number" step="0.1" id="inp-sel-${k}"
-             placeholder="${lbl.placeholder}" oninput="calcAll()">
+             placeholder="${lbl.placeholder}" value="${previousValues[k]||''}" oninput="calcAll()">
       <div class="calc-score-badge"><span>점수:</span><strong id="sc-sel-${k}">—</strong></div>
       <div class="score-bar-wrap"><div class="score-bar" id="bar-sel-${k}" style="width:0%"></div></div>
     </div>`;
@@ -2217,10 +2313,8 @@ function restoreCalcState(){
     if(el) el.value=common[k]||'';
   });
 
-  selectedEvents=Array.isArray(data.selectedEvents)?data.selectedEvents.filter(k=>k==='none'||EVENT_LABELS[k]):[];
-  document.querySelectorAll('.select-event-btn').forEach(btn=>{
-    btn.classList.toggle('active', selectedEvents.includes(btn.dataset.key));
-  });
+  selectedEvents=Array.isArray(data.selectedEvents)?data.selectedEvents.filter(k=>EVENT_LABELS[k]).slice(0,2):[];
+  updateSelectEventButtons();
   renderSelectInputs();
   const selectedVals=common.selected||{};
   Object.keys(selectedVals).forEach(k=>{
@@ -2231,7 +2325,10 @@ function restoreCalcState(){
   calcAll();
 }
 
-window.addEventListener('DOMContentLoaded', restoreCalcState);
+window.addEventListener('DOMContentLoaded', ()=>{
+  updateSelectEventButtons();
+  restoreCalcState();
+});
 
 function resetCalc(){
   ['jump','run','flex','med'].forEach(k=>{
@@ -2243,9 +2340,11 @@ function resetCalc(){
     if(bar)bar.style.width='0%';
   });
   selectedEvents=[];
-  document.querySelectorAll('.select-event-btn').forEach(b=>b.classList.remove('active'));
+  updateSelectEventButtons();
   document.getElementById('select-inputs').innerHTML='';
-  document.getElementById('total-num').textContent='—';
+  const totalNum=document.getElementById('total-num');
+  totalNum.textContent='—';
+  totalNum._scoreValue=null;
   document.getElementById('breakdown').innerHTML='';
   try{ localStorage.removeItem(CALC_STORAGE_KEY); }catch(e){}
 }
