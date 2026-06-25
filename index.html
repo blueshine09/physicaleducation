@@ -441,6 +441,97 @@
 }
 </style>
 </head>
+
+<style id="teacher-layout-styles">
+/* ─── 상단 복장·개인장비 안내 배너 ─── */
+.attire-alert-wrap{background:#fff7e5;border-bottom:1px solid #ffd589;}
+.attire-alert{max-width:1100px;margin:0 auto;padding:15px 20px;display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:center;}
+.attire-alert-icon{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#ffecd0;font-size:1.25em;}
+.attire-alert h3{font-size:.96em;color:#8d5100;line-height:1.35;margin-bottom:2px;}
+.attire-alert p{font-size:.84em;line-height:1.55;color:#5f4b2d;}
+.attire-alert .attire-alert-badge{background:#b53a22;color:#fff;font-size:.78em;font-weight:800;padding:7px 11px;border-radius:20px;white-space:nowrap;}
+.attire-detail-card{margin-top:20px;background:linear-gradient(135deg,#fff9ed 0%,#fff 100%);border:1.5px solid #ffc35d;border-radius:14px;padding:22px;display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;}
+.attire-detail-card .detail-icon{width:46px;height:46px;border-radius:12px;background:#fff0d3;display:flex;align-items:center;justify-content:center;font-size:1.45em;}
+.attire-detail-card h3{font-size:1em;color:#8d5100;margin-bottom:7px;}
+.attire-detail-card p{font-size:.9em;color:#624a27;line-height:1.75;}
+.attire-detail-card .detail-strong{font-weight:800;color:#a82e1c;}
+.attire-detail-card .detail-example{display:inline-block;margin-top:10px;padding:6px 10px;border-radius:8px;background:#fff1d8;color:#8b5706;font-size:.8em;line-height:1.5;}
+
+/* ─── 교사용 관리 화면: 레이아웃 시안 ─── */
+.teacher-admin-section{padding-top:8px;}
+.teacher-admin-note{margin:-15px 0 20px;color:var(--text-light);font-size:.85em;}
+.teacher-shell{background:#eef2f7;border:1px solid #d9e0ea;border-radius:18px;overflow:hidden;box-shadow:0 12px 36px rgba(18,36,62,.10);}
+.teacher-topbar{min-height:62px;background:linear-gradient(135deg,var(--primary),#0f3460);color:#fff;padding:0 22px;display:flex;align-items:center;justify-content:space-between;gap:14px;}
+.teacher-brand{font-weight:800;font-size:1.02em;letter-spacing:-.3px;}
+.teacher-brand span{color:var(--accent);}
+.teacher-user{font-size:.82em;color:rgba(255,255,255,.78);display:flex;align-items:center;gap:8px;}
+.teacher-user::before{content:'●';color:#7be495;font-size:.75em;}
+.teacher-layout{display:grid;grid-template-columns:195px minmax(0,1fr);min-height:655px;}
+.teacher-sidebar{background:#fff;border-right:1px solid #dde4ec;padding:16px 10px;}
+.teacher-menu-label{padding:4px 10px 9px;font-size:.7em;color:#8a96a7;font-weight:800;letter-spacing:.7px;}
+.teacher-menu-btn{width:100%;border:none;background:transparent;padding:11px 12px;border-radius:9px;text-align:left;cursor:pointer;color:#4d5b6c;font-size:.87em;font-weight:700;transition:.2s;}
+.teacher-menu-btn:hover{background:#f0f4f8;color:var(--primary);}
+.teacher-menu-btn.active{background:#edf3ff;color:#0f4d97;box-shadow:inset 3px 0 0 #2374d8;}
+.teacher-workspace{padding:24px;min-width:0;}
+.teacher-view{display:none;animation:teacherFade .22s ease;}
+.teacher-view.active{display:block;}
+@keyframes teacherFade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+.teacher-page-head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;margin-bottom:19px;}
+.teacher-page-head h3{font-size:1.2em;color:var(--primary);letter-spacing:-.5px;}
+.teacher-page-head p{font-size:.8em;color:#7e8998;margin-top:3px;}
+.teacher-status{font-size:.77em;color:#5d6a78;background:#fff;border:1px solid #dfe6ee;border-radius:20px;padding:7px 10px;white-space:nowrap;}
+.teacher-stat-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:16px;}
+.teacher-stat{background:#fff;border:1px solid #e1e7ef;border-radius:13px;padding:16px;min-height:92px;}
+.teacher-stat .stat-label{font-size:.76em;color:#788493;font-weight:700;}
+.teacher-stat .stat-num{font-size:1.65em;font-weight:900;color:var(--primary);line-height:1.15;margin-top:5px;}
+.teacher-stat .stat-sub{font-size:.72em;color:#8d98a6;margin-top:4px;}
+.teacher-alert-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;}
+.teacher-alert{border-radius:12px;padding:15px 16px;background:#fff6df;border:1px solid #ffdc92;display:flex;justify-content:space-between;gap:12px;align-items:center;}
+.teacher-alert.danger{background:#fff0ec;border-color:#ffc7b8;}
+.teacher-alert strong{display:block;font-size:.9em;color:#855a00;}
+.teacher-alert.danger strong{color:#a43720;}
+.teacher-alert span{font-size:.78em;color:#746142;display:block;margin-top:3px;}
+.teacher-alert button,.teacher-mini-btn{border:1px solid #c9d5e4;background:#fff;color:#2c5e92;border-radius:8px;padding:7px 9px;font-size:.76em;font-weight:800;cursor:pointer;white-space:nowrap;}
+.teacher-board{background:#fff;border:1px solid #e1e7ef;border-radius:13px;padding:17px;}
+.teacher-board h4{font-size:.91em;color:var(--primary);margin-bottom:12px;}
+.teacher-empty{border:1px dashed #cfd8e3;background:#fafcff;border-radius:10px;text-align:center;padding:25px 16px;color:#7d8997;font-size:.84em;}
+.teacher-filterbar{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;}
+.teacher-filterbar input,.teacher-filterbar select{height:37px;border:1px solid #d8e0ea;border-radius:8px;background:#fff;padding:0 10px;color:#5d6978;font-size:.82em;outline:none;}
+.teacher-filterbar input{min-width:165px;flex:1 1 180px;}
+.teacher-table-wrap{overflow:auto;border:1px solid #dde4ec;border-radius:12px;background:#fff;}
+.teacher-table{width:100%;border-collapse:collapse;min-width:780px;font-size:.81em;}
+.teacher-table th{background:#f5f8fc;color:#566474;font-weight:800;text-align:left;padding:11px 10px;border-bottom:1px solid #dde4ec;white-space:nowrap;}
+.teacher-table td{padding:11px 10px;border-bottom:1px solid #edf1f5;color:#445160;white-space:nowrap;}
+.teacher-table tr:last-child td{border-bottom:none;}
+.teacher-muted{display:inline-block;margin-top:3px;color:#7b8794;font-size:.86em;}
+.teacher-dob-input{width:98px;height:32px;border:1px solid #ccd7e3;border-radius:7px;padding:0 8px;font-size:.8em;text-align:center;}
+.teacher-dob-input:focus{outline:none;border-color:#2374d8;box-shadow:0 0 0 3px rgba(35,116,216,.12);}
+.teacher-pill{display:inline-flex;align-items:center;padding:4px 7px;border-radius:10px;font-size:.73em;font-weight:800;}
+.teacher-pill.done{background:#e7f7ed;color:#237348;}
+.teacher-pill.wait{background:#fff4d6;color:#9d6900;}
+.teacher-record-card{background:#fff;border:1px solid #e0e6ee;border-radius:14px;padding:19px;}
+.teacher-student-strip{display:flex;justify-content:space-between;gap:14px;align-items:center;padding-bottom:14px;border-bottom:1px solid #edf1f5;margin-bottom:16px;}
+.teacher-student-strip h4{font-size:1.03em;color:var(--primary);}
+.teacher-student-strip p{font-size:.8em;color:#727f8f;margin-top:3px;}
+.teacher-choice{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end;}
+.teacher-choice span{background:#eef4ff;color:#265c9e;border-radius:12px;font-size:.75em;font-weight:800;padding:5px 8px;}
+.teacher-input-title{font-size:.83em;font-weight:900;color:#445264;margin:14px 0 8px;}
+.teacher-input-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;}
+.teacher-field{padding:12px;border:1px solid #dfe6ee;border-radius:10px;background:#fbfcfe;}
+.teacher-field label{display:block;font-size:.78em;font-weight:800;color:#536172;margin-bottom:7px;}
+.teacher-field input{width:100%;height:37px;border:1px solid #ccd7e3;border-radius:7px;padding:0 9px;font-size:.84em;}
+.teacher-record-bottom{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:17px;padding-top:14px;border-top:1px solid #edf1f5;}
+.teacher-total-mini{font-size:.84em;color:#5e6b7b;}.teacher-total-mini strong{font-size:1.25em;color:#0f4d97;margin-left:5px;}
+.teacher-primary-btn{border:none;background:#0f4d97;color:#fff;padding:10px 13px;border-radius:8px;font-size:.81em;font-weight:800;cursor:pointer;}
+.teacher-bus-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;}
+.teacher-bus-card{background:#fff;border:1px solid #e0e6ee;border-radius:13px;padding:17px;}
+.teacher-bus-card .bus-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;}.teacher-bus-card h4{color:var(--primary);font-size:1.02em;}.teacher-bus-card .cap{font-size:.78em;color:#587086;background:#edf4fa;border-radius:14px;padding:5px 7px;}.teacher-bus-card p{font-size:.78em;color:#6e7a89;line-height:1.65;margin-top:9px;}.teacher-bus-card .bus-actions{margin-top:13px;display:flex;gap:7px;}
+.teacher-download{display:flex;gap:10px;flex-wrap:wrap;}.teacher-download .teacher-mini-btn{padding:10px 12px;}
+@media(max-width:900px){.teacher-stat-grid{grid-template-columns:repeat(2,minmax(0,1fr));}.teacher-layout{grid-template-columns:165px minmax(0,1fr);}.teacher-workspace{padding:18px;}}
+@media(max-width:680px){.attire-alert{grid-template-columns:auto 1fr;padding:13px 14px;}.attire-alert .attire-alert-badge{grid-column:1 / -1;justify-self:start;margin-left:54px;}.attire-detail-card{padding:18px;}.teacher-topbar{padding:0 15px;}.teacher-user{font-size:.72em;}.teacher-layout{display:block;min-height:0;}.teacher-sidebar{border-right:none;border-bottom:1px solid #dde4ec;display:flex;gap:5px;overflow:auto;padding:9px;}.teacher-menu-label{display:none;}.teacher-menu-btn{width:auto;flex:0 0 auto;white-space:nowrap;padding:9px 10px;}.teacher-workspace{padding:15px;}.teacher-page-head{align-items:flex-start;flex-direction:column;gap:7px;}.teacher-stat-grid{grid-template-columns:1fr 1fr;gap:8px;}.teacher-stat{padding:13px;min-height:80px;}.teacher-alert-grid{grid-template-columns:1fr;}.teacher-input-grid{grid-template-columns:1fr 1fr;}.teacher-student-strip{align-items:flex-start;flex-direction:column;}.teacher-choice{justify-content:flex-start;}.teacher-bus-grid{grid-template-columns:1fr;}}
+@media(max-width:390px){.teacher-input-grid{grid-template-columns:1fr;}.teacher-stat .stat-num{font-size:1.45em;}}
+</style>
+
 <body>
 <!DOCTYPE html>
 
@@ -1479,9 +1570,21 @@ header h1.title-hero::after{
 <div class="item">🕘 09:30 ~</div>
 <div class="item">📍 화순하니움문화스포츠센터</div>
 </div>
+<!-- 복장·개인장비 강조 공지 -->
+<div class="attire-alert-wrap" role="note" aria-label="복장 및 개인장비 안내">
+  <div class="attire-alert">
+    <div class="attire-alert-icon">🚫</div>
+    <div>
+      <h3>체대입시 학원이 명시되거나 추측될 수 있는 운동복·개인장비의 착용을 금지합니다.</h3>
+      <p>학원명·로고·전화번호·SNS 계정·식별 문구 등이 보이는 의류, 가방, 물통, 보호장비 등을 포함합니다.</p>
+    </div>
+    <div class="attire-alert-badge">미협조 시 참여 제한 가능</div>
+  </div>
+</div>
 <!-- ═══ 네비 ═══ -->
 <nav>
 <ul>
+<li><a href="#my-participation">내 참가 정보</a></li>
 <li><a href="#schedule">일정표</a></li>
 <li><a href="#program">프로그램</a></li>
 <li><a href="#events">실기종목</a></li>
@@ -1489,9 +1592,30 @@ header h1.title-hero::after{
 <li><a href="#calc">점수계산기</a></li>
 <li><a href="#safety">안전관리</a></li>
 <li><a href="#prep">준비물</a></li>
+<li><a href="#teacher-admin">교사용 관리</a></li>
 </ul>
 </nav>
 <div class="container">
+
+<!-- ═══ 내 참가 정보 ═══ -->
+<section class="section" id="my-participation">
+  <h2 class="section-title">🪪 내 참가 정보</h2>
+  <div class="participant-lookup">
+    <div class="participant-lookup-head">
+      <div><h3>이름과 생년월일로 참가 정보를 확인하세요</h3><p>조별 번호, 선택종목, 버스 호차와 집결 정보를 한 번에 확인할 수 있습니다.</p></div>
+      <span class="participant-security">🔒 본인 확인용</span>
+    </div>
+    <div class="participant-form">
+      <div class="participant-field"><label for="participantName">이름 선택</label><select id="participantName"><option value="">이름을 선택하세요</option></select></div>
+      <div class="participant-field"><label for="participantDob">생년월일 입력</label><input id="participantDob" type="password" inputmode="numeric" maxlength="8" autocomplete="current-password" placeholder="예: 20090101" aria-label="생년월일 입력"></div>
+      <button class="participant-lookup-btn" type="button" onclick="lookupParticipant()">내 정보 확인</button>
+    </div>
+    <div id="participantMessage" class="participant-message" aria-live="polite"></div>
+    <div id="participantResult" class="participant-result"></div>
+
+  </div>
+</section>
+
 <!-- ═══ 일정표 ═══ -->
 <section class="section" id="schedule">
 <h2 class="section-title">🕐 세부 운영 일정</h2>
@@ -1535,6 +1659,19 @@ header h1.title-hero::after{
         <h4>⭐ 선택 프로그램 (2가지 중 1가지 선택)</h4>
         <p>① 대입상담교사 1:1 맞춤형 진학 상담 — 세미나실 1·2 (지하 1,2층)<br/>
         ② 선택 실기 모의 테스트 — 실내체육관 (지상 1층)</p>
+        <div class="group-plan-wrap schedule-group-plan">
+          <div class="group-plan-title"><span>📋 조별 운영 계획</span><small>시간은 상황에 따라 변동될 수 있습니다.</small></div>
+          <div class="table-wrap">
+            <table class="group-plan-table">
+              <thead><tr><th>순서</th><th>배근력</th><th>셔틀런점프</th><th>윗몸일으키기</th><th>지그재그런</th></tr></thead>
+              <tbody>
+                <tr><td>15:00 ~ 15:30 (A)</td><td>선택 1-1 ~ 1-51</td><td>선택 1-52 ~ 1-102<br>선택 4-1 ~ 4-14</td><td>선택 6-1 ~ 6-50</td><td>선택 3-1 ~ 3-76</td></tr>
+                <tr><td>15:30 ~ 16:00 (B)</td><td>선택 3-1 ~ 3-76</td><td>선택 5-1 ~ 5-72</td><td>선택 2-1 ~ 2-58</td><td>선택 6-1 ~ 6-50</td></tr>
+                <tr><td>16:00 ~ 17:00 (C)</td><td>선택 1-52 ~ 1-102<br>선택 2-1 ~ 2-58</td><td>선택 1-1 ~ 1-51</td><td>선택 4-1 ~ 4-14</td><td>선택 5-1 ~ 5-72</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -1928,6 +2065,14 @@ header h1.title-hero::after{
 <div><h4>착용 금지</h4>
 <p>체대입시 학원이 명시되거나 추측될 수 있는 표식이 있는 운동복·개인 장비 등 착용·지참 금지</p></div>
 </div>
+<div class="attire-detail-card">
+  <div class="detail-icon">👕</div>
+  <div>
+    <h3>복장 및 개인장비 안내</h3>
+    <p>프로그램의 공정한 운영과 참여 학생 보호를 위해 체대입시 학원이 명시되거나 특정 학원을 추측할 수 있는 문구·로고·표식이 포함된 운동복 및 개인장비의 착용을 금지합니다. <span class="detail-strong">안내에 협조하지 않는 경우 프로그램 참여가 제한될 수 있습니다.</span></p>
+    <span class="detail-example">예: 학원명·로고·전화번호·SNS 계정·특정 학원 식별 문구가 보이는 의류, 가방, 물통, 보호장비 등</span>
+  </div>
+</div>
 <div class="notice-box" style="margin-top:12px;">
 <div class="n-icon">✅</div>
 <div><h4>기타 유의사항</h4>
@@ -1939,6 +2084,77 @@ header h1.title-hero::after{
 </div>
 </div>
 </section>
+
+<!-- ═══ 교사용 관리 화면 (레이아웃 시안) ═══ -->
+<section class="section teacher-admin-section" id="teacher-admin">
+  <h2 class="section-title">🧑‍🏫 교사용 관리</h2>
+  <p class="teacher-admin-note">현재 등록된 참가 학생 정보와 선택종목·버스 배정 현황을 교사용 화면에서 바로 확인할 수 있습니다. 실제 공개 운영 시에는 별도 로그인 및 권한 설정이 필요합니다.</p>
+  <div class="teacher-shell">
+    <div class="teacher-topbar">
+      <div class="teacher-brand">2026 체육계열 대입 통합 지원 <span>교사용 관리</span></div>
+      <div class="teacher-user">교사용 운영 화면</div>
+    </div>
+    <div class="teacher-layout">
+      <aside class="teacher-sidebar" aria-label="교사용 메뉴">
+        <div class="teacher-menu-label">MANAGEMENT</div>
+        <button class="teacher-menu-btn active" type="button" data-teacher-view="dash" onclick="switchTeacherView(this)">▦ 대시보드</button>
+        <button class="teacher-menu-btn" type="button" data-teacher-view="students" onclick="switchTeacherView(this)">👥 학생 명단</button>
+        <button class="teacher-menu-btn" type="button" data-teacher-view="records" onclick="switchTeacherView(this)">✍️ 기록 입력</button>
+        <button class="teacher-menu-btn" type="button" data-teacher-view="bus" onclick="switchTeacherView(this)">🚌 버스 운영</button>
+        <button class="teacher-menu-btn" type="button" data-teacher-view="exports" onclick="switchTeacherView(this)">⬇ 통계·출력</button>
+      </aside>
+      <main class="teacher-workspace">
+        <div class="teacher-view active" id="teacher-view-dash">
+          <div class="teacher-page-head"><div><h3>운영 대시보드</h3><p>참가 신청·기록 입력·버스 운영 현황을 한눈에 확인합니다.</p></div><span class="teacher-status">학생 정보 반영</span></div>
+          <div class="teacher-stat-grid">
+            <div class="teacher-stat"><div class="stat-label">전체 참가</div><div class="stat-num" id="teacherTotalCount">—명</div><div class="stat-sub">명단 등록 기준</div></div>
+            <div class="teacher-stat"><div class="stat-label">버스 탑승 희망</div><div class="stat-num" id="teacherBusCount">—명</div><div class="stat-sub">호차별 자동 집계</div></div>
+            <div class="teacher-stat"><div class="stat-label">생년월일 등록</div><div class="stat-num" id="teacherDobCount">—명</div><div class="stat-sub">본인 확인 가능 인원</div></div>
+            <div class="teacher-stat"><div class="stat-label">생년월일 미등록</div><div class="stat-num" id="teacherNoDobCount">—명</div><div class="stat-sub">추가 입력 필요</div></div>
+          </div>
+          <div class="teacher-alert-grid">
+            <div class="teacher-alert"><div><strong>선택종목 미확인 학생</strong><span>선택 2종목이 입력되지 않은 학생을 확인합니다.</span></div><button type="button">명단 보기</button></div>
+            <div class="teacher-alert danger"><div><strong>버스 미배정 학생</strong><span>탑승 희망 학생 중 호차 배정이 필요한 학생을 확인합니다.</span></div><button type="button">명단 보기</button></div>
+          </div>
+          <div class="teacher-board"><h4>최근 처리 현황</h4><div class="teacher-empty" id="teacherRecentStatus">학생 명단을 불러오는 중입니다.</div></div>
+        </div>
+
+        <div class="teacher-view" id="teacher-view-students">
+          <div class="teacher-page-head"><div><h3>학생 명단</h3><p>선택종목·버스 배정·기록 입력 상태를 조건별로 확인합니다.</p></div><span class="teacher-status">이름 검색 · 학년·반·호차 필터</span></div>
+          <div class="teacher-filterbar"><input id="teacherStudentSearch" type="search" placeholder="이름 또는 학년·반 검색"><select id="teacherGradeFilter"><option>전체 학년</option><option>1학년</option><option>2학년</option><option>3학년</option></select><select id="teacherGenderFilter"><option>전체 성별</option><option>남</option><option>여</option></select><select id="teacherBusFilter"><option>전체 호차</option><option>7호차</option><option>미탑승</option></select></div>
+          <div class="teacher-table-wrap"><table class="teacher-table"><thead><tr><th>학년반</th><th>성명</th><th>생년월일</th><th>성별</th><th>선택종목</th><th>버스</th><th>호차</th><th>기록 상태</th><th>관리</th></tr></thead><tbody id="teacherStudentsBody">
+            <tr><td colspan="9">학생 명단을 불러오는 중입니다.</td></tr>
+          </tbody></table></div>
+        </div>
+
+        <div class="teacher-view" id="teacher-view-records">
+          <div class="teacher-page-head"><div><h3>기록 입력</h3><p>학생을 선택하면 신청한 선택종목 2개가 자동으로 표시됩니다.</p></div><span class="teacher-status">저장 후 다음 학생 이동</span></div>
+          <div class="teacher-filterbar"><select id="teacherRecordSelect"><option value="">학생 선택</option></select><input id="teacherRecordSearch" type="search" placeholder="학생 이름 검색"></div>
+          <div class="teacher-record-card">
+            <div class="teacher-student-strip"><div><h4 id="teacherRecordName">학생을 선택해 주세요</h4><p id="teacherRecordMeta">학년·반·성별 및 선택종목 정보가 여기에 표시됩니다.</p></div><div class="teacher-choice" id="teacherRecordChoices"><span>선택종목 1</span><span>선택종목 2</span></div></div>
+            <div class="teacher-input-title">본인 확인 정보</div><div class="teacher-input-grid"><div class="teacher-field"><label>생년월일 8자리</label><input id="teacherRecordDob" type="password" inputmode="numeric" maxlength="8" placeholder="예: 20090101" oninput="updateTeacherDobFromRecord(this.value,this)"></div></div>
+            <div class="teacher-input-title">공통 종목 기록</div><div class="teacher-input-grid"><div class="teacher-field"><label>제자리멀리뛰기 (cm)</label><input type="number" placeholder="기록 입력"></div><div class="teacher-field"><label>10m 왕복달리기 (초)</label><input type="number" placeholder="기록 입력"></div><div class="teacher-field"><label>좌전굴 (cm)</label><input type="number" placeholder="기록 입력"></div><div class="teacher-field"><label>메디신볼 던지기 (m)</label><input type="number" placeholder="기록 입력"></div></div>
+            <div class="teacher-input-title">선택 종목 기록</div><div class="teacher-input-grid"><div class="teacher-field"><label id="teacherChoiceLabel1">선택종목 1</label><input type="number" placeholder="기록 입력"></div><div class="teacher-field"><label id="teacherChoiceLabel2">선택종목 2</label><input type="number" placeholder="기록 입력"></div></div>
+            <div class="teacher-record-bottom"><div class="teacher-total-mini">현재 합산 점수<strong>—점</strong></div><div><button class="teacher-mini-btn" type="button">이전 학생</button> <button class="teacher-primary-btn" type="button">저장 후 다음 학생</button></div></div>
+          </div>
+        </div>
+
+        <div class="teacher-view" id="teacher-view-bus">
+          <div class="teacher-page-head"><div><h3>버스 운영</h3><p>호차별 배정 인원과 현장 탑승 현황을 관리합니다.</p></div><span class="teacher-status">호차별 명단 · 탑승 체크</span></div>
+          <div class="teacher-bus-grid" id="teacherBusGrid">
+            <div class="teacher-bus-card"><div class="bus-head"><h4>버스 정보</h4><span class="cap">불러오는 중</span></div><p>학생 명단을 불러오는 중입니다.</p></div>
+          </div>
+        </div>
+
+        <div class="teacher-view" id="teacher-view-exports">
+          <div class="teacher-page-head"><div><h3>통계 · 출력</h3><p>운영에 필요한 현황을 집계하고 명단을 출력합니다.</p></div><span class="teacher-status">데이터 연결 후 활성화</span></div>
+          <div class="teacher-board"><h4>준비할 출력물</h4><div class="teacher-download"><button class="teacher-mini-btn" type="button">학생별 점수표</button><button class="teacher-mini-btn" type="button">호차별 탑승 명단</button><button class="teacher-mini-btn" type="button">기록 미입력 학생</button><button class="teacher-mini-btn" type="button">선택종목별 인원</button></div></div>
+        </div>
+      </main>
+    </div>
+  </div>
+</section>
+
 </div>
 <footer>
   <p>© 2026 중마고등학교. All Rights Reserved.</p>
@@ -2375,6 +2591,69 @@ function toggleProgramDetail(btn){
   btn.textContent = card.classList.contains('open') ? '접기' : '자세히 보기';
 }
 
+
+function switchTeacherView(button){
+  const view=button?.dataset?.teacherView;
+  if(!view) return;
+  document.querySelectorAll('.teacher-menu-btn').forEach(btn=>btn.classList.toggle('active',btn===button));
+  document.querySelectorAll('.teacher-view').forEach(panel=>panel.classList.toggle('active',panel.id==='teacher-view-'+view));
+}
+
+</script>
+
+<style id="participant-info-style">
+/* ─── 내 참가 정보 ─── */
+.participant-lookup{background:linear-gradient(135deg,#fff 0%,#f5f8ff 100%);border:2px solid #dce5f2;border-radius:18px;padding:28px;box-shadow:0 7px 24px rgba(20,38,72,.08);}
+.participant-lookup-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:18px;}.participant-lookup-head h3{color:var(--primary);font-size:1.25em;}.participant-lookup-head p{font-size:.9em;color:var(--text-light);margin-top:3px;}.participant-security{font-size:.77em;font-weight:800;color:#7a4f00;background:#fff3cd;border-radius:999px;padding:6px 11px;white-space:nowrap;}
+.participant-form{display:grid;grid-template-columns:1fr 1fr auto;gap:12px;align-items:end;background:#fff;border:1px solid #e2e9f3;border-radius:13px;padding:16px;}.participant-field label{display:block;font-size:.8em;font-weight:800;color:var(--primary);margin-bottom:6px;}.participant-field select,.participant-field input{width:100%;padding:11px 12px;border:2px solid #dde5ef;border-radius:9px;background:#fff;font-size:.94em;outline:none;}.participant-field select:focus,.participant-field input:focus{border-color:var(--accent);}.participant-lookup-btn{min-height:45px;border:0;border-radius:9px;background:var(--primary);color:#fff;font-weight:800;padding:0 20px;cursor:pointer;transition:.2s;}.participant-lookup-btn:hover{background:#0f3460;transform:translateY(-1px)}
+.participant-message{min-height:22px;font-size:.84em;font-weight:700;margin:11px 2px 0;color:#b54708;}.participant-result{display:none;margin-top:20px;border-top:1px solid #e4eaf2;padding-top:20px;}.participant-result.show{display:block;animation:participantReveal .35s ease both;}@keyframes participantReveal{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.participant-profile{display:flex;justify-content:space-between;gap:16px;align-items:center;margin-bottom:14px;}.participant-profile h4{font-size:1.18em;color:var(--primary);}.participant-profile p{font-size:.87em;color:var(--text-light);}.participant-tag{background:#eaf2ff;color:#1955a6;border-radius:999px;padding:6px 11px;font-size:.78em;font-weight:800;}
+.participant-info-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;}.participant-info-card{border-radius:12px;padding:16px;background:#f7f9fd;border:1px solid #e1e8f2;}.participant-info-card.bus{background:#fffaf0;border-color:#f3d390;}.participant-info-card h5{font-size:.83em;color:var(--primary);margin-bottom:9px;}.participant-info-card .big{font-size:1.3em;font-weight:900;color:var(--primary);line-height:1.25;}.participant-info-card .detail{font-size:.87em;color:var(--text-light);margin-top:5px;line-height:1.6;}.participant-choice-list{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;}.participant-choice-list span{font-size:.86em;font-weight:800;background:#fff;border:1px solid #dbe4ef;padding:6px 10px;border-radius:8px;color:var(--primary);}.participant-note{margin-top:12px;border-radius:10px;padding:12px 14px;background:#fff8e1;color:#6b5100;font-size:.85em;line-height:1.65;}
+.group-plan-wrap{margin-top:25px;}.schedule-group-plan{margin-top:16px;background:#fff;border:1px solid #e5ebf3;border-radius:14px;padding:15px;}.group-plan-title{font-size:1em;font-weight:900;color:var(--primary);margin-bottom:10px;display:flex;justify-content:space-between;gap:10px;align-items:center;}.group-plan-title small{font-weight:600;color:var(--text-light);font-size:.8em;}.group-plan-table{width:100%;min-width:780px;border-collapse:separate;border-spacing:0;border:1px solid #dce4ef;border-radius:13px;overflow:hidden;box-shadow:none;}.group-plan-table th{background:#dce6f7;color:var(--primary);padding:12px 10px;font-size:.88em;border-right:1px solid #bcc9dc;}.group-plan-table th:last-child{border-right:0;}.group-plan-table td{padding:13px 10px;text-align:center;line-height:1.55;border-right:1px solid #e1e6ee;border-bottom:1px solid #e1e6ee;font-size:.86em;}.group-plan-table tr:last-child td{border-bottom:0}.group-plan-table td:last-child{border-right:0}.group-plan-table td:first-child{font-size:.96em;background:#f8fafd;white-space:nowrap;}
+@media(max-width:680px){.participant-lookup{padding:18px 14px;}.participant-lookup-head{flex-direction:column;gap:8px;}.participant-form{grid-template-columns:1fr;}.participant-lookup-btn{width:100%;}.participant-profile{align-items:flex-start;flex-direction:column;gap:8px;}.participant-info-grid{grid-template-columns:1fr;}.participant-security{white-space:normal;}.group-plan-title{align-items:flex-start;flex-direction:column;gap:2px;}}
+</style>
+
+<script id="participant-info-script">
+// 생년월일(dob)은 개인정보 파일에서 실제 값으로 교체해야 조회가 가능합니다.
+// 현재 사진에서 확인 가능한 참가자·선택종목·버스 정보를 우선 반영했습니다.
+const participantRecords = [
+  {name:'김태균',grade:'1학년 1반',gender:'남',dob:'',commonNo:'공통 3-21',choiceNo:'선택 1-62',choices:['배근력','셔틀런점프'],busWish:'희망',busNo:'7호차',stop:'마동근린체육공원 1주차장',meeting:'07:30',depart:'07:40'},
+  {name:'김민우',grade:'1학년 3반',gender:'남',dob:'',commonNo:'공통 3-22',choiceNo:'선택 1-63',choices:['배근력','셔틀런점프'],busWish:'희망',busNo:'7호차',stop:'마동근린체육공원 1주차장',meeting:'07:30',depart:'07:40'},
+  {name:'박호영',grade:'1학년 3반',gender:'남',dob:'',commonNo:'공통 3-23',choiceNo:'선택 1-64',choices:['배근력','셔틀런점프'],busWish:'희망',busNo:'7호차',stop:'마동근린체육공원 1주차장',meeting:'07:30',depart:'07:40'},
+  {name:'조은빈',grade:'1학년 5반',gender:'남',dob:'',commonNo:'공통 3-24',choiceNo:'선택 1-65',choices:['배근력','셔틀런점프'],busWish:'희망',busNo:'7호차',stop:'마동근린체육공원 1주차장',meeting:'07:30',depart:'07:40'},
+  {name:'박재현',grade:'2학년 1반',gender:'남',dob:'',commonNo:'공통 3-25',choiceNo:'선택 5-40',choices:['지그재그런','셔틀런점프'],busWish:'비희망',busNo:'-',stop:'개별 이동',meeting:'-',depart:'-'},
+  {name:'김영규',grade:'2학년 2반',gender:'남',dob:'',commonNo:'공통 3-26',choiceNo:'선택 3-46',choices:['배근력','지그재그런'],busWish:'희망',busNo:'7호차',stop:'마동근린체육공원 1주차장',meeting:'07:30',depart:'07:40'},
+  {name:'임승현',grade:'2학년 2반',gender:'남',dob:'',commonNo:'공통 3-27',choiceNo:'선택 3-47',choices:['배근력','지그재그런'],busWish:'희망',busNo:'7호차',stop:'마동근린체육공원 1주차장',meeting:'07:30',depart:'07:40'},
+  {name:'김정우',grade:'2학년 3반',gender:'남',dob:'',commonNo:'공통 3-28',choiceNo:'선택 5-41',choices:['지그재그런','셔틀런점프'],busWish:'비희망',busNo:'-',stop:'개별 이동',meeting:'-',depart:'-'},
+  {name:'이윤호',grade:'2학년 4반',gender:'남',dob:'',commonNo:'공통 3-29',choiceNo:'선택 5-42',choices:['지그재그런','셔틀런점프'],busWish:'희망',busNo:'7호차',stop:'마동근린체육공원 1주차장',meeting:'07:30',depart:'07:40'},
+  {name:'최성빈',grade:'2학년 5반',gender:'남',dob:'',commonNo:'공통 3-30',choiceNo:'선택 1-66',choices:['배근력','셔틀런점프'],busWish:'희망',busNo:'7호차',stop:'마동근린체육공원 1주차장',meeting:'07:30',depart:'07:40'},
+  {name:'서동혁',grade:'2학년 5반',gender:'남',dob:'',commonNo:'공통 3-31',choiceNo:'선택 1-67',choices:['배근력','셔틀런점프'],busWish:'희망',busNo:'7호차',stop:'마동근린체육공원 1주차장',meeting:'07:30',depart:'07:40'},
+  {name:'정은우',grade:'2학년 5반',gender:'남',dob:'',commonNo:'공통 3-32',choiceNo:'선택 3-48',choices:['배근력','지그재그런'],busWish:'희망',busNo:'7호차',stop:'마동근린체육공원 1주차장',meeting:'07:30',depart:'07:40'},
+  {name:'문정후',grade:'2학년 6반',gender:'남',dob:'',commonNo:'공통 3-33',choiceNo:'선택 2-39',choices:['배근력','윗몸일으키기'],busWish:'비희망',busNo:'-',stop:'개별 이동',meeting:'-',depart:'-'},
+  {name:'박시현',grade:'3학년 2반',gender:'남',dob:'',commonNo:'공통 3-34',choiceNo:'선택 2-40',choices:['배근력','윗몸일으키기'],busWish:'희망',busNo:'7호차',stop:'마동근린체육공원 1주차장',meeting:'07:30',depart:'07:40'},
+  {name:'김예은',grade:'3학년 3반',gender:'여',dob:'',commonNo:'공통 3-35',choiceNo:'선택 6-30',choices:['지그재그런','윗몸일으키기'],busWish:'희망',busNo:'7호차',stop:'마동근린체육공원 1주차장',meeting:'07:30',depart:'07:40'},
+  {name:'김도율',grade:'3학년 4반',gender:'남',dob:'',commonNo:'공통 3-36',choiceNo:'선택 6-31',choices:['지그재그런','윗몸일으키기'],busWish:'희망',busNo:'7호차',stop:'마동근린체육공원 1주차장',meeting:'07:30',depart:'07:40'},
+  {name:'이주현',grade:'3학년 7반',gender:'남',dob:'',commonNo:'공통 3-37',choiceNo:'선택 1-68',choices:['배근력','셔틀런점프'],busWish:'희망',busNo:'7호차',stop:'마동근린체육공원 1주차장',meeting:'07:30',depart:'07:40'},
+  {name:'오준수',grade:'3학년 7반',gender:'남',dob:'',commonNo:'공통 3-38',choiceNo:'선택 1-69',choices:['배근력','셔틀런점프'],busWish:'희망',busNo:'7호차',stop:'마동근린체육공원 1주차장',meeting:'07:30',depart:'07:40'}
+];
+function initParticipantSelect(){const s=document.getElementById('participantName');if(!s)return;participantRecords.forEach((r,i)=>{const o=document.createElement('option');o.value=i;o.textContent=`${r.name} · ${r.grade}`;s.appendChild(o);});}
+function normalizeDob(value){return String(value||'').replace(/\D/g,'');}
+function escapeHtml(value){return String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));}
+const TEACHER_DOB_STORAGE_KEY='participantDobOverrides:v1';
+let selectedTeacherRecordIndex=0;
+function loadTeacherDobs(){try{const saved=JSON.parse(localStorage.getItem(TEACHER_DOB_STORAGE_KEY)||'{}');participantRecords.forEach((r,i)=>{const key=`${r.name}|${r.grade}|${i}`;if(saved[key])r.dob=saved[key];});}catch(e){}}
+function saveTeacherDobs(){try{const data={};participantRecords.forEach((r,i)=>{const dob=normalizeDob(r.dob);if(dob)data[`${r.name}|${r.grade}|${i}`]=dob;});localStorage.setItem(TEACHER_DOB_STORAGE_KEY,JSON.stringify(data));}catch(e){}}
+function lookupParticipant(){const nameSelect=document.getElementById('participantName'), dob=document.getElementById('participantDob'),msg=document.getElementById('participantMessage'),box=document.getElementById('participantResult');box.classList.remove('show');box.innerHTML='';if(nameSelect.value===''){msg.textContent='이름을 선택해 주세요.';return;}const typedDob=normalizeDob(dob.value);if(typedDob.length!==8){msg.textContent='생년월일 8자리를 숫자로 입력해 주세요.';return;}const person=participantRecords[Number(nameSelect.value)];const savedDob=normalizeDob(person.dob);if(savedDob.length!==8){msg.textContent='선택한 학생의 생년월일 정보가 아직 등록되지 않았습니다. 교사용 관리 화면에서 생년월일을 입력한 뒤 본인 확인을 사용할 수 있습니다.';return;}if(savedDob!==typedDob){msg.textContent='이름 또는 생년월일이 일치하지 않습니다. 다시 확인해 주세요.';return;}msg.textContent='';box.innerHTML=`<div class="participant-profile"><div><h4>${person.name} <span style="font-size:.72em;font-weight:700;color:#708096">${person.grade} · ${person.gender}</span></h4><p>본인의 참가 정보를 확인하세요.</p></div><span class="participant-tag">참가 확인 완료</span></div><div class="participant-info-grid"><div class="participant-info-card"><h5>🧩 조별 번호</h5><div class="big">${person.commonNo}</div><div class="detail">공통실기 조별 번호</div><div class="big" style="margin-top:9px">${person.choiceNo}</div><div class="detail">선택프로그램 조별 번호</div></div><div class="participant-info-card"><h5>🏃 선택종목</h5><div class="participant-choice-list">${person.choices.map(x=>`<span>${x}</span>`).join('')}</div><div class="detail">운영 계획표에서 선택프로그램 개인번호를 확인해 이동하세요.</div></div><div class="participant-info-card bus"><h5>🚌 버스 탑승 정보</h5><div class="big">${person.busWish==='희망'?person.busNo:'버스 비탑승'}</div><div class="detail">${person.busWish==='희망'?`${person.stop}<br>집결 ${person.meeting} · 출발 ${person.depart}`:'개별 이동 대상입니다.'}</div></div><div class="participant-info-card"><h5>📌 당일 안내</h5><div class="detail">조별 번호와 선택종목을 다시 확인하고, 학원명·로고 등 식별 표식이 있는 운동복·개인장비는 착용하지 마세요.</div></div></div><div class="participant-note">※ 운영 시간과 장소는 현장 상황에 따라 변경될 수 있습니다. 변경 사항은 진행 교사 안내를 따라 주세요.</div>`;box.classList.add('show');}
+function renderTeacherStats(){const total=participantRecords.length,bus=participantRecords.filter(r=>r.busWish==='희망').length,dob=participantRecords.filter(r=>normalizeDob(r.dob)).length;const set=(id,value)=>{const el=document.getElementById(id);if(el)el.textContent=value;};set('teacherTotalCount',`${total}명`);set('teacherBusCount',`${bus}명`);set('teacherDobCount',`${dob}명`);set('teacherNoDobCount',`${total-dob}명`);const recent=document.getElementById('teacherRecentStatus');if(recent)recent.textContent=`현재 ${total}명의 학생 정보가 반영되었습니다. 버스 탑승 희망 ${bus}명, 개별 이동 ${total-bus}명입니다.`;}
+function getTeacherFilteredRecords(){const q=(document.getElementById('teacherStudentSearch')?.value||'').trim().toLowerCase();const grade=document.getElementById('teacherGradeFilter')?.value||'전체 학년';const gender=document.getElementById('teacherGenderFilter')?.value||'전체 성별';const bus=document.getElementById('teacherBusFilter')?.value||'전체 호차';return participantRecords.map((record,index)=>({...record,index})).filter(r=>{const hay=`${r.name} ${r.grade} ${r.gender} ${r.commonNo} ${r.choiceNo} ${r.choices.join(' ')} ${r.busNo}`.toLowerCase();const gradeOk=grade==='전체 학년'||r.grade.startsWith(grade);const genderOk=gender==='전체 성별'||r.gender===gender;const busOk=bus==='전체 호차'||(bus==='미탑승'?r.busWish!=='희망':r.busNo===bus);return (!q||hay.includes(q))&&gradeOk&&genderOk&&busOk;});}
+function renderTeacherStudentTable(){const body=document.getElementById('teacherStudentsBody');if(!body)return;const rows=getTeacherFilteredRecords();if(!rows.length){body.innerHTML='<tr><td colspan="9">조건에 맞는 학생이 없습니다.</td></tr>';return;}body.innerHTML=rows.map(r=>`<tr><td>${escapeHtml(r.grade)}</td><td>${escapeHtml(r.name)}</td><td><input class="teacher-dob-input" type="password" inputmode="numeric" maxlength="8" value="${escapeHtml(normalizeDob(r.dob))}" placeholder="8자리" aria-label="${escapeHtml(r.name)} 생년월일" oninput="updateTeacherDob(${r.index},this.value,this)"></td><td>${escapeHtml(r.gender)}</td><td>${escapeHtml(r.choices.join(', '))}<br><span class="teacher-muted">${escapeHtml(r.commonNo)} · ${escapeHtml(r.choiceNo)}</span></td><td>${escapeHtml(r.busWish)}</td><td>${escapeHtml(r.busNo)}</td><td><span class="teacher-pill wait">입력 대기</span></td><td><button class="teacher-mini-btn" type="button" onclick="selectTeacherRecord(${r.index})">상세 보기</button></td></tr>`).join('');}
+function updateTeacherDob(index,value,input){const clean=normalizeDob(value).slice(0,8);if(input&&input.value!==clean)input.value=clean;if(!participantRecords[index])return;participantRecords[index].dob=clean;saveTeacherDobs();renderTeacherStats();if(index===selectedTeacherRecordIndex){const recordDob=document.getElementById('teacherRecordDob');if(recordDob&&recordDob!==input)recordDob.value=clean;}}
+function updateTeacherDobFromRecord(value,input){updateTeacherDob(selectedTeacherRecordIndex,value,input);}
+function selectTeacherRecord(index){const person=participantRecords[index];if(!person)return;selectedTeacherRecordIndex=index;const select=document.getElementById('teacherRecordSelect');if(select)select.value=String(index);const name=document.getElementById('teacherRecordName'),meta=document.getElementById('teacherRecordMeta'),choices=document.getElementById('teacherRecordChoices'),label1=document.getElementById('teacherChoiceLabel1'),label2=document.getElementById('teacherChoiceLabel2'),recordDob=document.getElementById('teacherRecordDob');if(name)name.textContent=person.name;if(meta)meta.textContent=`${person.grade} · ${person.gender} · ${person.commonNo} · ${person.choiceNo} · ${person.busWish==='희망'?person.busNo:'개별 이동'}`;if(recordDob)recordDob.value=normalizeDob(person.dob);if(choices)choices.innerHTML=person.choices.map(x=>`<span>${escapeHtml(x)}</span>`).join('');if(label1)label1.textContent=person.choices[0]||'선택종목 1';if(label2)label2.textContent=person.choices[1]||'선택종목 2';}
+function renderTeacherRecordSelect(){const select=document.getElementById('teacherRecordSelect');if(!select)return;select.innerHTML='<option value="">학생 선택</option>'+participantRecords.map((r,i)=>`<option value="${i}">${escapeHtml(r.name)} · ${escapeHtml(r.grade)}</option>`).join('');select.addEventListener('change',()=>{if(select.value!=='')selectTeacherRecord(Number(select.value));});const search=document.getElementById('teacherRecordSearch');if(search)search.addEventListener('input',()=>{const q=search.value.trim().toLowerCase();const found=participantRecords.findIndex(r=>`${r.name} ${r.grade}`.toLowerCase().includes(q));if(found>=0)selectTeacherRecord(found);});}
+function renderTeacherBusGrid(){const grid=document.getElementById('teacherBusGrid');if(!grid)return;const busGroups=participantRecords.reduce((acc,r)=>{const key=r.busWish==='희망'?r.busNo:'미탑승';(acc[key] ||= []).push(r);return acc;},{});grid.innerHTML=Object.entries(busGroups).map(([busNo,list])=>`<div class="teacher-bus-card"><div class="bus-head"><h4>${escapeHtml(busNo)}</h4><span class="cap">${list.length}명</span></div><p>${list.map(r=>escapeHtml(r.name)).join(', ')}<br>${escapeHtml(list[0]?.stop||'개별 이동')}</p><div class="bus-actions"><button class="teacher-mini-btn" type="button">명단 보기</button></div></div>`).join('');}
+function initTeacherAdmin(){loadTeacherDobs();renderTeacherStats();renderTeacherStudentTable();renderTeacherRecordSelect();renderTeacherBusGrid();['teacherStudentSearch','teacherGradeFilter','teacherGenderFilter','teacherBusFilter'].forEach(id=>{const el=document.getElementById(id);el?.addEventListener('input',renderTeacherStudentTable);el?.addEventListener('change',renderTeacherStudentTable);});selectTeacherRecord(0);}
+document.addEventListener('DOMContentLoaded',()=>{initParticipantSelect();initTeacherAdmin();});
 </script>
 </body>
 </html>
