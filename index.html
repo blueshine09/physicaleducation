@@ -1654,19 +1654,7 @@ header h1.title-hero::after{
         <h4>⭐ 선택 프로그램 (2가지 중 1가지 선택)</h4>
         <p>① 대입상담교사 1:1 맞춤형 진학 상담 — 세미나실 1·2 (지하 1,2층)<br/>
         ② 선택 실기 모의 테스트 — 실내체육관 (지상 1층)</p>
-        <div class="group-plan-wrap schedule-group-plan">
-          <div class="group-plan-title"><span>📋 조별 운영 계획</span><small>시간은 상황에 따라 변동될 수 있습니다.</small></div>
-          <div class="table-wrap">
-            <table class="group-plan-table">
-              <thead><tr><th>순서</th><th>배근력</th><th>셔틀런점프</th><th>윗몸일으키기</th><th>지그재그런</th></tr></thead>
-              <tbody>
-                <tr><td>15:00 ~ 15:30 (A)</td><td>선택 1-1 ~ 1-51</td><td>선택 1-52 ~ 1-102<br>선택 4-1 ~ 4-14</td><td>선택 6-1 ~ 6-50</td><td>선택 3-1 ~ 3-76</td></tr>
-                <tr><td>15:30 ~ 16:00 (B)</td><td>선택 3-1 ~ 3-76</td><td>선택 5-1 ~ 5-72</td><td>선택 2-1 ~ 2-58</td><td>선택 6-1 ~ 6-50</td></tr>
-                <tr><td>16:00 ~ 17:00 (C)</td><td>선택 1-52 ~ 1-102<br>선택 2-1 ~ 2-58</td><td>선택 1-1 ~ 1-51</td><td>선택 4-1 ~ 4-14</td><td>선택 5-1 ~ 5-72</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
+        <button class="group-plan-open-btn" type="button" onclick="openGroupPlanModal()">조별 운영계획 보기</button>
       </div>
     </div>
   </div>
@@ -2081,6 +2069,40 @@ header h1.title-hero::after{
 </section>
 
 </div>
+<div class="group-plan-modal" id="groupPlanModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="groupPlanModalTitle" onclick="handleGroupPlanBackdrop(event)">
+  <div class="group-plan-modal-panel" role="document">
+    <div class="group-plan-modal-head">
+      <div><h3 id="groupPlanModalTitle">조별 운영계획</h3><p>선택 실기 모의 테스트 시간대별 운영표입니다.</p></div>
+      <button class="group-plan-close-btn" type="button" onclick="closeGroupPlanModal()" aria-label="조별 운영계획 닫기">×</button>
+    </div>
+    <div class="group-plan-modal-body">
+      <div class="table-wrap group-plan-modal-table">
+        <table class="group-plan-table">
+          <thead><tr><th>순서</th><th>배근력</th><th>서전트점프</th><th>윗몸일으키기</th><th>지그재그런</th></tr></thead>
+          <tbody>
+            <tr><td>15:00 ~ 15:30 (A)</td><td>선택 1-1 ~ 1-51</td><td>선택 1-52 ~ 1-102<br>선택 4-1 ~ 4-14</td><td>선택 6-1 ~ 6-50</td><td>선택 3-1 ~ 3-76</td></tr>
+            <tr><td>15:30 ~ 16:00 (B)</td><td>선택 3-1 ~ 3-76</td><td>선택 5-1 ~ 5-72</td><td>선택 2-1 ~ 2-58</td><td>선택 6-1 ~ 6-50</td></tr>
+            <tr><td>16:00 ~ 17:00 (C)</td><td>선택 1-52 ~ 1-102<br>선택 2-1 ~ 2-58</td><td>선택 1-1 ~ 1-51</td><td>선택 4-1 ~ 4-14</td><td>선택 5-1 ~ 5-72</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="group-plan-mobile show-in-modal" aria-label="모바일 조별 운영 계획">
+        <article class="group-plan-card">
+          <div class="group-plan-time"><strong>A</strong><span>15:00 ~ 15:30</span></div>
+          <dl><div><dt>배근력</dt><dd>선택 1-1 ~ 1-51</dd></div><div><dt>서전트점프</dt><dd>선택 1-52 ~ 1-102 · 선택 4-1 ~ 4-14</dd></div><div><dt>윗몸일으키기</dt><dd>선택 6-1 ~ 6-50</dd></div><div><dt>지그재그런</dt><dd>선택 3-1 ~ 3-76</dd></div></dl>
+        </article>
+        <article class="group-plan-card">
+          <div class="group-plan-time"><strong>B</strong><span>15:30 ~ 16:00</span></div>
+          <dl><div><dt>배근력</dt><dd>선택 3-1 ~ 3-76</dd></div><div><dt>서전트점프</dt><dd>선택 5-1 ~ 5-72</dd></div><div><dt>윗몸일으키기</dt><dd>선택 2-1 ~ 2-58</dd></div><div><dt>지그재그런</dt><dd>선택 6-1 ~ 6-50</dd></div></dl>
+        </article>
+        <article class="group-plan-card">
+          <div class="group-plan-time"><strong>C</strong><span>16:00 ~ 17:00</span></div>
+          <dl><div><dt>배근력</dt><dd>선택 1-52 ~ 1-102 · 선택 2-1 ~ 2-58</dd></div><div><dt>서전트점프</dt><dd>선택 1-1 ~ 1-51</dd></div><div><dt>윗몸일으키기</dt><dd>선택 4-1 ~ 4-14</dd></div><div><dt>지그재그런</dt><dd>선택 5-1 ~ 5-72</dd></div></dl>
+        </article>
+      </div>
+    </div>
+  </div>
+</div>
 <footer>
   <p>© 2026 중마고등학교. All Rights Reserved.</p>
 </footer>
@@ -2140,6 +2162,25 @@ function switchScheduleTab(e,id){
   const panel = document.getElementById('schedule-' + id);
   if(panel) panel.classList.add('active');
 }
+function openGroupPlanModal(){
+  const modal=document.getElementById('groupPlanModal');
+  if(!modal)return;
+  modal.classList.add('show');
+  modal.setAttribute('aria-hidden','false');
+  document.body.style.overflow='hidden';
+  modal.querySelector('.group-plan-close-btn')?.focus();
+}
+function closeGroupPlanModal(){
+  const modal=document.getElementById('groupPlanModal');
+  if(!modal)return;
+  modal.classList.remove('show');
+  modal.setAttribute('aria-hidden','true');
+  document.body.style.overflow='';
+}
+function handleGroupPlanBackdrop(event){
+  if(event.target?.id==='groupPlanModal')closeGroupPlanModal();
+}
+document.addEventListener('keydown',event=>{if(event.key==='Escape')closeGroupPlanModal();});
 
 function toggleAcc(el){ el.classList.toggle('open'); }
 
@@ -2535,39 +2576,48 @@ function switchTeacherView(button){
 .participant-message{min-height:22px;font-size:.84em;font-weight:700;margin:11px 2px 0;color:#b54708;}.participant-result{display:none;margin-top:20px;border-top:1px solid #e4eaf2;padding-top:20px;}.participant-result.show{display:block;animation:participantReveal .35s ease both;}@keyframes participantReveal{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 .participant-profile{display:flex;justify-content:space-between;gap:16px;align-items:center;margin-bottom:14px;}.participant-profile h4{font-size:1.18em;color:var(--primary);}.participant-profile p{font-size:.87em;color:var(--text-light);}.participant-tag{background:#eaf2ff;color:#1955a6;border-radius:999px;padding:6px 11px;font-size:.78em;font-weight:800;}
 .participant-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:flex-end;}.participant-unlock-btn{border:1px solid #c9d5e4;background:#fff;color:#2c5e92;border-radius:8px;padding:7px 10px;font-size:.76em;font-weight:800;cursor:pointer;white-space:nowrap;}.participant-unlock-btn:hover{background:#f4f8ff;border-color:#9db8d9;}
-.participant-info-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;}.participant-info-card{border-radius:12px;padding:16px;background:#f7f9fd;border:1px solid #e1e8f2;}.participant-info-card.bus{background:#fffaf0;border-color:#f3d390;}.participant-info-card h5{font-size:.83em;color:var(--primary);margin-bottom:9px;}.participant-info-card .big{font-size:1.3em;font-weight:900;color:var(--primary);line-height:1.25;}.participant-info-card .detail{font-size:.87em;color:var(--text-light);margin-top:5px;line-height:1.6;}.participant-choice-list{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;}.participant-choice-list span{font-size:.86em;font-weight:800;background:#fff;border:1px solid #dbe4ef;padding:6px 10px;border-radius:8px;color:var(--primary);}.participant-note{margin-top:12px;border-radius:10px;padding:12px 14px;background:#fff8e1;color:#6b5100;font-size:.85em;line-height:1.65;}
-.group-plan-wrap{margin-top:25px;}.schedule-group-plan{margin-top:16px;background:#fff;border:1px solid #e5ebf3;border-radius:14px;padding:15px;}.group-plan-title{font-size:1em;font-weight:900;color:var(--primary);margin-bottom:10px;display:flex;justify-content:space-between;gap:10px;align-items:center;}.group-plan-title small{font-weight:600;color:var(--text-light);font-size:.8em;}.group-plan-table{width:100%;min-width:780px;border-collapse:separate;border-spacing:0;border:1px solid #dce4ef;border-radius:13px;overflow:hidden;box-shadow:none;}.group-plan-table th{background:#dce6f7;color:var(--primary);padding:12px 10px;font-size:.88em;border-right:1px solid #bcc9dc;}.group-plan-table th:last-child{border-right:0;}.group-plan-table td{padding:13px 10px;text-align:center;line-height:1.55;border-right:1px solid #e1e6ee;border-bottom:1px solid #e1e6ee;font-size:.86em;}.group-plan-table tr:last-child td{border-bottom:0}.group-plan-table td:last-child{border-right:0}.group-plan-table td:first-child{font-size:.96em;background:#f8fafd;white-space:nowrap;}
-@media(max-width:680px){.participant-lookup{padding:12px;border-radius:12px;border-width:1px;box-shadow:0 4px 14px rgba(20,38,72,.06);}.participant-lookup-head{margin-bottom:10px;}.participant-lookup-head h3{font-size:1.05em;}.participant-lookup-head p{display:none;}.participant-form{grid-template-columns:1fr;gap:8px;padding:10px;border-radius:10px;}.participant-field label{font-size:.75em;margin-bottom:4px;}.participant-field select{padding:9px 10px;font-size:.88em;}.participant-lookup-btn{width:100%;min-height:38px;font-size:.86em;}.participant-message{min-height:18px;margin-top:7px;font-size:.78em;}.participant-result{margin-top:8px;padding-top:8px;}.participant-profile{align-items:flex-start;flex-direction:column;gap:4px;margin-bottom:6px;}.participant-profile h4{font-size:1em;}.participant-profile p,.participant-tag{display:none;}.participant-actions{justify-content:flex-start;}.participant-unlock-btn{padding:5px 8px;font-size:.72em;}.participant-info-grid{grid-template-columns:1fr;gap:6px;}.participant-info-card{display:grid;grid-template-columns:72px minmax(0,1fr);column-gap:8px;align-items:start;padding:8px 9px;border-radius:8px;}.participant-info-card h5{grid-row:1 / span 4;font-size:.76em;margin:1px 0 0;}.participant-info-card .big{font-size:.98em;line-height:1.2;}.participant-info-card .detail{font-size:.74em;line-height:1.32;margin-top:1px;}.participant-choice-list{gap:5px;margin-top:0;}.participant-choice-list span{font-size:.76em;padding:3px 6px;border-radius:6px;}.participant-note{display:none;}.group-plan-title{align-items:flex-start;flex-direction:column;gap:2px;}}
+.participant-info-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;}.participant-info-card{border-radius:12px;padding:16px;background:#f7f9fd;border:1px solid #e1e8f2;}.participant-info-card.bus{background:#fffaf0;border-color:#f3d390;}.participant-info-card h5{font-size:.83em;color:var(--primary);margin-bottom:9px;}.participant-info-card .big{font-size:1.3em;font-weight:900;color:var(--primary);line-height:1.25;}.participant-info-card .detail{font-size:.87em;color:var(--text-light);margin-top:5px;line-height:1.6;}.participant-choice-list{display:grid;gap:7px;margin-top:8px;}.participant-choice-item{display:grid;grid-template-columns:minmax(86px,.72fr) minmax(0,1fr);gap:8px;align-items:center;background:#fff;border:1px solid #dbe4ef;padding:7px 9px;border-radius:8px;color:var(--primary);}.participant-choice-item strong{font-size:.9em;font-weight:900;}.participant-choice-item span{font-size:.82em;font-weight:800;color:#596779;}.participant-note{margin-top:12px;border-radius:10px;padding:12px 14px;background:#fff8e1;color:#6b5100;font-size:.85em;line-height:1.65;}
+.group-plan-open-btn{margin-top:12px;border:0;border-radius:9px;background:var(--primary);color:#fff;font-weight:900;padding:10px 14px;cursor:pointer;box-shadow:0 5px 14px rgba(15,52,96,.16);}.group-plan-open-btn:hover{background:#0f3460;transform:translateY(-1px)}.group-plan-wrap{margin-top:25px;}.schedule-group-plan{margin-top:16px;background:#fff;border:1px solid #e5ebf3;border-radius:14px;padding:15px;}.group-plan-title{font-size:1em;font-weight:900;color:var(--primary);margin-bottom:10px;display:flex;justify-content:space-between;gap:10px;align-items:center;}.group-plan-title small{font-weight:600;color:var(--text-light);font-size:.8em;}.group-plan-table{width:100%;min-width:780px;border-collapse:separate;border-spacing:0;border:1px solid #dce4ef;border-radius:13px;overflow:hidden;box-shadow:none;}.group-plan-table th{background:#dce6f7;color:var(--primary);padding:12px 10px;font-size:.88em;border-right:1px solid #bcc9dc;}.group-plan-table th:last-child{border-right:0;}.group-plan-table td{padding:13px 10px;text-align:center;line-height:1.55;border-right:1px solid #e1e6ee;border-bottom:1px solid #e1e6ee;font-size:.86em;}.group-plan-table tr:last-child td{border-bottom:0}.group-plan-table td:last-child{border-right:0}.group-plan-table td:first-child{font-size:.96em;background:#f8fafd;white-space:nowrap;}.group-plan-mobile{display:none;}.group-plan-modal{position:fixed;inset:0;z-index:3000;display:none;align-items:center;justify-content:center;padding:22px;background:rgba(8,18,32,.58);backdrop-filter:blur(5px);}.group-plan-modal.show{display:flex;}.group-plan-modal-panel{width:min(980px,100%);max-height:min(86vh,760px);overflow:hidden;background:#fff;border-radius:18px;box-shadow:0 24px 70px rgba(0,0,0,.28);display:flex;flex-direction:column;}.group-plan-modal-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;padding:19px 22px;border-bottom:1px solid #e2e9f3;}.group-plan-modal-head h3{margin:0;color:var(--primary);font-size:1.18em;}.group-plan-modal-head p{margin:3px 0 0;color:var(--text-light);font-size:.84em;}.group-plan-close-btn{border:0;background:#eef3f9;color:var(--primary);width:34px;height:34px;border-radius:50%;font-size:1.4em;line-height:1;cursor:pointer;}.group-plan-modal-body{padding:18px 22px 22px;overflow:auto;}.group-plan-modal .group-plan-mobile.show-in-modal{display:none;}
+@media(max-width:680px){.participant-lookup{padding:12px;border-radius:12px;border-width:1px;box-shadow:0 4px 14px rgba(20,38,72,.06);}.participant-lookup-head{margin-bottom:10px;}.participant-lookup-head h3{font-size:1.05em;}.participant-lookup-head p{display:none;}.participant-form{grid-template-columns:1fr;gap:8px;padding:10px;border-radius:10px;}.participant-field label{font-size:.75em;margin-bottom:4px;}.participant-field select{padding:9px 10px;font-size:.88em;}.participant-lookup-btn{width:100%;min-height:38px;font-size:.86em;}.participant-message{min-height:18px;margin-top:7px;font-size:.78em;}.participant-result{margin-top:8px;padding-top:8px;}.participant-profile{align-items:flex-start;flex-direction:column;gap:4px;margin-bottom:6px;}.participant-profile h4{font-size:1em;}.participant-profile p,.participant-tag{display:none;}.participant-actions{justify-content:flex-start;}.participant-unlock-btn{padding:5px 8px;font-size:.72em;}.participant-info-grid{grid-template-columns:1fr;gap:6px;}.participant-info-card{display:grid;grid-template-columns:72px minmax(0,1fr);column-gap:8px;align-items:start;padding:8px 9px;border-radius:8px;}.participant-info-card h5{grid-row:1 / span 4;font-size:.76em;margin:1px 0 0;}.participant-info-card .big{font-size:.98em;line-height:1.2;}.participant-info-card .detail{font-size:.74em;line-height:1.32;margin-top:1px;}.participant-choice-list{gap:4px;margin-top:0;}.participant-choice-item{grid-template-columns:74px minmax(0,1fr);gap:5px;padding:5px 7px;border-radius:7px;}.participant-choice-item strong{font-size:.78em;}.participant-choice-item span{font-size:.74em;}.participant-note{display:none;}.group-plan-open-btn{width:100%;margin-top:9px;padding:9px 11px;font-size:.82em;}.group-plan-modal{align-items:flex-end;padding:0;background:rgba(8,18,32,.62);}.group-plan-modal-panel{width:100%;max-height:82vh;border-radius:18px 18px 0 0;}.group-plan-modal-head{padding:15px 16px 11px;}.group-plan-modal-head h3{font-size:1em;}.group-plan-modal-head p{font-size:.76em;}.group-plan-close-btn{width:31px;height:31px;font-size:1.25em;}.group-plan-modal-body{padding:10px 14px 16px;}.group-plan-modal-table{display:none;}.group-plan-modal .group-plan-mobile.show-in-modal{display:grid;gap:7px;}.group-plan-card{border:1px solid #e2e9f3;background:#f8fafd;border-radius:9px;padding:8px;}.group-plan-time{display:flex;align-items:center;gap:7px;margin-bottom:6px;}.group-plan-time strong{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:7px;background:var(--primary);color:#fff;font-size:.8em;}.group-plan-time span{font-size:.86em;font-weight:900;color:var(--primary);}.group-plan-card dl{display:grid;grid-template-columns:1fr;gap:4px;margin:0;}.group-plan-card dl div{display:grid;grid-template-columns:78px minmax(0,1fr);gap:6px;align-items:start;}.group-plan-card dt{font-size:.74em;font-weight:900;color:var(--primary);}.group-plan-card dd{margin:0;font-size:.74em;line-height:1.32;color:#4c5968;}}
 </style>
 
 <script id="participant-info-script">
 // 현재 사진에서 확인 가능한 참가자·선택종목·버스 정보를 우선 반영했습니다.
 const participantRecords = [
-  {name:'김태균',grade:'1학년 1반',gender:'남',code:'KQ7321',commonNo:'공통 3-21',choiceNo:'선택 1-62',choices:['배근력','셔틀런점프'],busWish:'희망',busNo:'7호차',stop:'마동근린체육공원 1주차장',meeting:'07:30',depart:'07:40'},
-  {name:'김민우',grade:'1학년 3반',gender:'남',code:'MR1463',commonNo:'공통 3-22',choiceNo:'선택 1-63',choices:['배근력','셔틀런점프'],busWish:'희망',busNo:'7호차',stop:'마동근린체육공원 1주차장',meeting:'07:30',depart:'07:40'},
-  {name:'박호영',grade:'1학년 3반',gender:'남',code:'HY8527',commonNo:'공통 3-23',choiceNo:'선택 1-64',choices:['배근력','셔틀런점프'],busWish:'희망',busNo:'7호차',stop:'마동근린체육공원 1주차장',meeting:'07:30',depart:'07:40'},
-  {name:'조은빈',grade:'1학년 5반',gender:'남',code:'EB4096',commonNo:'공통 3-24',choiceNo:'선택 1-65',choices:['배근력','셔틀런점프'],busWish:'희망',busNo:'7호차',stop:'마동근린체육공원 1주차장',meeting:'07:30',depart:'07:40'},
-  {name:'박재현',grade:'2학년 1반',gender:'남',code:'JH5740',commonNo:'공통 3-25',choiceNo:'선택 5-40',choices:['지그재그런','셔틀런점프'],busWish:'비희망',busNo:'-',stop:'개별 이동',meeting:'-',depart:'-'},
+  {name:'김태균',grade:'1학년 1반',gender:'남',code:'KQ7321',commonNo:'공통 3-21',choiceNo:'선택 1-62',choices:['배근력','서전트점프'],busWish:'희망',busNo:'7호차',stop:'마동근린체육공원 1주차장',meeting:'07:30',depart:'07:40'},
+  {name:'김민우',grade:'1학년 3반',gender:'남',code:'MR1463',commonNo:'공통 3-22',choiceNo:'선택 1-63',choices:['배근력','서전트점프'],busWish:'희망',busNo:'7호차',stop:'마동근린체육공원 1주차장',meeting:'07:30',depart:'07:40'},
+  {name:'박호영',grade:'1학년 3반',gender:'남',code:'HY8527',commonNo:'공통 3-23',choiceNo:'선택 1-64',choices:['배근력','서전트점프'],busWish:'희망',busNo:'7호차',stop:'마동근린체육공원 1주차장',meeting:'07:30',depart:'07:40'},
+  {name:'조은빈',grade:'1학년 5반',gender:'남',code:'EB4096',commonNo:'공통 3-24',choiceNo:'선택 1-65',choices:['배근력','서전트점프'],busWish:'희망',busNo:'7호차',stop:'마동근린체육공원 1주차장',meeting:'07:30',depart:'07:40'},
+  {name:'박재현',grade:'2학년 1반',gender:'남',code:'JH5740',commonNo:'공통 3-25',choiceNo:'선택 5-40',choices:['지그재그런','서전트점프'],busWish:'비희망',busNo:'-',stop:'개별 이동',meeting:'-',depart:'-'},
   {name:'김영규',grade:'2학년 2반',gender:'남',code:'YG6346',commonNo:'공통 3-26',choiceNo:'선택 3-46',choices:['배근력','지그재그런'],busWish:'희망',busNo:'7호차',stop:'마동근린체육공원 1주차장',meeting:'07:30',depart:'07:40'},
   {name:'임승현',grade:'2학년 2반',gender:'남',code:'SH9381',commonNo:'공통 3-27',choiceNo:'선택 3-47',choices:['배근력','지그재그런'],busWish:'희망',busNo:'7호차',stop:'마동근린체육공원 1주차장',meeting:'07:30',depart:'07:40'},
-  {name:'김정우',grade:'2학년 3반',gender:'남',code:'JW2541',commonNo:'공통 3-28',choiceNo:'선택 5-41',choices:['지그재그런','셔틀런점프'],busWish:'비희망',busNo:'-',stop:'개별 이동',meeting:'-',depart:'-'},
-  {name:'이윤호',grade:'2학년 4반',gender:'남',code:'YH7042',commonNo:'공통 3-29',choiceNo:'선택 5-42',choices:['지그재그런','셔틀런점프'],busWish:'희망',busNo:'7호차',stop:'마동근린체육공원 1주차장',meeting:'07:30',depart:'07:40'},
-  {name:'최성빈',grade:'2학년 5반',gender:'남',code:'SB8166',commonNo:'공통 3-30',choiceNo:'선택 1-66',choices:['배근력','셔틀런점프'],busWish:'희망',busNo:'7호차',stop:'마동근린체육공원 1주차장',meeting:'07:30',depart:'07:40'},
-  {name:'서동혁',grade:'2학년 5반',gender:'남',code:'DH1167',commonNo:'공통 3-31',choiceNo:'선택 1-67',choices:['배근력','셔틀런점프'],busWish:'희망',busNo:'7호차',stop:'마동근린체육공원 1주차장',meeting:'07:30',depart:'07:40'},
+  {name:'김정우',grade:'2학년 3반',gender:'남',code:'JW2541',commonNo:'공통 3-28',choiceNo:'선택 5-41',choices:['지그재그런','서전트점프'],busWish:'비희망',busNo:'-',stop:'개별 이동',meeting:'-',depart:'-'},
+  {name:'이윤호',grade:'2학년 4반',gender:'남',code:'YH7042',commonNo:'공통 3-29',choiceNo:'선택 5-42',choices:['지그재그런','서전트점프'],busWish:'희망',busNo:'7호차',stop:'마동근린체육공원 1주차장',meeting:'07:30',depart:'07:40'},
+  {name:'최성빈',grade:'2학년 5반',gender:'남',code:'SB8166',commonNo:'공통 3-30',choiceNo:'선택 1-66',choices:['배근력','서전트점프'],busWish:'희망',busNo:'7호차',stop:'마동근린체육공원 1주차장',meeting:'07:30',depart:'07:40'},
+  {name:'서동혁',grade:'2학년 5반',gender:'남',code:'DH1167',commonNo:'공통 3-31',choiceNo:'선택 1-67',choices:['배근력','서전트점프'],busWish:'희망',busNo:'7호차',stop:'마동근린체육공원 1주차장',meeting:'07:30',depart:'07:40'},
   {name:'정은우',grade:'2학년 5반',gender:'남',code:'EW3348',commonNo:'공통 3-32',choiceNo:'선택 3-48',choices:['배근력','지그재그런'],busWish:'희망',busNo:'7호차',stop:'마동근린체육공원 1주차장',meeting:'07:30',depart:'07:40'},
   {name:'문정후',grade:'2학년 6반',gender:'남',code:'JH2239',commonNo:'공통 3-33',choiceNo:'선택 2-39',choices:['배근력','윗몸일으키기'],busWish:'비희망',busNo:'-',stop:'개별 이동',meeting:'-',depart:'-'},
   {name:'박시현',grade:'3학년 2반',gender:'남',code:'SH9240',commonNo:'공통 3-34',choiceNo:'선택 2-40',choices:['배근력','윗몸일으키기'],busWish:'희망',busNo:'7호차',stop:'마동근린체육공원 1주차장',meeting:'07:30',depart:'07:40'},
   {name:'김예은',grade:'3학년 3반',gender:'여',code:'YE6630',commonNo:'공통 3-35',choiceNo:'선택 6-30',choices:['지그재그런','윗몸일으키기'],busWish:'희망',busNo:'7호차',stop:'마동근린체육공원 1주차장',meeting:'07:30',depart:'07:40'},
   {name:'김도율',grade:'3학년 4반',gender:'남',code:'DY5131',commonNo:'공통 3-36',choiceNo:'선택 6-31',choices:['지그재그런','윗몸일으키기'],busWish:'희망',busNo:'7호차',stop:'마동근린체육공원 1주차장',meeting:'07:30',depart:'07:40'},
-  {name:'이주현',grade:'3학년 7반',gender:'남',code:'JH7468',commonNo:'공통 3-37',choiceNo:'선택 1-68',choices:['배근력','셔틀런점프'],busWish:'희망',busNo:'7호차',stop:'마동근린체육공원 1주차장',meeting:'07:30',depart:'07:40'},
-  {name:'오준수',grade:'3학년 7반',gender:'남',code:'JS9069',commonNo:'공통 3-38',choiceNo:'선택 1-69',choices:['배근력','셔틀런점프'],busWish:'희망',busNo:'7호차',stop:'마동근린체육공원 1주차장',meeting:'07:30',depart:'07:40'}
+  {name:'이주현',grade:'3학년 7반',gender:'남',code:'JH7468',commonNo:'공통 3-37',choiceNo:'선택 1-68',choices:['배근력','서전트점프'],busWish:'희망',busNo:'7호차',stop:'마동근린체육공원 1주차장',meeting:'07:30',depart:'07:40'},
+  {name:'오준수',grade:'3학년 7반',gender:'남',code:'JS9069',commonNo:'공통 3-38',choiceNo:'선택 1-69',choices:['배근력','서전트점프'],busWish:'희망',busNo:'7호차',stop:'마동근린체육공원 1주차장',meeting:'07:30',depart:'07:40'}
 ];
 function escapeHtml(value){return String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));}
 let selectedTeacherRecordIndex=0;
 const PARTICIPANT_LOCK_KEY='savedParticipantIndex:v1';
 function normalizeCode(value){return String(value||'').replace(/\s/g,'').toUpperCase();}
 function setParticipantLocked(locked){document.querySelector('.participant-lookup')?.classList.toggle('locked',locked);}
-function renderParticipantResult(index,save=false){const person=participantRecords[index],msg=document.getElementById('participantMessage'),box=document.getElementById('participantResult');if(!person||!box)return;if(save){try{localStorage.setItem(PARTICIPANT_LOCK_KEY,String(index));}catch(e){}}if(msg)msg.textContent='';box.innerHTML=`<div class="participant-profile"><div><h4>${person.name} <span style="font-size:.72em;font-weight:700;color:#708096">${person.grade} · ${person.gender}</span></h4><p>참가 정보를 확인하세요.</p></div><div class="participant-actions"><span class="participant-tag">저장됨</span><button class="participant-unlock-btn" type="button" onclick="resetParticipantLock()">다른 코드 입력</button></div></div><div class="participant-info-grid"><div class="participant-info-card"><h5>🧩 조별 번호</h5><div class="big">${person.commonNo}</div><div class="detail">공통실기</div><div class="big" style="margin-top:7px">${person.choiceNo}</div><div class="detail">선택프로그램</div></div><div class="participant-info-card"><h5>🏃 선택종목</h5><div class="participant-choice-list">${person.choices.map(x=>`<span>${x}</span>`).join('')}</div></div><div class="participant-info-card bus"><h5>🚌 버스</h5><div class="big">${person.busWish==='희망'?person.busNo:'비탑승'}</div><div class="detail">${person.busWish==='희망'?`${person.stop}<br>집결 ${person.meeting} · 출발 ${person.depart}`:'개별 이동'}</div></div></div><div class="participant-note">※ 운영 시간과 장소는 현장 상황에 따라 변경될 수 있습니다.</div>`;box.classList.add('show');setParticipantLocked(true);}
+const choiceEventSchedule=[
+  {time:'15:00 ~ 15:30',events:{'배근력':[[1,1,51]],'서전트점프':[[1,52,102],[4,1,14]],'윗몸일으키기':[[6,1,50]],'지그재그런':[[3,1,76]]}},
+  {time:'15:30 ~ 16:00',events:{'배근력':[[3,1,76]],'서전트점프':[[5,1,72]],'윗몸일으키기':[[2,1,58]],'지그재그런':[[6,1,50]]}},
+  {time:'16:00 ~ 17:00',events:{'배근력':[[1,52,102],[2,1,58]],'서전트점프':[[1,1,51]],'윗몸일으키기':[[4,1,14]],'지그재그런':[[5,1,72]]}}
+];
+function parseChoiceNo(choiceNo){const m=String(choiceNo||'').match(/선택\s*(\d+)-(\d+)/);return m?{group:Number(m[1]),number:Number(m[2])}:null;}
+function isInChoiceRange(choice,range){return choice&&choice.group===range[0]&&choice.number>=range[1]&&choice.number<=range[2];}
+function getChoiceEventTime(person,eventName){const choice=parseChoiceNo(person.choiceNo);const slot=choiceEventSchedule.find(item=>(item.events[eventName]||[]).some(range=>isInChoiceRange(choice,range)));return slot?slot.time:'시간 확인 필요';}
+function renderChoiceSchedule(person){return person.choices.map(eventName=>`<div class="participant-choice-item"><strong>${escapeHtml(eventName)}</strong><span>${escapeHtml(getChoiceEventTime(person,eventName))}</span></div>`).join('');}
+function renderParticipantResult(index,save=false){const person=participantRecords[index],msg=document.getElementById('participantMessage'),box=document.getElementById('participantResult');if(!person||!box)return;if(save){try{localStorage.setItem(PARTICIPANT_LOCK_KEY,String(index));}catch(e){}}if(msg)msg.textContent='';box.innerHTML=`<div class="participant-profile"><div><h4>${person.name} <span style="font-size:.72em;font-weight:700;color:#708096">${person.grade} · ${person.gender}</span></h4><p>참가 정보를 확인하세요.</p></div><div class="participant-actions"><span class="participant-tag">저장됨</span><button class="participant-unlock-btn" type="button" onclick="resetParticipantLock()">다른 코드 입력</button></div></div><div class="participant-info-grid"><div class="participant-info-card"><h5>🧩 조별 번호</h5><div class="big">${person.commonNo}</div><div class="detail">공통실기</div><div class="big" style="margin-top:7px">${person.choiceNo}</div><div class="detail">선택프로그램</div></div><div class="participant-info-card"><h5>🏃 선택종목</h5><div class="participant-choice-list">${renderChoiceSchedule(person)}</div></div><div class="participant-info-card bus"><h5>🚌 버스</h5><div class="big">${person.busWish==='희망'?person.busNo:'비탑승'}</div><div class="detail">${person.busWish==='희망'?`${person.stop}<br>집결 ${person.meeting} · 출발 ${person.depart}`:'개별 이동'}</div></div></div><div class="participant-note">※ 운영 시간과 장소는 현장 상황에 따라 변경될 수 있습니다.</div>`;box.classList.add('show');setParticipantLocked(true);}
 function lookupParticipant(){const codeInput=document.getElementById('participantCode'),msg=document.getElementById('participantMessage'),box=document.getElementById('participantResult');box?.classList.remove('show');if(box)box.innerHTML='';const typedCode=normalizeCode(codeInput?.value);if(!typedCode){msg.textContent='개인코드를 입력해 주세요.';return;}const index=participantRecords.findIndex(person=>normalizeCode(person.code)===typedCode);if(index<0){msg.textContent='개인코드를 다시 확인해 주세요.';return;}renderParticipantResult(index,true);}
 function resetParticipantLock(){try{localStorage.removeItem(PARTICIPANT_LOCK_KEY);}catch(e){}const codeInput=document.getElementById('participantCode'),msg=document.getElementById('participantMessage'),box=document.getElementById('participantResult');if(codeInput)codeInput.value='';if(msg)msg.textContent='다시 개인코드를 입력해 주세요.';if(box){box.classList.remove('show');box.innerHTML='';}setParticipantLocked(false);codeInput?.focus();}
 function initParticipantLock(){document.getElementById('participantCode')?.addEventListener('keydown',event=>{if(event.key==='Enter')lookupParticipant();});let saved=null;try{saved=localStorage.getItem(PARTICIPANT_LOCK_KEY);}catch(e){}const index=Number(saved);if(saved!==null&&Number.isInteger(index)&&participantRecords[index])renderParticipantResult(index,false);else setParticipantLocked(false);}
